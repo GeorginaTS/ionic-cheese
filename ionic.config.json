@@ -1,0 +1,7 @@
+{
+  "name": "ionic-cheese",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
