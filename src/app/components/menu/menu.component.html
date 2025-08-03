@@ -1,0 +1,22 @@
+<ion-tab-bar color="light">
+  <ion-tab-button tab="1" [routerLink]="'/profile'">
+    <ion-icon name="person-circle-outline"></ion-icon>
+    <ion-label>Profile</ion-label>
+    <ion-badge color="primary"></ion-badge>
+  </ion-tab-button>
+  <ion-tab-button tab="2" [routerLink]="'/my-cheeses'">
+    <div class="text-[1rem]">🧀</div>
+    <ion-label>Add cheese</ion-label>
+  </ion-tab-button>
+
+  <ion-tab-button tab="3" [routerLink]="'/my-cheeses'">
+    <div class="text-[1rem]">🧀</div>
+    <ion-label>My cheeses</ion-label>
+  </ion-tab-button>
+
+  <ion-tab-button tab="4" [routerLink]="'/community'">
+    <ion-icon name="chatbubbles-outline"></ion-icon>
+    <ion-label>Community</ion-label>
+    <ion-badge color="danger">47</ion-badge>
+  </ion-tab-button>
+</ion-tab-bar>

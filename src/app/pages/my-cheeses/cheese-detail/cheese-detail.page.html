@@ -1,0 +1,32 @@
+<ion-header collapse="condense">
+  <ion-toolbar>
+    <div class="flex items-center justify-between">
+      <ion-button fill="clear" [routerLink]="['/my-cheeses']"
+        ><ion-icon
+          name="arrow-back-circle-outline"
+          size="large"
+          color="primary"
+        ></ion-icon
+      ></ion-button>
+      <ion-title>{{cheese?.name}}</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <section class="flex flex-col items-center p-4 bg-yellow-100 h-full w-full">
+    @if (cheese) {
+    <app-cheese-detail-component [item]="cheese" class="w-full"></app-cheese-detail-component>
+    <hr class="w-full h-1 bg-amber-500 my-4" />
+    <div class="w-full">Elaboration: {{cheese.date | date}}</div>
+    <hr class="w-full h-1 bg-amber-500 my-4" />
+    <div class="w-full">Maduration: </div>
+    <hr class="w-full h-1 bg-amber-500 my-4" />
+    <div class="w-full">Taste: </div>
+
+    } @else {
+    <div>No s'ha trobat el formatge.</div>
+    }
+  </section>
+</ion-content>
+<app-menu></app-menu>

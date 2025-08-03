@@ -10,4 +10,20 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'community',
+    loadComponent: () => import('./pages/community/community.page').then( m => m.CommunityPage)
+  },
+  {
+    path: 'profile',
+    loadComponent: () => import('./pages/profile/profile.page').then( m => m.ProfilePage)
+  },
+  {
+    path: 'my-cheeses',
+    loadComponent: () => import('./pages/my-cheeses/my-cheeses.page').then( m => m.MyCheesesPage)
+  },
+  {
+    path: 'cheese/:id',
+    loadComponent: () => import('./pages/my-cheeses/cheese-detail/cheese-detail.page').then( m => m.CheeseDetailPage)
+  }
 ];

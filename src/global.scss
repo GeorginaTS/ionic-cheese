@@ -1,3 +1,5 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap");
 /*
  * App Global CSS
  * ----------------------------------------------------------------------------
@@ -34,4 +36,120 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+//@import '@ionic/angular/css/palettes/dark.system.css';
+
+body {
+  --ion-background-color: var(--tertiary-color);
+  --ion-text-color: var(--dark-color);
+}
+h1 {
+  color: var(--secondary-color);
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  font-family: "Cinzel", serif;
+  font-optical-sizing: auto;
+}
+h2 {
+  color: var(--primary-color);
+  font-family: "Cinzel", serif;
+  font-optical-sizing: auto;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+h3 {
+  color: var(--primary-color);
+  font-family: "Cinzel", serif;
+  font-optical-sizing: auto;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+h4 {
+  color: var(--primary-color);
+  font-family: "Cinzel", serif;
+  font-optical-sizing: auto;
+  font-size: 1rem;
+  font-weight: bold;
+}
+h5 {
+  color: var(--primary-color);
+  font-family: "Cinzel", serif;
+  font-optical-sizing: auto;
+  font-size: 0.9rem;
+}
+ion-content {
+  width: 100% !important;
+  max-width: 768px !important;
+  margin: auto !important;
+  padding: 0 !important;
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --background: var(--tertiary-color);
+}
+ion-title {
+  font-family: "Cinzel", serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+ion-input {
+  width: 100%;
+  background-color: white;
+  --padding-start: 0.8rem;
+  --padding-end: 0.8rem;
+  --border-radius: 0.8rem;
+}
+ion-item {
+  width: 100%;
+  --background: white;
+  --color: var(--dark-color);
+  --border-radius: 0.8rem;
+}
+ion-card {
+  --background: var(--tertiary-color);
+  --color: var(--primary-color);
+  padding: 0rem 0.6rem;
+  border-radius: 0.8rem;
+  width: 100%;
+}
+ion-button {
+  --background: var(--primary-color);
+  --color: white;
+  --border-radius: 0.8rem;
+  font-weight: bolder;
+}
+ion-button[fill="clear"] {
+  --background: transparent;
+  --color: var(--primary-color);
+  --border-radius: 0.8rem;
+}
+ion-button[fill="outline"] {
+  --background: transparent;
+  --color: var(--primary-color);
+  --border-radius: 0.8rem;
+  --border-width: 1px;
+  --border-color: var(--primary-color);
+}
+ion-button[fill="solid"] {
+  --background: var(--primary-color);
+  --color: white;
+  --border-radius: 0.8rem;
+}
+ion-button[fill="solid"].disabled {
+  --background: var(--light-color);
+  --color: var(--dark-color);
+  --border-radius: 0.8rem;
+}
+ion-button[fill="outline"].disabled {
+  --background: transparent;
+  --color: var(--light-color);
+  --border-radius: 0.8rem;
+  --border-width: 1px;
+  --border-color: var(--light-color);
+}
+img {
+  max-width: 70vw;
+  width: 100%;
+}
