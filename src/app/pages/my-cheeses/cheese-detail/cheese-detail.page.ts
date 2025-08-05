@@ -6,8 +6,6 @@ import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Cheese } from 'src/app/interfaces/cheese';
 import { CheeseService } from 'src/app/services/cheese.service';
-import { IcoMilkTypeComponent } from 'src/app/components/ico-milk-type/ico-milk-type.component';
-import { IcoCheeseStatusComponent } from 'src/app/components/ico-cheese-status/ico-cheese-status.component';
 import { MenuComponent } from "src/app/components/menu/menu.component";
 import { IonIcon } from '@ionic/angular/standalone';
 
@@ -19,7 +17,7 @@ import { CheeseDetailComponent } from 'src/app/components/cheese-detail/cheese-d
   templateUrl: './cheese-detail.page.html',
   styleUrls: ['./cheese-detail.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IcoMilkTypeComponent, IcoCheeseStatusComponent, MenuComponent, IonIcon, IonButton, RouterLink, CheeseDetailComponent]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, MenuComponent, IonIcon, IonButton, RouterLink, CheeseDetailComponent]
 })
 export class CheeseDetailPage implements OnInit {
 

@@ -3,10 +3,10 @@ export interface Cheese {
     name: string;
     description?: string;
     date: Date;
-    status: 'Per fer' | 'Fent' | 'Madurant' | 'Fet' | 'Consumint' | 'Menjat';
+    status: string;
     public: boolean;
     userId: string;
-    milkType: 'Vaca' | 'Cabra' | 'Ovella' | 'Búfala' | 'Mixta';
+    milkType: string;
     milkOrigin: string;
     milkQuantity: number; // in liters
     notes?:CheeseNotes[];

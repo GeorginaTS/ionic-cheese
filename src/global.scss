@@ -50,6 +50,9 @@ ion-button {
   --border-radius: 24px;
   text-transform: capitalize;
 }
+ion-button:hover {
+  font-weight: bolder;
+}
 
 ion-toolbar {
   --background: var(--ion-color-light);
