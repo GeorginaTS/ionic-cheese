@@ -1,15 +1,21 @@
 <ion-card>
-        <ion-card-header>
-           <a [routerLink]="['/cheese', cheese._id]" color="secundary">
-            <div class="w-full flex justify-between items-center align-items-center"><h4>{{ cheese.name }}</h4><div class="flex items-end gap-2">{{ cheese.milkQuantity }} litres<app-ico-milk-type [tipus]="cheese.milkType"></app-ico-milk-type></div></div>
-          </a>
-          
-        </ion-card-header>
-        <hr class=" h-1 w-full bg-amber-500" />
-        <ion-card-content>
-          <div class="flex justify-between">
-            <div class="text-sm font-bold">Data: {{ cheese.date | date}}</div>
-            <app-ico-cheese-status [status]="cheese.status"></app-ico-cheese-status> 
-          </div>
-        </ion-card-content>
-      </ion-card>
+  <ion-card-header>
+    <a [routerLink]="['/cheese', cheese._id]" color="secundary">
+      <div class="w-full flex justify-between items-center align-items-center">
+        <h4>{{ cheese.name }}</h4>
+        <div class="flex items-end gap-2">
+          <app-ico-milk-type
+            [tipus]="cheese.milkType"
+          ></app-ico-milk-type>
+        </div>
+      </div>
+    </a>
+  </ion-card-header>
+  <hr class="h-1 w-full bg-amber-500" />
+  <ion-card-content>
+    <div class="flex justify-between gap-2">
+      <div class="text-sm font-bold">{{ cheese.date | date }}</div>
+      <app-ico-cheese-status [status]="cheese.status"></app-ico-cheese-status>
+    </div>{{ cheese.milkQuantity }} litres
+  </ion-card-content>
+</ion-card>
