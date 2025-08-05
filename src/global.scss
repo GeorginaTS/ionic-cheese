@@ -40,6 +40,9 @@ body {
   --ion-background-color: var(--bg-color);
   --ion-text-color: var(--dark-color);
 }
+a {
+  text-decoration: none;
+}
 ion-button {
   --background: var(--secondary-color);
   --color: var(--tertiary-color);

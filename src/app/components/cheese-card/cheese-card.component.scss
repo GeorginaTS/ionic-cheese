@@ -1,0 +1,24 @@
+ion-card {
+  --background: white;
+  --box-shadow: none;
+  --border-radius: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  --box-shadow: none;
+  border: 1px solid var(--primary-color);
+  margin: 0.2rem;
+  padding: 0.2rem;
+}
+ion-card-header > img {
+  object-fit: cover;
+  width: auto;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+ion-card-title{
+  font-weight: bold;
+  color: var(--primary-color);
+  font-size: 1rem;
+  text-transform: capitalize;
+}
