@@ -13,7 +13,7 @@
   <section>
     <form [formGroup]="addCheeseForm">
       <ion-item class="form-item">
-        <ion-label >Name</ion-label>
+        <ion-label>Name</ion-label>
         <ion-input formControlName="name"></ion-input>
       </ion-item>
       <ion-item>
@@ -35,10 +35,18 @@
         <ion-label>Milk Origin</ion-label>
         <ion-input formControlName="milkOrigin"></ion-input>
       </ion-item>
-      
+      <ion-item>
+        <ion-label>Description</ion-label>
+        <ion-textarea placeholder="Type description" formControlName="description"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>Public</ion-label>
+        <ion-toggle [checked]="true"></ion-toggle>
+      </ion-item>
       <div class="button-container">
-        <ion-button expand="full" (click)="addCheese()">Create cheese</ion-button>
+        <ion-button expand="full" (click)="addCheese()" [disabled]="addCheeseForm.invalid">Create cheese</ion-button>
       </div>
     </form>
   </section>
 </ion-content>
+<app-menu></app-menu>

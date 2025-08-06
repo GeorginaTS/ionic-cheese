@@ -9,16 +9,14 @@
     <ion-toolbar>
       <div>
         <ion-title size="large">my-cheeses</ion-title>
-        <ion-button
-          [routerLink]="['/cheese/add']"
-          fill="clear"
-          color="primary"
-        >
-          <ion-icon name="add-circle-outline" size="large"></ion-icon>
-        </ion-button>
       </div>
     </ion-toolbar>
   </ion-header>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button  [routerLink]="['/cheese/add']">
+    <ion-icon name="add" size="large"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
   <section>
     @if(!isLoading && cheeses.length > 0) {
     <div class="cheese-list">

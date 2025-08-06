@@ -2,7 +2,7 @@ export interface Cheese {
     _id: string;
     name: string;
     description?: string;
-    date: Date;
+    date: Date
     status: string;
     public: boolean;
     userId: string;

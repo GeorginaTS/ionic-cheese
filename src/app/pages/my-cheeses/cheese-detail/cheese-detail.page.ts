@@ -55,7 +55,16 @@ loadCheese(): void {
       this.isLoading = false;
     }
   });
-
   }
- 
+ deleteCheese(id: string): void {
+    this.cheeseService.deleteCheese(id).subscribe({
+      next: (response) => {
+        console.log('Formatge eliminat:', response);
+        this.router.navigate(['/my-cheeses']);
+      },
+      error: (error) => {
+        console.error('Error eliminant el formatge:', error);
+      }
+    });
+  }
 }
