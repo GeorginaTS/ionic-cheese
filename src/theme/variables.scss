@@ -2,8 +2,23 @@
 // http://ionicframework.com/docs/theming/
 
 :root {
- --bg-color: #FFFAF1;
- --title-color: #D97706;
- --ion-light-color: #FEF3C7;
- --ion-dark-color: #92400E;
+  --primary-color: #d97706;
+  --secondary-color: #FCD34D;
+  --tertiary-color:#92400E;
+  --success-color: #10dc60;
+  --warning-color: #ffce00;
+  --danger-color: #f04134;
+  --light-color: #FEF3C7;
+  --dark-color:#92400e;
+  --bg-color:#FFFAF1;
+
+
+  --ion-color-primary: var(--primary-color);
+  --ion-color-secondary: var(--secondary-color);
+  --ion-color-tertiary: var(--tertiary-color);
+  --ion-color-success: var(--success-color);
+  --ion-color-warning: var(--warning-color);
+  --ion-color-danger: var(--danger-color);
+  --ion-color-light: var(--light-color);
+  --ion-color-dark: var(--dark-color);
 }

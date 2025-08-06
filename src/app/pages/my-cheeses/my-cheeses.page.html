@@ -7,17 +7,23 @@
 <ion-content>
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title>my-cheeses</ion-title>
+      <div>
+        <ion-title size="large">my-cheeses</ion-title>
+        <ion-button
+          [routerLink]="['/my-cheeses/create']"
+          fill="clear"
+          color="primary"
+        >
+          <ion-icon name="add-circle-outline" size="large"></ion-icon>
+        </ion-button>
+      </div>
     </ion-toolbar>
   </ion-header>
-  <section class="flex flex-wrap gap-4 p-4 justify-center bg-yellow-200">
-    <h2>Llistat de formatges</h2>
+  <section>
     @if(!isLoading && cheeses.length > 0) {
-    <div class="cheese-count">Total de formatges: {{ cheeses.length }}</div>
     <div class="cheese-list">
-      
       @for (cheese of cheeses; track cheese._id) {
-     
+
       <app-cheese-card [cheese]="cheese"></app-cheese-card>
       }
     </div>
