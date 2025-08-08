@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonFabButton, IonFab } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonFabButton, IonFab, IonSpinner } from '@ionic/angular/standalone';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { CheeseService } from '../../services/cheese.service';
 import { Cheese } from '../../interfaces/cheese';
@@ -25,24 +25,23 @@ import { RouterLink } from '@angular/router';
     FormsModule,
     MenuComponent,
     CheeseCardComponent,
-    IonButton, IonIcon, RouterLink,
+    IonIcon, RouterLink,
     IonFabButton,
-    IonFab, 
+    IonFab,
+    IonSpinner
 ],
 })
-export class MyCheesesPage  {
+export class MyCheesesPage implements OnInit {
   cheeses: Cheese[] = [];
   isLoading = true;
   errorMessage = '';
   
   constructor(private cheeseService: CheeseService) {
     addIcons({ addCircleOutline, add });
+  }
+  ngOnInit(): void {
     this.loadCheeses();
   }
-  onInit(): void {
-    this.loadCheeses();
-  }
-
   loadCheeses(): void {
     this.cheeseService.getAllCheeses().subscribe({
       next: (data) => {

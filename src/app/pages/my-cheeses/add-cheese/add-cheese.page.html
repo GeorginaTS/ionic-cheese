@@ -13,12 +13,12 @@
   <section>
     <form [formGroup]="addCheeseForm">
       <ion-item class="form-item">
-        <ion-label>Name</ion-label>
+        <ion-label position="stacked">Name</ion-label>
         <ion-input formControlName="name"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Milk type</ion-label>
-        <ion-select formControlName="milkType">
+        <ion-label position="stacked">Milk type</ion-label>
+        <ion-select formControlName="milkType" interface="action-sheet">
           <ion-select-option value="cow">Cow</ion-select-option>
           <ion-select-option value="goat">Goat</ion-select-option>
           <ion-select-option value="sheep">Sheep</ion-select-option>
@@ -28,15 +28,16 @@
       </ion-item>
 
       <ion-item>
-        <ion-label>Milk Quantity in litres</ion-label>
-        <ion-input type="number" formControlName="milkQuantity"></ion-input>
+        <ion-label position="stacked">Milk Quantity</ion-label>
+        <ion-input type="number"  min="1" max="100" step="5" formControlName="milkQuantity" inputmode="numeric" required clearInput="true"></ion-input>
+        <ion-note slot="helper">1–100 liters</ion-note>
       </ion-item>
       <ion-item>
-        <ion-label>Milk Origin</ion-label>
+        <ion-label position="stacked">Milk Origin</ion-label>
         <ion-input formControlName="milkOrigin"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Description</ion-label>
+        <ion-label position="stacked">Description</ion-label>
         <ion-textarea placeholder="Type description" formControlName="description"></ion-textarea>
       </ion-item>
       <ion-item>

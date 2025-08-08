@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IonButton } from "@ionic/angular/standalone";
+import { IonButton, IonItem } from "@ionic/angular/standalone";
 import { Cheese } from 'src/app/interfaces/cheese';
 import { DatePipe } from '@angular/common';
 import { CheeseService } from 'src/app/services/cheese.service';
@@ -11,7 +11,7 @@ import { IcoMilkTypeComponent } from "../ico-milk-type/ico-milk-type.component";
   selector: 'app-cheese-detail-component',
   templateUrl: './cheese-detail.component.html',
   styleUrls: ['./cheese-detail.component.scss'],
-  imports: [IonButton, DatePipe, RouterLink, IcoCheeseStatusComponent, IcoMilkTypeComponent],
+  imports: [IonButton, DatePipe, RouterLink, IcoCheeseStatusComponent, IcoMilkTypeComponent, IonItem],
 })
 export class CheeseDetailComponent  implements OnInit {
   @Input() item!: Cheese;

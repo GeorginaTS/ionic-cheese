@@ -1,28 +1,36 @@
+
 <ion-header collapse="condense">
-  <ion-toolbar>
-    <div class="flex items-center justify-between">
-      <ion-button fill="clear" [routerLink]="['/my-cheeses']"
-        ><ion-icon
-          name="arrow-back-circle-outline"
-          size="large"
-          color="primary"
-        ></ion-icon
-      ></ion-button>
-      <ion-title>{{cheese?.name}}</ion-title>
+  <ion-toolbar color="light">
+    <div>
+      <ion-icon
+        name="arrow-back-circle-outline"
+        size="large"
+        color="primary"
+        [routerLink]="['/my-cheeses']"
+      ></ion-icon>
+      <ion-title color="primary">{{cheese?.name}}</ion-title>
     </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <section class="flex flex-col items-center p-4 bg-yellow-100 h-full w-full">
+    <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{cheese?.name}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <section >
+    @if (isLoading) {
+      <ion-spinner></ion-spinner>
+    }
     @if (cheese) {
-    <app-cheese-detail-component [item]="cheese" class="w-full"></app-cheese-detail-component>
-    <hr class="w-full h-1 bg-amber-500 my-4" />
-    <div class="w-full">Elaboration: {{cheese.date | date}}</div>
-    <hr class="w-full h-1 bg-amber-500 my-4" />
-    <div class="w-full">Maduration: </div>
-    <hr class="w-full h-1 bg-amber-500 my-4" />
-    <div class="w-full">Taste: </div>
+    <app-cheese-detail-component [item]="cheese"></app-cheese-detail-component>
+    <hr />
+    <div >Elaboration: {{cheese.date | date}}</div>
+    <hr />
+    <div>Maduration:</div>
+    <hr />
+    <div >Taste:</div>
 
     } @else {
     <div>No s'ha trobat el formatge.</div>

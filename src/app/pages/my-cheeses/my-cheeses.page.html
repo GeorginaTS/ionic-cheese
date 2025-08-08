@@ -13,10 +13,10 @@
     </ion-toolbar>
   </ion-header>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-  <ion-fab-button  [routerLink]="['/cheese/add']">
-    <ion-icon name="add" size="large"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
+    <ion-fab-button [routerLink]="['/cheese/add']">
+      <ion-icon name="add" size="large"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   <section>
     @if(!isLoading && cheeses.length > 0) {
     <div class="cheese-list">
@@ -25,11 +25,8 @@
       <app-cheese-card [cheese]="cheese"></app-cheese-card>
       }
     </div>
-    } @else {
-    <div>No has creat cap formatge encara</div>
-    <ion-button>Crear formatge</ion-button>
     } @if (isLoading) {
-    <div class="loading">Carregant formatges...</div>
+    <ion-spinner>Loading cheeses</ion-spinner>
     } @if (errorMessage) {
     <div class="error">{{ errorMessage }}</div>
     }

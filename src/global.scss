@@ -43,6 +43,12 @@ body {
 a {
   text-decoration: none;
 }
+hr {
+  margin: 0.2rem 0;
+  border: none;
+  border-top: 1px solid var(--primary-color);
+  width: 100%;
+}
 ion-button {
   --background: var(--secondary-color);
   --color: var(--tertiary-color);

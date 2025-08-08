@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonSpinner } from '@ionic/angular/standalone';
 import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Cheese } from 'src/app/interfaces/cheese';
@@ -17,7 +17,7 @@ import { CheeseDetailComponent } from 'src/app/components/cheese-detail/cheese-d
   templateUrl: './cheese-detail.page.html',
   styleUrls: ['./cheese-detail.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, MenuComponent, IonIcon, IonButton, RouterLink, CheeseDetailComponent]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, MenuComponent, IonIcon, RouterLink, CheeseDetailComponent, IonSpinner]
 })
 export class CheeseDetailPage implements OnInit {
 

@@ -9,16 +9,7 @@ import {
 } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonItem,
-  IonLabel,
-  IonSelectOption,
-  IonButton,
-} from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonSelectOption, IonButton, IonText, IonNote } from '@ionic/angular/standalone';
 import { Cheese } from 'src/app/interfaces/cheese';
 import { IonInput, IonSelect } from '@ionic/angular/standalone';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
@@ -39,14 +30,15 @@ import { CheeseService } from 'src/app/services/cheese.service';
     IonToolbar,
     IonItem,
     IonLabel,
-    IonInput, // <- afegit
-    IonSelect, // <- afegit
+    IonInput, 
+    IonSelect, 
     IonSelectOption,
     IonButton,
     MenuComponent,
     IonTextarea,
     IonToggle,
-  ],
+    IonNote
+],
 })
 export class AddCheesePage {
   cheese: Cheese = {
@@ -75,7 +67,7 @@ export class AddCheesePage {
         Validators.minLength(3),
         Validators.maxLength(50),
       ]),
-      milkType: new FormControl('', [Validators.required]),
+      milkType: new FormControl('cow', [Validators.required]),
       milkQuantity: new FormControl('', [
         Validators.required,
         Validators.min(1),
