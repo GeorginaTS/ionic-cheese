@@ -9,10 +9,7 @@
 <div class="date">Data: {{ item.date | date }}</div>
 <div class="description">Descripció: {{ item.description }}</div>
 <ion-item color="light" size="large">
-  <ion-button [routerLink]="['/my-cheeses/edit', item._id]" size="medium"
-    >Edit
-  </ion-button>
+  <ion-button [routerLink]="['/my-cheeses/edit', item._id]" size="medium">Edit</ion-button>
   <ion-button (click)="deleteCheese(item._id)" color="danger" size="medium"
-    >Delete</ion-button
-  >
+    >Delete</ion-button>
 </ion-item>

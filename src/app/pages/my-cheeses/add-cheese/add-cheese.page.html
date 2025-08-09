@@ -26,11 +26,10 @@
           <ion-select-option value="mixed">Mixed</ion-select-option>
         </ion-select>
       </ion-item>
-
+      
       <ion-item>
         <ion-label position="stacked">Milk Quantity</ion-label>
-        <ion-input type="number"  min="1" max="100" step="5" formControlName="milkQuantity" inputmode="numeric" required clearInput="true"></ion-input>
-        <ion-note slot="helper">1–100 liters</ion-note>
+        <ion-range  [min]="2" [max]="100" [value]="5" [pin]="true" [ticks]="true" [snaps]="true" formControlName="milkQuantity"></ion-range>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Milk Origin</ion-label>

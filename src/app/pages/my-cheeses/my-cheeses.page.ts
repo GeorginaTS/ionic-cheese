@@ -42,6 +42,9 @@ export class MyCheesesPage implements OnInit {
   ngOnInit(): void {
     this.loadCheeses();
   }
+  ionViewWillEnter() {
+    this.loadCheeses();
+  }
   loadCheeses(): void {
     this.cheeseService.getAllCheeses().subscribe({
       next: (data) => {
