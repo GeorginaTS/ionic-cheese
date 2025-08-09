@@ -4,3 +4,11 @@ section {
     align-items: center;
     padding: 1rem;
 }
+ion-label {
+    font-weight: bold;
+    font-size: 1rem;
+    margin-right: 1rem;
+}
+ion-accordion .accordion-toggle-icon {
+  color: var(--primary-color) !important;
+}

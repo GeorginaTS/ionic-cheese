@@ -17,17 +17,35 @@
       <ion-spinner></ion-spinner>
     }
     @if (cheese) {
-    <app-cheese-detail-component [item]="cheese" fullscreen="true"></app-cheese-detail-component>
+          <app-cheese-detail-component [item]="cheese" style="width: 100%;"></app-cheese-detail-component>
     <hr />
-    <div >Elaboration: {{cheese.date | date}}</div>
-    <hr />
-    <div>Maduration:</div>
-    <hr />
-    <div >Taste:</div>
+    <br><br><br>
+  <ion-accordion-group [multiple]="true" expand="inset" [value]="['elaboration', 'maduration', 'taste']" style="width: 100%;">
+  <ion-accordion value="elaboration"  toggleIcon="caret-down-circle" toggleIconSlot="start">
+    <ion-item slot="header" color="light">
+      <ion-label color="primary">Elaboration: {{cheese.date | date}}</ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content">Elaboration contents</div>
+  </ion-accordion>
 
+  <ion-accordion value="maduration" toggleIcon="caret-down-circle" toggleIconSlot="start">
+    <ion-item slot="header" color="light">
+      <ion-label color="primary">Maduration</ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content">Maduration content</div>
+  </ion-accordion>
+
+  <ion-accordion value="taste" toggleIcon="caret-down-circle" toggleIconSlot="start">
+    <ion-item slot="header" color="light">
+      <ion-label color="primary">Taste</ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content">Taste content</div>
+  </ion-accordion>
+</ion-accordion-group>
     } @else {
     <div>No s'ha trobat el formatge.</div>
     }
   </section>
+  <br><br><br>
 </ion-content>
 <app-menu></app-menu>

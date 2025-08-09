@@ -1,3 +1,4 @@
+<article>
 <div>
   <app-ico-milk-type [tipus]="item.milkType"></app-ico-milk-type>
   {{ item.milkQuantity }} litres
@@ -8,8 +9,8 @@
 <hr />
 <div class="date">Data: {{ item.date | date }}</div>
 <div class="description">Descripció: {{ item.description }}</div>
-<ion-item color="light" size="large">
-  <ion-button [routerLink]="['/my-cheeses/edit', item._id]" size="medium">Edit</ion-button>
-  <ion-button (click)="deleteCheese(item._id)" color="danger" size="medium"
-    >Delete</ion-button>
-</ion-item>
+<div>
+  <ion-icon name="create-outline" [routerLink]="['/my-cheeses/edit', item._id]" size="large" color="primary"></ion-icon>
+  <ion-icon name="trash-outline" (click)="deleteCheese(item._id)" color="danger" size="large"></ion-icon>
+</div>
+</article>
