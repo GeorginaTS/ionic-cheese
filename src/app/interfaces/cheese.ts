@@ -32,5 +32,14 @@ export interface CheeseEaten{
 }
 export interface CheeseNotes {
     date: Date;
-    notes?: string;
+    about: string;
+    notes: string;
+
 }
+export const CHEESE_NOTES_ABOUT_OPTIONS: CheeseNotes['about'][] = [
+  'Before',
+  'Elaboration',
+  'Maturation',
+  'Taste',
+  'Other'
+];

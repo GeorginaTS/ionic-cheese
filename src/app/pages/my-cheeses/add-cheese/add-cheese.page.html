@@ -38,9 +38,9 @@
           [snaps]="true"
           formControlName="milkQuantity"
         ></ion-range>
-          <ion-label>
+          <ion-text>
             {{ addCheeseForm.get('milkQuantity')?.value }} liters
-          </ion-label>
+          </ion-text>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Milk Origin</ion-label>
@@ -60,8 +60,10 @@
           <ng-template>
             <ion-datetime
               id="datetime"
-              [value]="addCheeseForm.get('date')?.value"
+              [value]="addCheeseForm.get('date')?.value | date:'dd/MMMM/yy'"
               (ionChange)="addCheeseForm.get('date')?.setValue($event.detail.value)"
+              presentation="date"
+              [formatOptions]="{date: { day: '2-digit', month: 'long', year:'2-digit' }}"
             >
             </ion-datetime>
           </ng-template>

@@ -50,7 +50,7 @@ export class AddCheesePage {
     _id: '',
     name: '',
     milkType: '',
-    milkQuantity: 0,
+    milkQuantity: 2,
     milkOrigin: '',
     date: new Date(),
     status: 'To do',
