@@ -26,10 +26,20 @@
           <ion-select-option value="mixed">Mixed</ion-select-option>
         </ion-select>
       </ion-item>
-      
-      <ion-item>
-        <ion-label position="stacked">Milk Quantity</ion-label>
-        <ion-range  [min]="2" [max]="40" [value]="5" [pin]="true" [ticks]="true" [snaps]="true" formControlName="milkQuantity"></ion-range>
+
+      <ion-item>       
+          <ion-label position="stacked">Milk Quantity</ion-label>
+        <ion-range
+          [min]="2"
+          [max]="40"
+          [pin]="true"
+          [ticks]="true"
+          [snaps]="true"
+          formControlName="milkQuantity"
+        ></ion-range>
+                <ion-label slot="end">
+            {{ addCheeseForm.get('milkQuantity')?.value }} liters
+          </ion-label>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Milk Origin</ion-label>
@@ -37,14 +47,37 @@
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Description</ion-label>
-        <ion-textarea placeholder="Type description" formControlName="description"></ion-textarea>
+        <ion-textarea
+          placeholder="Type description"
+          formControlName="description"
+        ></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Date</ion-label>
+        <ion-datetime-button datetime="datetime"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime
+              id="datetime"
+              [value]="addCheeseForm.get('date')?.value"
+              (ionChange)="addCheeseForm.get('date')?.setValue($event.detail.value)"
+            >
+            </ion-datetime>
+          </ng-template>
+        </ion-modal>
       </ion-item>
       <ion-item>
         <ion-label>Public</ion-label>
         <ion-toggle [checked]="true"></ion-toggle>
       </ion-item>
+
       <div class="button-container">
-        <ion-button expand="full" (click)="addCheese()" [disabled]="addCheeseForm.invalid">Create cheese</ion-button>
+        <ion-button
+          expand="full"
+          (click)="addCheese()"
+          [disabled]="addCheeseForm.invalid"
+          >Create cheese</ion-button
+        >
       </div>
     </form>
   </section>

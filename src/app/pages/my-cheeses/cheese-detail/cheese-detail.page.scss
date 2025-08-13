@@ -12,3 +12,10 @@ ion-label {
 ion-accordion .accordion-toggle-icon {
   color: var(--primary-color) !important;
 }
+.title-accordion {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}

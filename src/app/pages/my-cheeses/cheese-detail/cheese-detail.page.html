@@ -3,15 +3,7 @@
     <ion-title>{{cheese?.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <div>
-        <ion-title size="large">{{cheese?.name}}</ion-title>
-      </div>
-    </ion-toolbar>
-  </ion-header>
   <section>
     @if (isLoading) {
       <ion-spinner></ion-spinner>
@@ -23,11 +15,12 @@
   <ion-accordion-group [multiple]="true" expand="inset" [value]="['elaboration', 'maduration', 'taste']" style="width: 100%;">
   <ion-accordion value="elaboration"  toggleIcon="caret-down-circle" toggleIconSlot="start">
     <ion-item slot="header" color="light">
-      <ion-label color="primary">Elaboration: {{cheese.date | date}}</ion-label>
+      <ion-label color="primary">
+        <div class="title-accordion">
+        <span>Elaboration:</span>  <ion-icon name="create-outline" size="large" color="primary"></ion-icon></div></ion-label>
     </ion-item>
     <div class="ion-padding" slot="content">Elaboration contents</div>
   </ion-accordion>
-
   <ion-accordion value="maduration" toggleIcon="caret-down-circle" toggleIconSlot="start">
     <ion-item slot="header" color="light">
       <ion-label color="primary">Maduration</ion-label>
@@ -43,9 +36,11 @@
   </ion-accordion>
 </ion-accordion-group>
     } @else {
-    <div>No s'ha trobat el formatge.</div>
+    <div>Cheese not found</div>
     }
   </section>
   <br><br><br>
+  <ion-button  (click)="deleteCheese(cheese?._id ?? '')" color="danger"><ion-icon name="trash-outline" color="light"></ion-icon></ion-button>
+
 </ion-content>
 <app-menu></app-menu>

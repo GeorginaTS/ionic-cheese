@@ -2,7 +2,7 @@ export interface Cheese {
     _id: string;
     name: string;
     description?: string;
-    date: Date
+    date: string | Date; // Use string for date to handle different formats
     status: string;
     public: boolean;
     userId: string;
@@ -32,10 +32,5 @@ export interface CheeseEaten{
 }
 export interface CheeseNotes {
     date: Date;
-    title: string;
-    humidity?: number; // in percentage
-    temperature?: number; // in Celsius
-    place?: string; // e.g., 'Cave', 'Fridge'
-    ingredients?: string[];
     notes?: string;
 }
