@@ -17,9 +17,15 @@
     <div>
     <ion-button>make photo</ion-button>
     <ion-button (click)="addNote()">add note</ion-button>
-    <ion-button>share</ion-button></div>
+    <!-- add note modal -->
+     <ion-modal [isOpen]="addNoteModalOpen" (didDismiss)="addNoteModalOpen = false" initialBreakpoint="0.8" [breakpoints]="[0.8, 0.5, 0]">
+      <ng-template>
+        <app-add-note-modal (close)="addNoteModalOpen = false"></app-add-note-modal>
+      </ng-template>
+  </ion-modal>
+ </div>
     <br>
-    <!-- Accordion for elaboration, maturation, and taste notes -->
+  <!-- Accordion for elaboration, maturation, and taste notes -->
   <ion-accordion-group [multiple]="true" expand="inset" [value]="['elaboration', 'maduration', 'taste']" style="width: 100%;">
   <ion-accordion value="elaboration"  toggleIcon="caret-down-circle" toggleIconSlot="start">
     <ion-item slot="header" color="light">

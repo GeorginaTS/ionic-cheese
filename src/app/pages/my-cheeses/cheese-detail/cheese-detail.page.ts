@@ -14,6 +14,7 @@ import {
   IonIcon,
   IonButton,
   IonBackButton,
+  IonModal
 } from '@ionic/angular/standalone';
 import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -29,6 +30,7 @@ import {
   createOutline,
 } from 'ionicons/icons';
 import { CheeseDetailComponent } from 'src/app/components/cheese-detail/cheese-detail.component';
+import { AddNoteModalComponent } from "src/app/components/add-note-modal/add-note-modal.component";
 
 @Component({
   selector: 'app-cheese-detail-page',
@@ -52,12 +54,15 @@ import { CheeseDetailComponent } from 'src/app/components/cheese-detail/cheese-d
     IonIcon,
     IonButton,
     IonBackButton,
-  ],
+    AddNoteModalComponent,
+    IonModal
+],
 })
 export class CheeseDetailPage implements OnInit {
   cheeseId: string = '';
   cheese: Cheese | null = null;
   isLoading: boolean = true;
+  addNoteModalOpen = false;
 
   private routeSub!: Subscription;
   constructor(
@@ -115,7 +120,7 @@ export class CheeseDetailPage implements OnInit {
   }
   addNote() {
     // Logic to add a note can be implemented here
-    console.log('Add note functionality not yet implemented');
+    this.addNoteModalOpen = true;
   
   }
 }
