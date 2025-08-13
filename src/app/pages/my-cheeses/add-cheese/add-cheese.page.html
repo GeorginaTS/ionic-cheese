@@ -8,6 +8,7 @@
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">add-cheese</ion-title>
+    
     </ion-toolbar>
   </ion-header>
   <section>
@@ -28,7 +29,7 @@
       </ion-item>
 
       <ion-item>       
-          <ion-label position="stacked">Milk Quantity</ion-label>
+          <ion-label>Milk Quantity</ion-label>
         <ion-range
           [min]="2"
           [max]="40"
@@ -37,7 +38,7 @@
           [snaps]="true"
           formControlName="milkQuantity"
         ></ion-range>
-                <ion-label slot="end">
+          <ion-label>
             {{ addCheeseForm.get('milkQuantity')?.value }} liters
           </ion-label>
       </ion-item>

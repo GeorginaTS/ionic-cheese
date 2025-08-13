@@ -1,15 +1,10 @@
 <article>
-<div>
-  <app-ico-milk-type [tipus]="item.milkType"></app-ico-milk-type>
-  {{ item.milkQuantity }} litres
-</div>
-<div class="status">
-  <app-ico-cheese-status [status]="item.status"></app-ico-cheese-status>
-</div>
-<hr />
-<div class="date">Data: {{ item.date | date }}</div>
-<div class="description">Descripció: {{ item.description }}</div>
-<div>
-  <ion-icon name="create-outline"size="large" color="primary">add note</ion-icon> 
-</div>
+  <h2 class="flex items-center justify-center gap-2">
+    {{ item.milkQuantity }} liters of <app-ico-milk-type [tipus]="item.milkType"></app-ico-milk-type> milk from {{ item.milkOrigin }}
+  </h2>
+  <div class="w-full flex items-center justify-between">
+    <app-ico-cheese-status [status]="item.status"></app-ico-cheese-status>
+    <div class="date"> {{ item.date | date }}</div>
+  </div>
+  <ion-label>Descripció: {{ item.description }}</ion-label>
 </article>

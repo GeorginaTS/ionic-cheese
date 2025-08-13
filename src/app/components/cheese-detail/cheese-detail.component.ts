@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IonButton, IonItem, IonIcon } from "@ionic/angular/standalone";
+import { IonButton, IonItem, IonIcon, IonTitle, IonLabel, IonCardTitle, IonToolbar } from "@ionic/angular/standalone";
 import { Cheese } from 'src/app/interfaces/cheese';
 import { DatePipe } from '@angular/common';
 import { CheeseService } from 'src/app/services/cheese.service';
@@ -12,7 +12,7 @@ import { createOutline, trashOutline } from 'ionicons/icons';
   selector: 'app-cheese-detail-component',
   templateUrl: './cheese-detail.component.html',
   styleUrls: ['./cheese-detail.component.scss'],
-  imports: [IonButton, DatePipe, RouterLink, IcoCheeseStatusComponent, IcoMilkTypeComponent, IonItem, IonIcon],
+  imports: [DatePipe, IcoCheeseStatusComponent, IcoMilkTypeComponent, IonLabel],
 })
 export class CheeseDetailComponent  implements OnInit {
   @Input() item!: Cheese;

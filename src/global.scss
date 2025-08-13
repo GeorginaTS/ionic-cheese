@@ -55,6 +55,10 @@ ion-button {
   font-weight: bold;
   --border-radius: 24px;
   text-transform: capitalize;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding-start: 1rem;
+  --padding-end: 1rem;
 }
 ion-button:hover {
   font-weight: bolder;
@@ -70,4 +74,6 @@ ion-toolbar {
 ion-content {
   --background: var(--bg-color);
 }
+
+
 
