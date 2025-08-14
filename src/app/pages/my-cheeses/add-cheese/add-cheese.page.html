@@ -60,7 +60,7 @@
           <ng-template>
             <ion-datetime
               id="datetime"
-              [value]="addCheeseForm.get('date')?.value | date:'dd/MMMM/yy'"
+              [value]="addCheeseForm.get('date')?.value "
               (ionChange)="addCheeseForm.get('date')?.setValue($event.detail.value)"
               presentation="date"
               [formatOptions]="{date: { day: '2-digit', month: 'long', year:'2-digit' }}"
