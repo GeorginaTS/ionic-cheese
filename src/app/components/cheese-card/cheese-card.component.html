@@ -1,9 +1,17 @@
 <ion-card>
   <ion-card-header>
-    <img [routerLink]="['/cheese', cheese._id]"
+    @if (photo1 != '') {
+      <img [routerLink]="['/cheese', cheese._id]"
+      [src]="photo1"
+      alt="{{ cheese.name }}"
+      class="w-full h-52 border-2 border-amber-300 rounded-md object-cover"
+    /> }
+    @else {    
+      <img [routerLink]="['/cheese', cheese._id]"
       src="../../../assets/img/my-cheese-default.jpg"
       alt="{{ cheese.name }}"
-    />
+      class="w-full h-52 border-2 border-amber-300 rounded-md object-cover"
+    />}
   </ion-card-header>
   <ion-card-content>
     <ion-card-title [routerLink]="['/cheese', cheese._id]" color="secundary">{{cheese.name}} <app-ico-milk-type [tipus]="cheese.milkType"></app-ico-milk-type></ion-card-title>

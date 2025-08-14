@@ -36,8 +36,8 @@ import { Directory, Filesystem } from '@capacitor/filesystem';
     IonModal,
     IonDatetime,
     IonList,
-    IonTextarea
-],
+    IonTextarea,
+  ],
 })
 export class CheeseDetailComponent implements OnInit {
   @Input() item!: Cheese;
@@ -53,21 +53,21 @@ export class CheeseDetailComponent implements OnInit {
     this.loadPhoto();
   }
 
-    async loadPhoto() {
-      if (!this.item) {
-        console.error('Cheese object is null');
-        return;
-      }
-      const fileName = `${this.item._id}-1.jpeg`;
-      try {
-        const file = await Filesystem.readFile({
-          path: fileName,
-          directory: Directory.Data
-        });
-        this.photo1 = `data:image/jpeg;base64,${file.data}`;
-      } catch {
-        this.photo1 = '';
-      }
+  async loadPhoto() {
+    if (!this.item) {
+      console.error('Cheese object is null');
+      return;
+    }
+    const fileName = `${this.item._id}-1.jpeg`;
+    try {
+      const file = await Filesystem.readFile({
+        path: fileName,
+        directory: Directory.Data,
+      });
+      this.photo1 = `data:image/jpeg;base64,${file.data}`;
+    } catch {
+      this.photo1 = '';
+    }
   }
 
   updateDate(newDate: string) {
@@ -99,15 +99,17 @@ export class CheeseDetailComponent implements OnInit {
   }
   saveDescription(newDescription: string) {
     console.log(newDescription);
-    this.cheeseService.updateCheese(this.item._id, { description: newDescription }).subscribe({
-      next: (response) => {
-        console.log('Descripció actualitzada:', response, newDescription);
-        this.item.description = newDescription;
-      },
-      error: (error) => {
-        console.error('Error actualitzant la descripció:', error);
-      },
-    });
+    this.cheeseService
+      .updateCheese(this.item._id, { description: newDescription })
+      .subscribe({
+        next: (response) => {
+          console.log('Descripció actualitzada:', response, newDescription);
+          this.item.description = newDescription;
+        },
+        error: (error) => {
+          console.error('Error actualitzant la descripció:', error);
+        },
+      });
     this.descriptionModalOpen = false;
   }
 }

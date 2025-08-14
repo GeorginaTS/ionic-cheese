@@ -4,7 +4,15 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://ionic-cheese-back.onrender.com/api'
+  apiUrl: 'https://ionic-cheese-back.onrender.com/api',
+  firebase: {
+    apiKey: "AIzaSyCQ_Bt5txUtDYQIE0IEfOzmB3y6kVVMPcU",
+    authDomain: "cheese-storage.firebaseapp.com",
+    projectId: "cheese-storage",
+    storageBucket: "cheese-storage.appspot.com",
+    messagingSenderId: "SENDER_ID",
+    appId: "APP_CHEESE"
+  }
 };
 
 /*
