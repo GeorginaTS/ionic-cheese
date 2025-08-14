@@ -1,26 +1,44 @@
 <ion-card>
   <ion-card-header>
-    <ion-card-title>Fotos Formatge: {{ id }}</ion-card-title>
+    <ion-card-title>Fotos ID: {{ id }}</ion-card-title>
   </ion-card-header>
 
   <ion-card-content>
     @if (photos.length > 0) {
       <ion-grid>
         <ion-row>
-          <ion-col size="6" *ngFor="let photo of photos; let i = index">
-            <div style="position: relative;">
-              <img [src]="photo" alt="Foto guardada"   class="w-full h-40 border-2 border-amber-800 rounded-md object-cover"/>
-              <ion-button
-                fill="clear"
-                color="danger"
-                size="small"
-                style="position: absolute; top: 5px; right: 5px; z-index: 10; background-color: white;"
-                (click)="deletePhoto(i)"
-              >
-                <ion-icon name="trash-outline"></ion-icon>
-              </ion-button>
-            </div>
-          </ion-col>
+          @for (photo of photos; track photo; let i = $index){
+            <ion-col size="6">
+              <div style="position: relative;">
+                <img
+                  [src]="photos[i]"
+                  alt="Foto guardada"
+                  class="w-full h-52 border-2 border-amber-800 rounded-md object-cover"
+                />
+                <!-- Botó esborrar -->
+                <ion-button
+                  fill="clear"
+                  color="danger"
+                  size="small"
+                  style="position: absolute; top: 5px; right: 5px; z-index: 10; background-color: white;"
+                  (click)="deletePhoto(i)"
+                >
+                  <ion-icon name="trash-outline"></ion-icon>
+                </ion-button>
+
+                <!-- Botó preferida -->
+                 @if (i !== 0) {
+                <ion-button
+                  fill="clear"
+                  color="warning"
+                  size="small"
+                  style="position: absolute; top: 5px; left: 5px; z-index: 10; background-color: white;"
+                  (click)="makeFavorite(i)"
+                >♥️
+                </ion-button>}
+              </div>
+            </ion-col>
+          }
         </ion-row>
       </ion-grid>
     } @else {

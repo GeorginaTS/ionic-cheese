@@ -33,6 +33,7 @@ import {
 import { CheeseDetailComponent } from 'src/app/components/cheese-detail/cheese-detail.component';
 import { AddNoteModalComponent } from "src/app/components/add-note-modal/add-note-modal.component";
 import { CheesePhotoCaptureComponent } from "src/app/components/cheese-photo-capture/cheese-photo-capture.component";
+import { Directory, Filesystem } from '@capacitor/filesystem';
 
 @Component({
   selector: 'app-cheese-detail-page',
@@ -67,6 +68,7 @@ export class CheeseDetailPage implements OnInit {
   isLoading: boolean = true;
   addNoteModalOpen = false;
   photoModalOpen = false;
+  photo1: string | null = null;
 
   private routeSub!: Subscription;
   constructor(

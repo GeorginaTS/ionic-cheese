@@ -72,53 +72,52 @@ export class CheesePhotoCaptureComponent  implements OnInit {
       }
     }
   }
-
+ /** Esborrar una foto */
   async deletePhoto(index: number) {
-    const fileName = `${this.id}-${index + 1}.jpeg`;
-    try {
-      await Filesystem.deleteFile({
-        path: fileName,
-        directory: Directory.Data
-      });
-      this.showToast('Foto eliminada 🗑️');
-    } catch {
-      console.error('Error eliminant la foto');
-    }
+    // Eliminem del array
+    this.photos.splice(index, 1);
 
-    // Reenumerar i renombrar
+    // Reordenem i guardem les fotos restants
     await this.reorderPhotos();
-    await this.loadPhotos();
+    this.showToast('Foto eliminada 🗑️');
   }
 
+  /** Marcar com a preferida (passa a primera posició) */
+  async makeFavorite(index: number) {
+    if (index === 0) return; // ja és la primera
+
+    const favoritePhoto = this.photos.splice(index, 1)[0];
+    this.photos.unshift(favoritePhoto);
+
+    await this.reorderPhotos();
+    this.showToast('Foto marcada com a preferida ⭐');
+  }
+
+  /** Reordenar i guardar fotos amb noms coherents id-1, id-2 ... */
   private async reorderPhotos() {
-    const total = this.photos.length;
-    let currentNum = 1;
-
-    for (let i = 0; i < total; i++) {
-      const oldName = `${this.id}-${i + 1}.jpeg`;
+    for (let i = 0; i < this.photos.length; i++) {
+      const fileName = `${this.id}-${i + 1}.jpeg`;
       try {
-        const file = await Filesystem.readFile({
-          path: oldName,
-          directory: Directory.Data
-        });
-
-        const newName = `${this.id}-${currentNum}.jpeg`;
+        // Desa la foto en el nou ordre
         await Filesystem.writeFile({
-          path: newName,
-          data: file.data,
+          path: fileName,
+          data: this.photos[i].split(',')[1], // treure prefix base64
           directory: Directory.Data
         });
+      } catch (error) {
+        console.error('Error guardant la foto', error);
+      }
+    }
 
-        if (newName !== oldName) {
-          await Filesystem.deleteFile({
-            path: oldName,
-            directory: Directory.Data
-          });
-        }
-
-        currentNum++;
+    // Eliminar fitxers antics que sobren (només si es va esborrar alguna foto)
+    let num = this.photos.length + 1;
+    while (true) {
+      const oldFile = `${this.id}-${num}.jpeg`;
+      try {
+        await Filesystem.deleteFile({ path: oldFile, directory: Directory.Data });
+        num++;
       } catch {
-        // Si no existeix, continua
+        break;
       }
     }
   }

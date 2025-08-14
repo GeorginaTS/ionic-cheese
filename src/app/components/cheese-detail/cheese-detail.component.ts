@@ -20,13 +20,13 @@ import { IcoMilkTypeComponent } from '../ico-milk-type/ico-milk-type.component';
 import { addIcons } from 'ionicons';
 import { createOutline, trashOutline } from 'ionicons/icons';
 import { IonDatetime, IonModal } from '@ionic/angular/standalone';
+import { Directory, Filesystem } from '@capacitor/filesystem';
 
 @Component({
   selector: 'app-cheese-detail-component',
   templateUrl: './cheese-detail.component.html',
   styleUrls: ['./cheese-detail.component.scss'],
   imports: [
-    DatePipe,
     IcoCheeseStatusComponent,
     IcoMilkTypeComponent,
     IonLabel,
@@ -36,30 +36,38 @@ import { IonDatetime, IonModal } from '@ionic/angular/standalone';
     IonModal,
     IonDatetime,
     IonList,
-    IonTextarea,
-  ],
+    IonTextarea
+],
 })
 export class CheeseDetailComponent implements OnInit {
   @Input() item!: Cheese;
   statusModalOpen = false;
   descriptionModalOpen = false;
+  photo1: string | undefined;
 
   constructor(private cheeseService: CheeseService, private router: Router) {
     addIcons({ createOutline, trashOutline });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadPhoto();
+  }
 
-  deleteCheese(id: string): void {
-    this.cheeseService.deleteCheese(id).subscribe({
-      next: (response) => {
-        console.log('Formatge eliminat:', response);
-        this.router.navigate(['/my-cheeses']);
-      },
-      error: (error) => {
-        console.error('Error eliminant el formatge:', error);
-      },
-    });
+    async loadPhoto() {
+      if (!this.item) {
+        console.error('Cheese object is null');
+        return;
+      }
+      const fileName = `${this.item._id}-1.jpeg`;
+      try {
+        const file = await Filesystem.readFile({
+          path: fileName,
+          directory: Directory.Data
+        });
+        this.photo1 = `data:image/jpeg;base64,${file.data}`;
+      } catch {
+        this.photo1 = '';
+      }
   }
 
   updateDate(newDate: string) {
