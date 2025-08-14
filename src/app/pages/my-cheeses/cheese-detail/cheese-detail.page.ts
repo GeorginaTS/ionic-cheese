@@ -28,6 +28,7 @@ import {
   caretDownCircle,
   caretDownCircleOutline,
   createOutline,
+  trashOutline,
 } from 'ionicons/icons';
 import { CheeseDetailComponent } from 'src/app/components/cheese-detail/cheese-detail.component';
 import { AddNoteModalComponent } from "src/app/components/add-note-modal/add-note-modal.component";
@@ -77,7 +78,7 @@ export class CheeseDetailPage implements OnInit {
     addIcons({
       arrowBackCircleOutline: arrowBackCircleOutline,
       caretDownCircle,
-      createOutline,
+      createOutline, trashOutline
     });
   }
   ngOnInit(): void {

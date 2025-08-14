@@ -4,11 +4,12 @@ import { Filesystem, Directory } from '@capacitor/filesystem';
 import { IonButton, IonCardContent, IonCard, IonCardHeader, IonCardTitle, IonGrid, IonRow, IonCol } from "@ionic/angular/standalone";
 import { CommonModule } from '@angular/common';
 import { ToastController } from '@ionic/angular';
+import { IonIcon} from "@ionic/angular/standalone";
 @Component({
   selector: 'app-cheese-photo-capture',
   templateUrl: './cheese-photo-capture.component.html',
   styleUrls: ['./cheese-photo-capture.component.scss'],
-  imports: [IonButton, IonCardContent, IonCard, IonCardHeader, IonCardTitle, CommonModule, IonGrid, IonRow, IonCol],
+  imports: [IonButton, IonCardContent, IonCard, IonCardHeader, IonCardTitle, CommonModule, IonGrid, IonRow, IonCol, IonIcon],
 })
 export class CheesePhotoCaptureComponent  implements OnInit {
 
@@ -68,6 +69,56 @@ export class CheesePhotoCaptureComponent  implements OnInit {
         num++;
       } catch {
         break; // Ja no hi ha més fotos
+      }
+    }
+  }
+
+  async deletePhoto(index: number) {
+    const fileName = `${this.id}-${index + 1}.jpeg`;
+    try {
+      await Filesystem.deleteFile({
+        path: fileName,
+        directory: Directory.Data
+      });
+      this.showToast('Foto eliminada 🗑️');
+    } catch {
+      console.error('Error eliminant la foto');
+    }
+
+    // Reenumerar i renombrar
+    await this.reorderPhotos();
+    await this.loadPhotos();
+  }
+
+  private async reorderPhotos() {
+    const total = this.photos.length;
+    let currentNum = 1;
+
+    for (let i = 0; i < total; i++) {
+      const oldName = `${this.id}-${i + 1}.jpeg`;
+      try {
+        const file = await Filesystem.readFile({
+          path: oldName,
+          directory: Directory.Data
+        });
+
+        const newName = `${this.id}-${currentNum}.jpeg`;
+        await Filesystem.writeFile({
+          path: newName,
+          data: file.data,
+          directory: Directory.Data
+        });
+
+        if (newName !== oldName) {
+          await Filesystem.deleteFile({
+            path: oldName,
+            directory: Directory.Data
+          });
+        }
+
+        currentNum++;
+      } catch {
+        // Si no existeix, continua
       }
     }
   }

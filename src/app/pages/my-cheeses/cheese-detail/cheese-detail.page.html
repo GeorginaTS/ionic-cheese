@@ -101,14 +101,12 @@
     <div>Cheese not found</div>
     }
   </section>
-  <br /><br /><br />
+  <br />
   <div class="flex justify-center mb-4">
     <ion-button
       (click)="deleteCheese(cheese?._id ?? '')"
-      color="danger"
-      fill="outline"
-      style="width: 50vw"
-      ><ion-icon name="trash-outline" color="danger"></ion-icon
+      class="delete-btn"
+      ><ion-icon name="trash-outline"></ion-icon
     ></ion-button>
   </div>
 </ion-content>
