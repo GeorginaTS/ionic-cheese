@@ -1,61 +1,115 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-back-button defaultHref="/my-cheeses" slot="start" text=""></ion-back-button>
+    <ion-back-button
+      defaultHref="/my-cheeses"
+      slot="start"
+      text=""
+    ></ion-back-button>
     <ion-title>{{cheese?.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
   <section>
     @if (isLoading) {
-      <ion-spinner></ion-spinner>
-    }
-    @if (cheese) {
+    <ion-spinner></ion-spinner>
+    } @if (cheese) {
     <!-- Detail component. Basic information about cheese-->
-          <app-cheese-detail-component [item]="cheese" style="width: 100%;"></app-cheese-detail-component>
+    <app-cheese-detail-component
+      [item]="cheese"
+      style="width: 100%"
+    ></app-cheese-detail-component>
     <hr />
     <!-- Buttons -->
     <div>
-    <ion-button>make photo</ion-button>
-    <ion-button (click)="addNote()">add note</ion-button>
-    <!-- add note modal -->
-     <ion-modal [isOpen]="addNoteModalOpen" (didDismiss)="addNoteModalOpen = false" initialBreakpoint="0.8" [breakpoints]="[0.8, 0.5, 0]">
-      <ng-template>
-        <app-add-note-modal (close)="addNoteModalOpen = false"></app-add-note-modal>
-      </ng-template>
-  </ion-modal>
- </div>
-    <br>
-  <!-- Accordion for elaboration, maturation, and taste notes -->
-  <ion-accordion-group [multiple]="true" expand="inset" [value]="['elaboration', 'maduration', 'taste']" style="width: 100%;">
-  <ion-accordion value="elaboration"  toggleIcon="caret-down-circle" toggleIconSlot="start">
-    <ion-item slot="header" color="light">
-      <ion-label color="primary">
-        <div class="title-accordion">
-        <span>Elaboration:</span>  <ion-icon name="create-outline" size="large" color="primary"></ion-icon></div></ion-label>
-    </ion-item>
-    <div class="ion-padding" slot="content">Elaboration contents</div>
-  </ion-accordion>
-  <ion-accordion value="maduration" toggleIcon="caret-down-circle" toggleIconSlot="start">
-    <ion-item slot="header" color="light">
-      <ion-label color="primary">Maduration</ion-label>
-    </ion-item>
-    <div class="ion-padding" slot="content">Maduration content</div>
-  </ion-accordion>
-  <ion-accordion value="taste" toggleIcon="caret-down-circle" toggleIconSlot="start">
-    <ion-item slot="header" color="light">
-      <ion-label color="primary">Taste</ion-label>
-    </ion-item>
-    <div class="ion-padding" slot="content">Taste content</div>
-  </ion-accordion>
-</ion-accordion-group>
+      <ion-button (click)="openPhotoModal()">make photo</ion-button>
+      <!--Modal make photo-->
+      <ion-modal
+        [isOpen]="photoModalOpen"
+        (didDismiss)="photoModalOpen = false"
+        initialBreakpoint="0.8"
+        [breakpoints]="[0.8, 0.5, 0]"
+      >
+        <ng-template>
+          <app-cheese-photo-capture [id]="cheese._id"></app-cheese-photo-capture>
+        </ng-template>
+      </ion-modal>
 
-} @else {
- <div>Cheese not found</div>
-}
+      <ion-button (click)="addNote()">add note</ion-button>
+      <!-- add note modal -->
+      <ion-modal
+        [isOpen]="addNoteModalOpen"
+        (didDismiss)="addNoteModalOpen = false"
+        initialBreakpoint="0.8"
+        [breakpoints]="[0.8, 0.5, 0]"
+      >
+        <ng-template>
+          <app-add-note-modal
+            (close)="addNoteModalOpen = false"
+          ></app-add-note-modal>
+        </ng-template>
+      </ion-modal>
+    </div>
+    <br />
+    <!-- Accordion for elaboration, maturation, and taste notes -->
+    <ion-accordion-group
+      [multiple]="true"
+      expand="inset"
+      [value]="['elaboration', 'maduration', 'taste']"
+      style="width: 100%"
+    >
+      <ion-accordion
+        value="elaboration"
+        toggleIcon="caret-down-circle"
+        toggleIconSlot="start"
+      >
+        <ion-item slot="header" color="light">
+          <ion-label color="primary">
+            <div class="title-accordion">
+              <span>Elaboration:</span>
+              <ion-icon
+                name="create-outline"
+                size="large"
+                color="primary"
+              ></ion-icon></div
+          ></ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">Elaboration contents</div>
+      </ion-accordion>
+      <ion-accordion
+        value="maduration"
+        toggleIcon="caret-down-circle"
+        toggleIconSlot="start"
+      >
+        <ion-item slot="header" color="light">
+          <ion-label color="primary">Maduration</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">Maduration content</div>
+      </ion-accordion>
+      <ion-accordion
+        value="taste"
+        toggleIcon="caret-down-circle"
+        toggleIconSlot="start"
+      >
+        <ion-item slot="header" color="light">
+          <ion-label color="primary">Taste</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">Taste content</div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+    } @else {
+    <div>Cheese not found</div>
+    }
   </section>
-  <br><br><br>
-  <div class="flex justify-center mb-4">  <ion-button (click)="deleteCheese(cheese?._id ?? '')" color="danger" fill="outline" style="width: 50vw;"><ion-icon name="trash-outline" color="danger"></ion-icon></ion-button></div>
-
-
+  <br /><br /><br />
+  <div class="flex justify-center mb-4">
+    <ion-button
+      (click)="deleteCheese(cheese?._id ?? '')"
+      color="danger"
+      fill="outline"
+      style="width: 50vw"
+      ><ion-icon name="trash-outline" color="danger"></ion-icon
+    ></ion-button>
+  </div>
 </ion-content>
 <app-menu></app-menu>

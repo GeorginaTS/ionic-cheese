@@ -31,6 +31,7 @@ import {
 } from 'ionicons/icons';
 import { CheeseDetailComponent } from 'src/app/components/cheese-detail/cheese-detail.component';
 import { AddNoteModalComponent } from "src/app/components/add-note-modal/add-note-modal.component";
+import { CheesePhotoCaptureComponent } from "src/app/components/cheese-photo-capture/cheese-photo-capture.component";
 
 @Component({
   selector: 'app-cheese-detail-page',
@@ -55,7 +56,8 @@ import { AddNoteModalComponent } from "src/app/components/add-note-modal/add-not
     IonButton,
     IonBackButton,
     AddNoteModalComponent,
-    IonModal
+    IonModal,
+    CheesePhotoCaptureComponent
 ],
 })
 export class CheeseDetailPage implements OnInit {
@@ -63,6 +65,7 @@ export class CheeseDetailPage implements OnInit {
   cheese: Cheese | null = null;
   isLoading: boolean = true;
   addNoteModalOpen = false;
+  photoModalOpen = false;
 
   private routeSub!: Subscription;
   constructor(
@@ -122,5 +125,8 @@ export class CheeseDetailPage implements OnInit {
     // Logic to add a note can be implemented here
     this.addNoteModalOpen = true;
   
+  }
+  openPhotoModal() {
+    this.photoModalOpen = true;
   }
 }
