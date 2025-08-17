@@ -27,7 +27,6 @@ import { IcoCheeseStatusComponent } from "../ico-cheese-status/ico-cheese-status
     DatePipe,
     RouterLink,
     IcoMilkTypeComponent,
-    IonIcon,
     IcoCheeseStatusComponent
 ],
 })
