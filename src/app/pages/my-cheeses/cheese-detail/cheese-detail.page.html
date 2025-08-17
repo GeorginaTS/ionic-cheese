@@ -8,19 +8,6 @@
     <ion-title>{{cheese?.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
-<<<<<<< HEAD
-
-<ion-content>
-  <section class="flex flex-col items-center p-4 bg-yellow-100 h-full w-full">
-    @if (cheese) {
-    <app-cheese-detail-component [item]="cheese" class="w-full"></app-cheese-detail-component>
-    <hr class="w-full h-1 bg-amber-500 my-4" />
-    <div class="w-full">Elaboration: {{cheese.date | date}}</div>
-    <hr class="w-full h-1 bg-amber-500 my-4" />
-    <div class="w-full">Maduration: </div>
-    <hr class="w-full h-1 bg-amber-500 my-4" />
-    <div class="w-full">Taste: </div>
-=======
 <ion-content [fullscreen]="true">
   <section>
     @if (isLoading) {
@@ -49,7 +36,7 @@
 
       <ion-button (click)="addNote()">add note</ion-button>
       <!-- add note modal -->
-      <ion-modal
+ lab  <ion-modal
         [isOpen]="addNoteModalOpen"
         (didDismiss)="addNoteModalOpen = false"
         initialBreakpoint="0.8"
@@ -109,7 +96,6 @@
         <div class="ion-padding" slot="content">Taste content</div>
       </ion-accordion>
     </ion-accordion-group>
->>>>>>> 6-crud-de-quesos-front
 
     } @else {
     <div>Cheese not found</div>
