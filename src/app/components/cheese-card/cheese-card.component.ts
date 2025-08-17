@@ -14,7 +14,6 @@ import { IonIcon } from '@ionic/angular/standalone';
 import { calendarOutline, createOutline, trashOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { Directory, Filesystem } from '@capacitor/filesystem';
-import { IcoCheeseStatusComponent } from "../ico-cheese-status/ico-cheese-status.component";
 
 @Component({
   selector: 'app-cheese-card',
@@ -27,8 +26,8 @@ import { IcoCheeseStatusComponent } from "../ico-cheese-status/ico-cheese-status
     DatePipe,
     RouterLink,
     IcoMilkTypeComponent,
-    IcoCheeseStatusComponent
-],
+    IonIcon,
+  ],
 })
 export class CheeseCardComponent implements OnInit {
   @Input() cheese!: Cheese;
