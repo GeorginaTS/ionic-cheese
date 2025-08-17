@@ -2,11 +2,11 @@ export interface Cheese {
     _id: string;
     name: string;
     description?: string;
-    date: Date;
-    status: 'Per fer' | 'Fent' | 'Madurant' | 'Fet' | 'Consumint' | 'Menjat';
+    date: string | Date; // Use string for date to handle different formats
+    status: string;
     public: boolean;
     userId: string;
-    milkType: 'Vaca' | 'Cabra' | 'Ovella' | 'Búfala' | 'Mixta';
+    milkType: string;
     milkOrigin: string;
     milkQuantity: number; // in liters
     notes?:CheeseNotes[];
@@ -32,10 +32,14 @@ export interface CheeseEaten{
 }
 export interface CheeseNotes {
     date: Date;
-    title: string;
-    humidity?: number; // in percentage
-    temperature?: number; // in Celsius
-    place?: string; // e.g., 'Cave', 'Fridge'
-    ingredients?: string[];
-    notes?: string;
+    about: string;
+    notes: string;
+
 }
+export const CHEESE_NOTES_ABOUT_OPTIONS: CheeseNotes['about'][] = [
+  'Before',
+  'Elaboration',
+  'Maturation',
+  'Taste',
+  'Other'
+];

@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonFabButton, IonFab, IonSpinner } from '@ionic/angular/standalone';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { CheeseService } from '../../services/cheese.service';
 import { Cheese } from '../../interfaces/cheese';
-import { CheeseCardComponent } from "src/app/components/cheese-card/cheese-card.component";
+import { CheeseCardComponent } from 'src/app/components/cheese-card/cheese-card.component';
+import { addIcons } from 'ionicons';
+import { IonIcon } from '@ionic/angular/standalone';
+import { add, addCircleOutline } from 'ionicons/icons';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-my-cheeses',
@@ -21,16 +25,24 @@ import { CheeseCardComponent } from "src/app/components/cheese-card/cheese-card.
     FormsModule,
     MenuComponent,
     CheeseCardComponent,
-    IonButton
+    IonIcon, RouterLink,
+    IonFabButton,
+    IonFab,
+    IonSpinner
 ],
 })
 export class MyCheesesPage implements OnInit {
   cheeses: Cheese[] = [];
   isLoading = true;
   errorMessage = '';
-  constructor(private cheeseService: CheeseService) {}
-
+  
+  constructor(private cheeseService: CheeseService) {
+    addIcons({ addCircleOutline, add });
+  }
   ngOnInit(): void {
+    this.loadCheeses();
+  }
+  ionViewWillEnter() {
     this.loadCheeses();
   }
   loadCheeses(): void {

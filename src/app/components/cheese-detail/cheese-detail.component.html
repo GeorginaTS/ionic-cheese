@@ -1,10 +1,56 @@
-      <div class="w-full p-4">
-      <h3>{{item.name}}</h3> <app-ico-milk-type [tipus]="item.milkType"></app-ico-milk-type> {{item.milkQuantity}} litres</div>
-      <div class="status"><app-ico-cheese-status [status]="item.status"></app-ico-cheese-status></div>
-      <hr>
-      <div class="date">Data: {{item.date | date}}</div>
-      <div class="description">Descripció: {{item.description}}</div>
-      <div class="actions flex gap-2 mt-4">
-        <ion-button [routerLink]="['/my-cheeses/edit', item._id]" color="primary">Edit</ion-button>
-        <ion-button (click)="deleteCheese(item._id)" color="danger">Delete</ion-button>
-      </div>
+<article>
+  <h2 class="flex items-center justify-center gap-2">
+    {{ item.milkQuantity }} liters of
+    <app-ico-milk-type [tipus]="item.milkType"></app-ico-milk-type> milk from
+    {{ item.milkOrigin }}
+  </h2>
+  <img [src]="photo1" alt="{{ item.name }}">
+  <div class="w-full flex items-center justify-between">
+    <div class="w-full flex justify-between items-center">
+      <ion-item>
+        <ion-datetime-button datetime="datetime"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime
+              id="datetime"
+              [value]="item.date"
+              (ionChange)="updateDate($event.detail.value?.toString() ?? '')"
+              presentation="date"
+              [formatOptions]="{date: { day: '2-digit', month: 'long', year:'2-digit' }}"
+            >
+            </ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+      <ion-button fill="clear" color="transparent" (click)="statusModalOpen = true">
+        <app-ico-cheese-status [status]="item.status"></app-ico-cheese-status>
+      </ion-button>
+      <!-- Modal for status selection -->
+<ion-modal [isOpen]="statusModalOpen" (didDismiss)="statusModalOpen = false" initialBreakpoint="0.3">
+  <ng-template>
+    <ion-list>
+      <ion-item button (click)="setStatus('Todo')">Todo</ion-item>
+      <ion-item button (click)="setStatus('Doing')">Doing</ion-item>
+      <ion-item button (click)="setStatus('Done')">Done</ion-item>
+    </ion-list>
+  </ng-template>
+</ion-modal>
+    </div>
+  </div>
+  <br>
+  <ion-label (click)="descriptionModalOpen = true">
+    <h3 class="text-lg font-bold m-0 p-0">Description</h3>
+    <p class="text-sm text-gray-600 p-0 m-0">{{ item.description }}</p>
+</ion-label>
+<ion-modal [isOpen]="descriptionModalOpen" (didDismiss)="descriptionModalOpen = false"  initialBreakpoint="0.5">
+  <ng-template>
+    <ion-list>
+      <ion-item>
+        <ion-textarea #descArea [value]="item.description"  style="border: 1px solid #ccc; border-radius: 4px; margin: 1rem; height: 30vh; padding: 1rem"></ion-textarea>
+      </ion-item>
+       <ion-button expand="block" (click)="saveDescription(descArea.value ?? '')">Save</ion-button>
+    </ion-list>
+  </ng-template>
+</ion-modal>
+<br>
+</article>

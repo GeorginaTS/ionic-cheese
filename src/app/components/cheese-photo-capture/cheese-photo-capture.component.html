@@ -1,0 +1,55 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Fotos ID: {{ id }}</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    @if (photos.length > 0) {
+      <ion-grid>
+        <ion-row>
+          @for (photo of photos; track photo; let i = $index){
+            <ion-col size="6">
+              <div style="position: relative;">
+                <img
+                  [src]="photos[i]"
+                  alt="Foto guardada"
+                  class="w-full h-52 border-2 border-amber-800 rounded-md object-cover"
+                />
+                <!-- Botó esborrar -->
+                <ion-button
+                  fill="clear"
+                  color="danger"
+                  size="small"
+                  style="position: absolute; top: 5px; right: 5px; z-index: 10; background-color: white;"
+                  (click)="deletePhoto(i)"
+                >
+                  <ion-icon name="trash-outline"></ion-icon>
+                </ion-button>
+
+                <!-- Botó preferida -->
+                 @if (i !== 0) {
+                <ion-button
+                  fill="clear"
+                  color="warning"
+                  size="small"
+                  style="position: absolute; top: 5px; left: 5px; z-index: 10; background-color: white;"
+                  (click)="makeFavorite(i)"
+                >♥️
+                </ion-button>}
+                @else {
+                  <p  class="text-xs bg-white" style="position: absolute; bottom: 5px; left: 5px; z-index: 10; background-color: white;">Primary photo</p>
+                }
+              </div>
+            </ion-col>
+          }
+        </ion-row>
+      </ion-grid>
+    } @else {
+      <p>No hi ha fotos guardades</p>
+    }
+
+    <ion-button expand="block" (click)="takePhoto()">
+      📷 Fer nova foto
+    </ion-button>
+  </ion-card-content>
+</ion-card>

@@ -4,10 +4,11 @@ import { Component, Input, Output } from '@angular/core';
   imports: [],
   template: `
     <div class="text-2xl">
-      @if(tipus =="vaca") {🐄} 
-      @if(tipus =="ovella") {🐑} 
-      @if(tipus =="cabra"){🐐} 
-      @if(tipus =="búfala") {🐂}
+      @if(tipus =="cow" ) {🐄} 
+      @if(tipus =="sheep") {🐑} 
+      @if(tipus =="goat"){🐐} 
+      @if(tipus =="buffala") {🐂}
+      @if(tipus =="mixed") {🥛}
     </div>
   `,
   styleUrl: './ico-milk-type.component.scss',
