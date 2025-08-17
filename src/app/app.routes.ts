@@ -29,5 +29,9 @@ export const routes: Routes = [
   {
     path: 'cheese/:id',
     loadComponent: () => import('./pages/my-cheeses/cheese-detail/cheese-detail.page').then( m => m.CheeseDetailPage)
+  },
+  {
+    path: 'world-cheeses',
+    loadComponent: () => import('./pages/world-cheeses/world-cheeses.page').then( m => m.WorldCheesesPage)
   }
 ];
