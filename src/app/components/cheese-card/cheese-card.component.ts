@@ -67,22 +67,10 @@ export class CheeseCardComponent implements OnInit {
       } catch (error: any) {
         // Si la foto no existeix a Firebase, intentem carregar-la localment com a fallback
         console.log(
-          'No hem trobat la foto a Firebase (card), intentant localment...',
+          'No hem trobat la foto a Firebase (card)',
           error.message
         );
 
-        const fileName = `${this.cheese._id}-1.jpeg`;
-        try {
-          // Utilitzem el mètode getLocalImage que implementarem a continuació
-          const localImage = await this.getLocalImage(fileName);
-          if (localImage) {
-            this.photo1 = localImage;
-            console.log('Imatge carregada des del dispositiu local (card)');
-          }
-        } catch (localError) {
-          console.log('No hem trobat la foto ni localment (card)', localError);
-          this.photo1 = '';
-        }
       }
     } catch (error) {
       console.error('Error carregant la foto (card):', error);
