@@ -33,7 +33,11 @@
                 "output": "assets"
               }
             ],
-            "styles": ["src/tailwind.css", "src/global.scss", "src/theme/variables.scss"],
+            "styles": [
+              "src/tailwind.css",
+              "src/global.scss",
+              "src/theme/variables.scss"
+            ],
             "scripts": [],
             "browser": "src/main.ts"
           },

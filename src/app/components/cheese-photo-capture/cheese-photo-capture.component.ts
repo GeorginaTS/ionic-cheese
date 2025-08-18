@@ -51,7 +51,7 @@ export class CheesePhotoCaptureComponent implements OnInit {
 
   async takePhoto() {
     const loading = await this.loadingController.create({
-      message: 'Desant la foto...',
+      message: 'Saving image...',
       spinner: 'circles',
     });
     await loading.present();
@@ -84,13 +84,13 @@ export class CheesePhotoCaptureComponent implements OnInit {
         this.photoPaths.push(storagePath);
 
         // Mostrem toast
-        this.showToast('Foto desada al núvol correctament ✅');
+        this.showToast('Photo saved ✅');
       } else {
-        this.showToast("Error: No s'ha pogut obtenir la foto ❌", true);
+        this.showToast("Error: Uploading photo ❌", true);
       }
     } catch (error) {
-      console.error('Error al capturar o pujar la imatge', error);
-      this.showToast('Error al desar la foto ❌', true);
+      console.error('Error capturing or uploading image', error);
+      this.showToast('Error saving photo ❌', true);
     } finally {
       await loading.dismiss();
     }
@@ -102,7 +102,7 @@ export class CheesePhotoCaptureComponent implements OnInit {
 
     try {
       const loading = await this.loadingController.create({
-        message: 'Carregant fotos...',
+        message: 'Loading photos...',
         spinner: 'circles',
       });
       await loading.present();
@@ -126,13 +126,13 @@ export class CheesePhotoCaptureComponent implements OnInit {
           this.photoPaths.push(item.fullPath);
         }
       } catch (error) {
-        console.error('Error carregant fotos de Firebase Storage', error);
-        this.showToast('Error carregant fotos del núvol ❌', true);
+        console.error('Error loading photos from Firebase Storage', error);
+        this.showToast('Error loading photos  ❌', true);
       } finally {
         await loading.dismiss();
       }
     } catch (error) {
-      console.error('Error general al carregar fotos', error);
+      console.error('Error loading photos', error);
     }
   }
 
@@ -140,7 +140,7 @@ export class CheesePhotoCaptureComponent implements OnInit {
   async deletePhoto(index: number) {
     try {
       const loading = await this.loadingController.create({
-        message: 'Eliminant foto...',
+        message: 'Deleting photo...',
         spinner: 'circles',
       });
       await loading.present();
@@ -155,12 +155,12 @@ export class CheesePhotoCaptureComponent implements OnInit {
 
       // Reordenem i guardem les fotos restants
       await this.reorderPhotos();
-      this.showToast('Foto eliminada 🗑️');
+      this.showToast('Photo deleted 🗑️');
 
       await loading.dismiss();
     } catch (error) {
-      console.error('Error eliminant la foto', error);
-      this.showToast('Error eliminant la foto ❌', true);
+      console.error('Error deleting photo', error);
+      this.showToast('Error deleting photo ❌', true);
     }
   }
 
@@ -170,7 +170,7 @@ export class CheesePhotoCaptureComponent implements OnInit {
 
     try {
       const loading = await this.loadingController.create({
-        message: 'Actualitzant fotos...',
+        message: 'Updating photos...',
         spinner: 'circles',
       });
       await loading.present();
@@ -182,12 +182,12 @@ export class CheesePhotoCaptureComponent implements OnInit {
       this.photoPaths.unshift(favoritePath);
 
       await this.reorderPhotos();
-      this.showToast('Foto marcada com a preferida ⭐');
+      this.showToast('Photo marked as favorite ⭐');
 
       await loading.dismiss();
     } catch (error) {
-      console.error('Error al marcar com a preferida', error);
-      this.showToast("Error actualitzant l'ordre de fotos ❌", true);
+      console.error('Error marking as favorite', error);
+      this.showToast("Error updating photo order ❌", true);
     }
   }
 
@@ -240,7 +240,7 @@ export class CheesePhotoCaptureComponent implements OnInit {
           newPaths.push(this.photoPaths[i]);
         }
       } catch (error) {
-        console.error('Error reordenant les fotos', error);
+        console.error('Error Reordering photos', error);
       }
     }
 

@@ -13,13 +13,13 @@ export default defineConfig({
   resolve: {
     alias: {
       // Resolució per a zone.js
-      'zone.js': 'zone.js/dist/zone.js'
-    }
+      'zone.js': 'zone.js/dist/zone.js',
+    },
   },
   server: {
     fs: {
       // Permet accés fora del directori arrel per a les dependències
-      strict: false
-    }
-  }
+      strict: false,
+    },
+  },
 });

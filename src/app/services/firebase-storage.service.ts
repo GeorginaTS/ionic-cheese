@@ -8,6 +8,7 @@ import {
   deleteObject,
   listAll,
 } from 'firebase/storage';
+import { getAuth, signInAnonymously } from 'firebase/auth';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -15,11 +16,30 @@ import { environment } from '../../environments/environment';
 })
 export class FirebaseStorageService {
   private storage;
+  private auth;
+  private app;
 
   constructor() {
     // Initialize Firebase
-    const app = initializeApp(environment.firebase);
-    this.storage = getStorage(app);
+    this.app = initializeApp(environment.firebase);
+    this.storage = getStorage(this.app);
+    this.auth = getAuth(this.app);
+
+    // Sign in anonymously to have access to storage
+    this.signInAnonymously();
+  }
+
+  /**
+   * Sign in anonymously to Firebase
+   * This allows the app to have access to Firebase Storage
+   */
+  private async signInAnonymously() {
+    try {
+      await signInAnonymously(this.auth);
+      console.log('Signed in anonymously to Firebase');
+    } catch (error) {
+      console.error('Error signing in anonymously:', error);
+    }
   }
 
   /**
@@ -29,14 +49,36 @@ export class FirebaseStorageService {
    * @returns Promise with download URL
    */
   async uploadImage(path: string, base64Data: string): Promise<string> {
-    const storageRef = ref(this.storage, path);
+    try {
+      // Ensure we are signed in
+      if (!this.auth.currentUser) {
+        await this.signInAnonymously();
+      }
 
-    // Upload the base64 data
-    await uploadString(storageRef, base64Data, 'base64');
+      const storageRef = ref(this.storage, path);
 
-    // Get the download URL
-    const downloadURL = await getDownloadURL(storageRef);
-    return downloadURL;
+      // Upload the base64 data
+      await uploadString(storageRef, base64Data, 'base64');
+
+      // Get the download URL
+      const downloadURL = await getDownloadURL(storageRef);
+      return downloadURL;
+    } catch (error: any) {
+      console.error('Error uploading image:', error);
+
+      // If the error is permission-related, try signing in again and retrying once
+      if (error.code === 'storage/unauthorized') {
+        console.log('Trying to re-authenticate and upload again...');
+        await this.signInAnonymously();
+
+        // Try upload one more time
+        const storageRef = ref(this.storage, path);
+        await uploadString(storageRef, base64Data, 'base64');
+        return await getDownloadURL(storageRef);
+      }
+
+      throw error;
+    }
   }
 
   /**
@@ -44,8 +86,29 @@ export class FirebaseStorageService {
    * @param path Path of the image to delete
    */
   async deleteImage(path: string): Promise<void> {
-    const storageRef = ref(this.storage, path);
-    await deleteObject(storageRef);
+    try {
+      // Ensure we are signed in
+      if (!this.auth.currentUser) {
+        await this.signInAnonymously();
+      }
+
+      const storageRef = ref(this.storage, path);
+      await deleteObject(storageRef);
+    } catch (error: any) {
+      console.error('Error deleting image:', error);
+
+      // If the error is permission-related, try signing in again and retrying once
+      if (error.code === 'storage/unauthorized') {
+        console.log('Trying to re-authenticate and delete again...');
+        await this.signInAnonymously();
+
+        // Try delete one more time
+        const storageRef = ref(this.storage, path);
+        await deleteObject(storageRef);
+      } else {
+        throw error;
+      }
+    }
   }
 
   /**
@@ -54,8 +117,29 @@ export class FirebaseStorageService {
    * @returns Promise with download URL
    */
   async getImageUrl(path: string): Promise<string> {
-    const storageRef = ref(this.storage, path);
-    return await getDownloadURL(storageRef);
+    try {
+      // Ensure we are signed in
+      if (!this.auth.currentUser) {
+        await this.signInAnonymously();
+      }
+
+      const storageRef = ref(this.storage, path);
+      return await getDownloadURL(storageRef);
+    } catch (error: any) {
+      console.error('Error getting image URL:', error);
+
+      // If the error is permission-related, try signing in again and retrying once
+      if (error.code === 'storage/unauthorized') {
+        console.log('Trying to re-authenticate and get URL again...');
+        await this.signInAnonymously();
+
+        // Try get URL one more time
+        const storageRef = ref(this.storage, path);
+        return await getDownloadURL(storageRef);
+      }
+
+      throw error;
+    }
   }
 
   /**
@@ -64,8 +148,35 @@ export class FirebaseStorageService {
    * @returns Array of file references
    */
   async listImagesInFolder(folderPath: string) {
-    const folderRef = ref(this.storage, folderPath);
-    const result = await listAll(folderRef);
-    return result.items;
+    try {
+      // Ensure we are signed in
+      if (!this.auth.currentUser) {
+        await this.signInAnonymously();
+      }
+
+      const folderRef = ref(this.storage, folderPath);
+      const result = await listAll(folderRef);
+      return result.items;
+    } catch (error: any) {
+      console.error('Error listing images in folder:', error);
+
+      // If the error is permission-related, try signing in again and retrying once
+      if (error.code === 'storage/unauthorized') {
+        console.log('Trying to re-authenticate and list images again...');
+        await this.signInAnonymously();
+
+        // Try list images one more time
+        const folderRef = ref(this.storage, folderPath);
+        const result = await listAll(folderRef);
+        return result.items;
+      }
+
+      // If it's a "not found" error, just return an empty array
+      if (error.code === 'storage/object-not-found') {
+        return [];
+      }
+
+      throw error;
+    }
   }
 }
