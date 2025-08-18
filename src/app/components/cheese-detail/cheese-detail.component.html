@@ -4,7 +4,12 @@
     <app-ico-milk-type [tipus]="item.milkType"></app-ico-milk-type> milk from
     {{ item.milkOrigin }}
   </h2>
+   @if (photo1 != '') {
   <img [src]="photo1" alt="{{ item.name }}">
+   }
+   @else {
+    <img src="../../../assets/img/my-cheese-default.jpg" alt="{{ item.name }}" class="w-full h-20 object-cover rounded-lg">
+   }
   <div class="w-full flex items-center justify-between">
     <div class="w-full flex justify-between items-center">
       <ion-item>

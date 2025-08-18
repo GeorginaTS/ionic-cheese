@@ -43,7 +43,7 @@ export class CheeseDetailComponent implements OnInit {
   @Input() item!: Cheese;
   statusModalOpen = false;
   descriptionModalOpen = false;
-  photo1: string | undefined;
+  photo1: string | '' = '';
 
   constructor(private cheeseService: CheeseService, private router: Router) {
     addIcons({ createOutline, trashOutline });
