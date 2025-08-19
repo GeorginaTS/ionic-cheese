@@ -1,18 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
-  imports: [FormsModule],
+  selector: 'app-login-alternative',
+  templateUrl: './login-alternative.component.html',
+  styleUrls: ['./login-alternative.component.scss'],
+  standalone: true,
+  imports: [FormsModule, CommonModule]
 })
-export class HomePage {
+export class LoginAlternativeComponent implements OnInit {
   email: string = '';
   password: string = '';
   showPassword: boolean = false;
 
-  constructor() {}
+  constructor() { }
+
+  ngOnInit() {}
 
   togglePassword() {
     this.showPassword = !this.showPassword;
