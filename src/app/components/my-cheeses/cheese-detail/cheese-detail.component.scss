@@ -1,0 +1,10 @@
+article {
+    width: 100%;
+} 
+article > div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
