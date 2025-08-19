@@ -18,7 +18,7 @@ log.txt
 /coverage
 
 # Ionic
-environment.ts
+/src/app/environments/environment.ts
 /.ionic
 /www
 /platforms
