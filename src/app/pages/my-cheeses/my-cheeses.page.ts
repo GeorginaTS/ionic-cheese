@@ -1,11 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonFabButton, IonFab, IonSpinner } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonFabButton,
+  IonFab,
+  IonSpinner,
+} from '@ionic/angular/standalone';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { CheeseService } from '../../services/cheese.service';
 import { Cheese } from '../../interfaces/cheese';
-import { CheeseCardComponent } from 'src/app/components/cheese-card/cheese-card.component';
+import { CheeseCardComponent } from 'src/app/components/my-cheeses/cheese-card/cheese-card.component';
 import { addIcons } from 'ionicons';
 import { IonIcon } from '@ionic/angular/standalone';
 import { add, addCircleOutline } from 'ionicons/icons';
@@ -25,17 +33,18 @@ import { RouterLink } from '@angular/router';
     FormsModule,
     MenuComponent,
     CheeseCardComponent,
-    IonIcon, RouterLink,
+    IonIcon,
+    RouterLink,
     IonFabButton,
     IonFab,
-    IonSpinner
-],
+    IonSpinner,
+  ],
 })
 export class MyCheesesPage implements OnInit {
   cheeses: Cheese[] = [];
   isLoading = true;
   errorMessage = '';
-  
+
   constructor(private cheeseService: CheeseService) {
     addIcons({ addCircleOutline, add });
   }

@@ -66,11 +66,7 @@ export class CheeseCardComponent implements OnInit {
         console.log('Imatge carregada des de Firebase (card):', downloadUrl);
       } catch (error: any) {
         // Si la foto no existeix a Firebase, intentem carregar-la localment com a fallback
-        console.log(
-          'No hem trobat la foto a Firebase (card)',
-          error.message
-        );
-
+        console.log('No hem trobat la foto a Firebase (card)', error.message);
       }
     } catch (error) {
       console.error('Error carregant la foto (card):', error);

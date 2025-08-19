@@ -13,7 +13,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { ToastController, LoadingController } from '@ionic/angular';
 import { IonIcon } from '@ionic/angular/standalone';
-import { FirebaseStorageService } from '../../services/firebase-storage.service';
+import { FirebaseStorageService } from '../../../services/firebase-storage.service';
 
 @Component({
   selector: 'app-cheese-photo-capture',
@@ -86,7 +86,7 @@ export class CheesePhotoCaptureComponent implements OnInit {
         // Mostrem toast
         this.showToast('Photo saved ✅');
       } else {
-        this.showToast("Error: Uploading photo ❌", true);
+        this.showToast('Error: Uploading photo ❌', true);
       }
     } catch (error) {
       console.error('Error capturing or uploading image', error);
@@ -187,7 +187,7 @@ export class CheesePhotoCaptureComponent implements OnInit {
       await loading.dismiss();
     } catch (error) {
       console.error('Error marking as favorite', error);
-      this.showToast("Error updating photo order ❌", true);
+      this.showToast('Error updating photo order ❌', true);
     }
   }
 
