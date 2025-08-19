@@ -6,7 +6,6 @@ export const environment = {
   production: false,
   apiUrl: 'https://ionic-cheese-back.onrender.com/api',
   firebase: {
-   apiKey: "AIzaSyB8s4uDCXbfihLyk17fIXPQyq7GEg0q4tI",
    authDomain: "cheese-29925.firebaseapp.com",
    projectId: "cheese-29925",
    storageBucket: "cheese-29925.firebasestorage.app",
