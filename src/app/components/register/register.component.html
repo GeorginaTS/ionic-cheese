@@ -1,7 +1,6 @@
-<ion-content class="ion-padding">
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<div class="w-full max-w-md mx-auto">
+  <form [formGroup]="registerForm" class="w-full">
 
-    <!-- Nom -->
     <ion-item>
       <ion-label position="floating">Nom</ion-label>
       <ion-input formControlName="name" type="text"></ion-input>
@@ -10,7 +9,6 @@
       <ion-note color="danger">El nom és obligatori</ion-note>
     }
 
-    <!-- Email -->
     <ion-item>
       <ion-label position="floating">Email</ion-label>
       <ion-input formControlName="email" type="email"></ion-input>
@@ -19,7 +17,6 @@
       <ion-note color="danger">Email invàlid</ion-note>
     }
 
-    <!-- Password -->
     <ion-item>
       <ion-label position="floating">Contrasenya</ion-label>
       <ion-input formControlName="password" type="password"></ion-input>
@@ -28,7 +25,7 @@
       <ion-note color="danger">Mínim 6 caràcters</ion-note>
     }
 
-    <!-- Data de naixement -->
+
     <ion-item>
       <ion-label position="floating">Data de naixement</ion-label>
       <ion-datetime-button datetime="birthDate"></ion-datetime-button>
@@ -39,30 +36,26 @@
       </ion-modal>
     </ion-item>
 
-    <!-- País -->
     <ion-item>
       <ion-label position="floating">País</ion-label>
       <ion-input formControlName="country" type="text"></ion-input>
     </ion-item>
 
-    <!-- Província -->
+
     <ion-item>
       <ion-label position="floating">Província</ion-label>
       <ion-input formControlName="province" type="text"></ion-input>
     </ion-item>
 
-    <!-- Ciutat -->
     <ion-item>
       <ion-label position="floating">Ciutat</ion-label>
       <ion-input formControlName="city" type="text"></ion-input>
     </ion-item>
 
-    <!-- Botó -->
     <ion-button
       expand="block"
-      type="submit"
-      [disabled]="registerForm.invalid">
-      Crear compte
+      [disabled]="registerForm.invalid" (click)="register()">
+      Create account
     </ion-button>
   </form>
-</ion-content>
+</div>

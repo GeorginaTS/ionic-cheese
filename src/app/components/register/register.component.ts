@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [IonicModule, CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, CommonModule, IonicModule],
   templateUrl: './register.component.html',
 })
 export class RegisterComponent {
@@ -25,7 +25,7 @@ export class RegisterComponent {
     });
   }
 
-  async onSubmit() {
+  async register() {
     if (this.registerForm.valid) {
       const { name, email, password, birthDate, country, province, city } =
         this.registerForm.value;
