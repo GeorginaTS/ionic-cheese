@@ -1,33 +1,33 @@
-  <form [formGroup]="authForm" (submit)="login()">
-    <!-- Email -->
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" formControlName="email"></ion-input>
-    </ion-item>
-    @if (authForm.get('email')?.invalid && authForm.get('email')?.touched) {
-    <ion-note color="danger" *ngIf="authForm.get('email')?.invalid && authForm.get('email')?.touched">
-      @if (authForm.get('email')?.hasError('required')) {
-        <span>Email is required</span>
-      }
-      @if (authForm.get('email')?.hasError('email')) {
-        <span>Invalid email format</span>
-      }
+<form [formGroup]="authForm"style="width: 100%;">
+
+  <!-- Email -->
+  <ion-item>
+    <ion-label position="floating">Email</ion-label>
+    <ion-input type="email" formControlName="email"></ion-input>
+  </ion-item>
+  @if(authForm.get('email')?.touched && authForm.get('email')?.invalid) {
+    <ion-note color="danger">
+      @if(authForm.get('email')?.hasError('required')) {<span>Email is required</span>}
+      @if(authForm.get('email')?.hasError('pattern')) {<span>Invalid email format</span>}
     </ion-note>
   }
 
-    <!-- Password -->
-    <ion-item>
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
-    </ion-item>
-    @if (authForm.get('password')?.invalid && authForm.get('password')?.touched) {
+  <!-- Password -->
+  <ion-item>
+    <ion-label position="floating">Password</ion-label>
+    <ion-input type="password" formControlName="password"></ion-input>
+  </ion-item>
+  @if(authForm.get('password')?.touched && authForm.get('password')?.invalid) {
     <ion-note color="danger">
-      @if (authForm.get('password')?.hasError('required')) {<span>Password is required</span>}
-      @if (authForm.get('password')?.hasError('minlength')) {<span>Password must be at least 6 characters</span>}
+      @if(authForm.get('password')?.hasError('required')) {<span>Password is required</span>}
+      @if(authForm.get('password')?.hasError('minlength')) {<span>Password must be at least 6 characters</span>}
     </ion-note>
   }
-    <ion-button expand="block" type="submit" [disabled]="authForm.invalid">Login</ion-button>
-  </form>
+
+  <ion-button expand="block" (click)="login()" [disabled]="authForm.invalid">
+    Login
+  </ion-button>
+</form>
   <br><hr><br>
     <!-- Google -->
   <ion-button expand="block" (click)="loginWithGoogle()">

@@ -1,0 +1,68 @@
+<ion-content class="ion-padding">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+    <!-- Nom -->
+    <ion-item>
+      <ion-label position="floating">Nom</ion-label>
+      <ion-input formControlName="name" type="text"></ion-input>
+    </ion-item>
+    @if(registerForm.get('name')?.touched && registerForm.get('name')?.invalid) {
+      <ion-note color="danger">El nom és obligatori</ion-note>
+    }
+
+    <!-- Email -->
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input formControlName="email" type="email"></ion-input>
+    </ion-item>
+    @if(registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
+      <ion-note color="danger">Email invàlid</ion-note>
+    }
+
+    <!-- Password -->
+    <ion-item>
+      <ion-label position="floating">Contrasenya</ion-label>
+      <ion-input formControlName="password" type="password"></ion-input>
+    </ion-item>
+    @if(registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
+      <ion-note color="danger">Mínim 6 caràcters</ion-note>
+    }
+
+    <!-- Data de naixement -->
+    <ion-item>
+      <ion-label position="floating">Data de naixement</ion-label>
+      <ion-datetime-button datetime="birthDate"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="birthDate" formControlName="birthDate"></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-item>
+
+    <!-- País -->
+    <ion-item>
+      <ion-label position="floating">País</ion-label>
+      <ion-input formControlName="country" type="text"></ion-input>
+    </ion-item>
+
+    <!-- Província -->
+    <ion-item>
+      <ion-label position="floating">Província</ion-label>
+      <ion-input formControlName="province" type="text"></ion-input>
+    </ion-item>
+
+    <!-- Ciutat -->
+    <ion-item>
+      <ion-label position="floating">Ciutat</ion-label>
+      <ion-input formControlName="city" type="text"></ion-input>
+    </ion-item>
+
+    <!-- Botó -->
+    <ion-button
+      expand="block"
+      type="submit"
+      [disabled]="registerForm.invalid">
+      Crear compte
+    </ion-button>
+  </form>
+</ion-content>

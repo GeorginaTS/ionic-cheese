@@ -4,6 +4,7 @@ import { addIcons } from 'ionicons';
 import { logoGoogle } from 'ionicons/icons';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { IonicModule, ToastController } from '@ionic/angular';
 
 
 
@@ -15,14 +16,15 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 })
 export class LoginComponent  implements OnInit {
   authForm!: FormGroup;
-  constructor( private authService: AuthService, private fb: FormBuilder) {
+
+  constructor( private authService: AuthService, private fb: FormBuilder, private toastCtrl: ToastController) {
     
    addIcons({ logoGoogle });
    }
 
   ngOnInit() {
       this.authForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
@@ -39,9 +41,16 @@ async login(): Promise<void> {
       await this.authService.login(email, password);
       console.log('Login successful');
     } catch (error: any) {
-      console.error('Login failed', error.message || error);
+        let message = 'Error login';
+        if (error.code === 'auth/user-not-found') {
+          message = 'User not found';
+        } else if (error.code === 'auth/wrong-password') {
+          message = 'Incorrect password';
+        }
+        this.showToast(message);
+      }
     }
-  }
+
 
   async loginWithGoogle(): Promise<void> {
     try {
@@ -49,5 +58,14 @@ async login(): Promise<void> {
     } catch (error: any) {
       console.error('Google login failed', error.message || error);
     }
+  }
+    private async showToast(message: string) {
+    const toast = await this.toastCtrl.create({
+      message,
+      duration: 3000,
+      color: 'danger',
+      position: 'top'
+    });
+    await toast.present();
   }
 }
