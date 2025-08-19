@@ -23,7 +23,7 @@
               "browser": ""
             },
             "index": "src/index.html",
-            "polyfills": ["src/polyfills.ts"],
+            "polyfills": ["zone.js", "src/polyfills.ts"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -113,7 +113,6 @@
               }
             ],
             "styles": [
-              "src/tailwind.css",
               "src/global.scss",
               "src/theme/variables.scss",
               "node_modules/leaflet/dist/leaflet.css",

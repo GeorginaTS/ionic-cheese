@@ -4,17 +4,19 @@ import 'leaflet.markercluster';
 import { WorldCheese } from 'src/app/interfaces/world-cheese';
 import { WorldCheesesService } from 'src/app/services/world-cheeses.service';
 import { Geolocation } from '@capacitor/geolocation';
-import { IonContent } from "@ionic/angular/standalone";
+import { IonContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-world-cheeses-map',
   templateUrl: './world-cheeses-map.component.html',
   styleUrls: ['./world-cheeses-map.component.scss'],
-  imports: [IonContent]
+  imports: [IonContent],
+  standalone: true,
 })
 export class WorldCheesesMapComponent implements AfterViewInit {
   private map!: L.Map;
-  private markers!: L.MarkerClusterGroup;
+  // Use any type to avoid TypeScript issues with the marker cluster
+  private markers!: any;
   cheeses: WorldCheese[] = [];
   userLatLng: L.LatLng = new L.LatLng(48.85, 2.35); // fallback a París
 
@@ -35,19 +37,36 @@ export class WorldCheesesMapComponent implements AfterViewInit {
       attribution: '&copy; OpenStreetMap contributors',
     }).addTo(this.map);
 
-    this.markers = L.markerClusterGroup();
-    this.map.addLayer(this.markers);
+    try {
+      // @ts-ignore - Ignore the TypeScript error for markerClusterGroup
+      this.markers = L.markerClusterGroup();
+      this.map.addLayer(this.markers);
+    } catch (error) {
+      console.error('Error initializing marker cluster group:', error);
+      // Fallback to regular feature group if marker cluster fails
+      this.markers = new L.FeatureGroup();
+      this.map.addLayer(this.markers);
+    }
 
     // 2. Obtenir posició de l'usuari
     try {
       const coords = await Geolocation.getCurrentPosition();
-      this.userLatLng = new L.LatLng(coords.coords.latitude, coords.coords.longitude);
+      this.userLatLng = new L.LatLng(
+        coords.coords.latitude,
+        coords.coords.longitude
+      );
       this.map.setView(this.userLatLng, 6);
 
       // marcador de la posició de l'usuari
-      L.marker(this.userLatLng).addTo(this.map).bindPopup('La teva ubicació').openPopup();
+      L.marker(this.userLatLng)
+        .addTo(this.map)
+        .bindPopup('La teva ubicació')
+        .openPopup();
     } catch (err) {
-      console.warn('No s’ha pogut obtenir la geolocalització, s’utilitza fallback', err);
+      console.warn(
+        'No s’ha pogut obtenir la geolocalització, s’utilitza fallback',
+        err
+      );
     }
 
     // 3. Carregar formatges
@@ -61,7 +80,8 @@ export class WorldCheesesMapComponent implements AfterViewInit {
 
         const marker = L.marker([lat, lng], { icon: this.cheeseIcon });
 
-        const distance = this.userLatLng.distanceTo([lat, lng]) / 1000; // km
+        const distance =
+          this.userLatLng.distanceTo(new L.LatLng(lat, lng)) / 1000; // km
 
         marker.bindPopup(`
           <b>${c.name}</b><br>

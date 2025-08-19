@@ -14,7 +14,7 @@ import {
   IonIcon,
   IonButton,
   IonBackButton,
-  IonModal
+  IonModal,
 } from '@ionic/angular/standalone';
 import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -30,10 +30,9 @@ import {
   createOutline,
   trashOutline,
 } from 'ionicons/icons';
-import { CheeseDetailComponent } from 'src/app/components/cheese-detail/cheese-detail.component';
-import { AddNoteModalComponent } from "src/app/components/add-note-modal/add-note-modal.component";
-import { CheesePhotoCaptureComponent } from "src/app/components/cheese-photo-capture/cheese-photo-capture.component";
-import { Directory, Filesystem } from '@capacitor/filesystem';
+import { CheeseDetailComponent } from 'src/app/components/my-cheeses/cheese-detail/cheese-detail.component';
+import { AddNoteModalComponent } from 'src/app/components/add-note-modal/add-note-modal.component';
+import { CheesePhotoCaptureComponent } from 'src/app/components/my-cheeses/cheese-photo-capture/cheese-photo-capture.component';
 
 @Component({
   selector: 'app-cheese-detail-page',
@@ -59,8 +58,9 @@ import { Directory, Filesystem } from '@capacitor/filesystem';
     IonBackButton,
     AddNoteModalComponent,
     IonModal,
-    CheesePhotoCaptureComponent
-],
+    CheesePhotoCaptureComponent,
+    CheeseDetailComponent
+  ],
 })
 export class CheeseDetailPage implements OnInit {
   cheeseId: string = '';
@@ -80,7 +80,8 @@ export class CheeseDetailPage implements OnInit {
     addIcons({
       arrowBackCircleOutline: arrowBackCircleOutline,
       caretDownCircle,
-      createOutline, trashOutline
+      createOutline,
+      trashOutline,
     });
   }
   ngOnInit(): void {
@@ -127,7 +128,6 @@ export class CheeseDetailPage implements OnInit {
   addNote() {
     // Logic to add a note can be implemented here
     this.addNoteModalOpen = true;
-  
   }
   openPhotoModal() {
     this.photoModalOpen = true;
