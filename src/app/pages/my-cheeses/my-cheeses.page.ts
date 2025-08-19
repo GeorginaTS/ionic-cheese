@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   IonContent,
   IonHeader,
@@ -9,6 +9,7 @@ import {
   IonFabButton,
   IonFab,
   IonSpinner,
+  IonSearchbar
 } from '@ionic/angular/standalone';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { CheeseService } from '../../services/cheese.service';
@@ -38,18 +39,25 @@ import { RouterLink } from '@angular/router';
     IonFabButton,
     IonFab,
     IonSpinner,
-  ],
+    IonSearchbar,
+    ReactiveFormsModule
+],
 })
 export class MyCheesesPage implements OnInit {
   cheeses: Cheese[] = [];
   isLoading = true;
   errorMessage = '';
+  searchControl = new FormControl('');
+  filteredCheeses: Cheese[] = [];
 
   constructor(private cheeseService: CheeseService) {
     addIcons({ addCircleOutline, add });
   }
   ngOnInit(): void {
     this.loadCheeses();
+    this.searchControl.valueChanges.subscribe(value => {
+      this.filterCheeses(value ?? '');
+    });
   }
   ionViewWillEnter() {
     this.loadCheeses();
@@ -58,6 +66,7 @@ export class MyCheesesPage implements OnInit {
     this.cheeseService.getAllCheeses().subscribe({
       next: (data) => {
         this.cheeses = data;
+        this.filteredCheeses = this.cheeses;
         this.isLoading = false;
       },
       error: (error) => {
@@ -66,5 +75,11 @@ export class MyCheesesPage implements OnInit {
         console.error(error);
       },
     });
+  }
+  filterCheeses(term: string): void {
+    const searchTerm = term.toLowerCase();
+    this.filteredCheeses = this.cheeses.filter(cheese =>
+      cheese.name.toLowerCase().includes(searchTerm)
+    );
   }
 }
