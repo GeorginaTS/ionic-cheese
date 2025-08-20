@@ -62,8 +62,8 @@ The server has successfully compiled and is running. You can now access:
 Tareas
 
 **
-hay que arreglar el componente home al original, 
-hay que insertar bien el logotipo.
+ - ✅ I have to fix the home component, theme and global scss to the original repo. 
+ - ✅ Adding logo alternative
 también el logotipoo de profile de nav
 **
 

@@ -1,29 +1,17 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { IonContent} from '@ionic/angular/standalone';
+import { LoginComponent } from '../components/login/login.component';
+import { MenuComponent } from "../components/menu/menu.component";
+
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [FormsModule],
+  imports: [IonContent, LoginComponent, MenuComponent],
 })
 export class HomePage {
-  email: string = '';
-  password: string = '';
-  showPassword: boolean = false;
+  constructor() {
 
-  constructor() {}
-
-  togglePassword() {
-    this.showPassword = !this.showPassword;
-  }
-
-  login() {
-    if (this.email && this.password) {
-      console.log('Login attempt with:', { email: this.email, password: '***' });
-      // Add your login logic here
-    } else {
-      console.log('Please fill in both email and password');
-    }
   }
 }

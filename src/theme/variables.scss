@@ -24,3 +24,33 @@
 // }
 
 
+// >>>>>>>Alternative<<<<<<<<<
+
+:root {
+  --ion-color-primary: #D87706;
+  --ion-color-secondary: #FEF3C7;
+  --ion-color-tertiary: #92400E;
+  --ion-background-color: #FFFAF1;
+  --ion-font-family: 'Cuprum', -apple-system, Roboto, Helvetica, sans-serif;
+  --spacing-xs: 4px;   /* Muy pequeño - para detalles minúsculos */
+  --spacing-sm: 8px;   /* Pequeño - para espacios reducidos */
+  --spacing-md: 16px;  /* Margen estándar entre tarjetas */
+  --spacing-lg: 24px;  /* Margen extra para secciones grandes */
+  --spacing-xl: 32px;  /* Extra grande - para espacios amplios */
+}
+
+
+/* Ejemplo uso safe areas en Ionic */
+// .header {
+//   padding-top: calc(var(--spacing-md) + env(safe-area-inset-top));
+// }
+
+// .footer {
+//   padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom));
+// }
+
+// .card {
+//   margin-bottom: var(--spacing-lg);
+//   margin-left: var(--spacing-md);
+//   margin-right: var(--spacing-md);
+// }
