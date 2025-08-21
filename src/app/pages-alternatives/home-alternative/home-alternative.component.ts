@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginAlternativeComponent } from '../../components-alternatives/login-alternative/login-alternative.component';
-import { IonFooter, IonToolbar, IonRow, IonContent, IonCol, IonGrid, IonIcon, IonButton } from "@ionic/angular/standalone";
+import { IonContent, IonIcon } from "@ionic/angular/standalone";
+import  { FooterNavComponent } from '../../components-alternatives/footer-nav/footer-nav.component';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { IonFooter, IonToolbar, IonRow, IonContent, IonCol, IonGrid, IonIcon, Io
   templateUrl: './home-alternative.component.html',
   styleUrls: ['./home-alternative.component.scss'],
   standalone: true,
-  imports: [IonButton, IonIcon, IonGrid, IonCol, IonContent, IonRow, IonToolbar, IonFooter, CommonModule, LoginAlternativeComponent]
+  imports: [IonIcon, IonContent, CommonModule, LoginAlternativeComponent, FooterNavComponent]
 })
 export class HomeAlternativeComponent implements OnInit {
 

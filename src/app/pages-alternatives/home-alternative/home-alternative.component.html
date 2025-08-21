@@ -1,55 +1,20 @@
-<ion-content class="home-container" fullscreen>
+<ion-content class="home-container">
   <!-- Cheese logotipo personalizado -->
   <div class="cheese-icon">
-    <ion-icon name="mycheese" style="font-size: 66px; color: var(--ion-color-tertiary);"></ion-icon>
+    <ion-icon
+      name="mycheese"
+      style="font-size: 66px; color: var(--ion-color-tertiary)"
+    ></ion-icon>
   </div>
 
   <!-- Main Title -->
   <h1 class="main-title">CHEESY</h1>
 
   <!-- Subtitle -->
-  <h2 class="subtitle">
-    DISCOVER, CREATE<br>AND SHARE CHEESE
-  </h2>
+  <h2 class="subtitle">DISCOVER, CREATE<br />AND SHARE CHEESE</h2>
 
   <!-- Login Alternative Component -->
   <app-login-alternative></app-login-alternative>
-  
-  </ion-content>
+</ion-content>
 
-
-
-  <!-- Bottom Navigation con Ionic -->
-  <ion-footer class="bottom-nav">
-    <ion-toolbar>
-      <ion-grid>
-        <ion-row class="ion-justify-content-around">
-          <ion-col size="3">
-            <ion-button fill="clear" class="nav-item active">
-              <ion-icon slot="icon-only" name="home" style="color:var(--ion-color-primary);"></ion-icon>
-              <span class="nav-label">Home</span>
-            </ion-button>
-          </ion-col>
-          <ion-col size="3">
-            <ion-button fill="clear" class="nav-item">
-              <ion-icon slot="icon-only" name="search"></ion-icon>
-              <span class="nav-label">Explore</span>
-            </ion-button>
-          </ion-col>
-          <ion-col size="3">
-            <ion-button fill="clear" class="nav-item">
-              <ion-icon slot="icon-only" name="myheart"></ion-icon>
-              <span class="nav-label">Cheese Lovers</span>
-            </ion-button>
-          </ion-col>
-          <ion-col size="3">
-            <ion-button fill="clear" class="nav-item">
-              <ion-icon slot="icon-only" name="person"></ion-icon>
-              <span class="nav-label">Profile</span>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-toolbar>
-  </ion-footer>
-
+<app-footer-nav></app-footer-nav>
