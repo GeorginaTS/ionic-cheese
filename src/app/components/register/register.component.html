@@ -24,17 +24,21 @@
     @if(registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
       <ion-note color="danger">Mínim 6 caràcters</ion-note>
     }
-
-
-  <ion-item>
-    <ion-label position="floating">Data de naixement</ion-label>
-    <ion-datetime-button datetime="birthDate"></ion-datetime-button>
-    <ion-modal [keepContentsMounted]="true">
-      <ng-template>
-        <ion-datetime id="birthDate" formControlName="birthDate"></ion-datetime>
-      </ng-template>
-    </ion-modal>
-  </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Date</ion-label>
+        <ion-datetime-button datetime="birthDate"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime
+              id="birthDate"
+              formControlName="birthDate"
+              presentation="date"
+              [formatOptions]=" { day: '2-digit', month: 'long', year:'2-digit' }"
+            >
+            </ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
 
     <ion-item>
       <ion-label position="floating">País</ion-label>

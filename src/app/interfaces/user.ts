@@ -1,3 +1,5 @@
+import { FieldValue } from "@angular/fire/firestore";
+
 export interface AppUser {
   uid: string;
   name: string;
@@ -6,5 +8,5 @@ export interface AppUser {
   country: string;
   province: string;
   city: string;
-  createdAt: Date;
+  createdAt: Date | FieldValue;
 }

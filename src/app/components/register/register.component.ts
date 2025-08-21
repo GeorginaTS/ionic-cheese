@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 
+
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -18,10 +19,10 @@ export class RegisterComponent {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      birthDate: ['', Validators.required],
+      birthDate: [new Date().toISOString(), [Validators.required]],
       country: ['', Validators.required],
-      province: ['', Validators.required],
-      city: ['', Validators.required],
+      province: [''],
+      city: [''],
     });
   }
 

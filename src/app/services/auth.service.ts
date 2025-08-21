@@ -10,15 +10,17 @@ import {
   User,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { Firestore, doc, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, doc, serverTimestamp, setDoc } from '@angular/fire/firestore';
 import { AppUser } from '../interfaces/user';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   constructor(
     private auth: Auth,
     private router: Router,
-    private firestore: Firestore
+    private firestore: Firestore,
+    private toastController: ToastController
   ) {}
 
   async login(email: string, password: string) {
@@ -27,38 +29,54 @@ export class AuthService {
   }
 
   async register(
-    name: string,
-    email: string,
-    password: string,
-    birthDate: string,
-    country: string,
-    province: string,
-    city: string
+    name: string, email: string, password: string, birthDate: string, country: string, province: string, city: string
   ) {
-    const userCredential = await createUserWithEmailAndPassword(
-      this.auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        this.auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      console.log('Registering user:', user);
+      await updateProfile(user, { displayName: name });
 
-    await updateProfile(user, { displayName: name });
+      const usersCol = collection(this.firestore, 'users');
+      const userRef = doc(usersCol, user.uid);
 
-    const appUser: AppUser = {
-      uid: user.uid,
-      name,
-      email,
-      birthDate,
-      country,
-      province,
-      city,
-      createdAt: new Date(),
-    };
+      const appUser: AppUser = {
+        uid: user.uid,
+        name,
+        email,
+        birthDate,
+        country,
+        province,
+        city,
+        createdAt: serverTimestamp()
+      };
+      console.log('AppUser object:', appUser);
+  
+      await setDoc(userRef, appUser);
+      this.showToast('✅ User registered', 'success');
+      this.router.navigate(['/my-cheeses']);
+ } catch (error: any) {
+    let message = 'ERROR:';
 
-    const userRef = doc(this.firestore, `users/${user.uid}`);
-    await setDoc(userRef, appUser);
+    switch (error.code) {
+      case 'auth/email-already-in-use':
+        message = 'This email is already in use.';
+        break;
+      case 'auth/invalid-email':
+        message = 'Invalid email address.';
+        break;
+      case 'auth/weak-password':
+        message = 'Weak password.';
+        break;
+    }
 
-    this.router.navigate(['/my-cheeses']);
+    this.showToast(message, 'danger');
+    console.error('Error registering user:', message, error);
+  }
   }
 
   async googleLogin() {
@@ -81,5 +99,15 @@ export class AuthService {
   get currentUser() {
     console.log('Current user:', this.auth.currentUser);
     return this.auth.currentUser;
+  }
+
+    private async showToast(message: string, color: 'success' | 'danger' = 'success') {
+    const toast = await this.toastController.create({
+      message,
+      duration: 3000,
+      color,
+      position: 'top'
+    });
+    await toast.present();
   }
 }
