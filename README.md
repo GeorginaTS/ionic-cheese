@@ -62,17 +62,18 @@ TODO Verónica
 **
  - ✅ I have to fix the home component, theme and global scss to the original repo. 
  - ✅ Adding logo alternative
- - ✅ fixed and change all tha Builder made manually using IONIC and Elements HTML and CSS
- - ✅ Apliying the styles and variables of IONIC
- - ✅ fixed nav tab to the bottom vista. 
+ - ✅ fixed and change all the Builder made manually using IONIC and Elements HTML and CSS
+ - ✅ Applying the styles and variables of IONIC
+ - ✅ fixed nav tab to the bottom of vista. 
 **
 TODO Verónica 21/08/2025
 **
-- [ ] Change login-alternative to IONIC features
-- [ ] Logic of Login
-- [ ] Do the list of chesees
-- [ ] 
-- [ ] 
+- ✅ Refactor `login-alternative` to use Ionic components and features  
+- ✅ Adding a 'ñapa' animator of CHEESY 😂 
+- [ ] Implement login logic and authentication  
+- [ ] Create and display the list of cheeses  
+- [ ] Review and clean up unused code or components  
+- [ ] Test all features on multiple devices  
 **
 
 │

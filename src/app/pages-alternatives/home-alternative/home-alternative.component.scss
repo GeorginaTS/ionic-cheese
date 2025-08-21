@@ -2,26 +2,42 @@
   background: var(--ion-background-color);
   min-height: 100vh;
   padding-bottom: 70px;
-  padding: var(--spacing-lg) var(--spacing-md) 0 var(--spacing-md);
+  padding: var(--spacing-mg) var(--spacing-md) 0 var(--spacing-md);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .cheese-icon {
-  margin-top: var(--spacing-xl);
-  margin-bottom: var(--spacing-lg);
+  color: var(--ion-color-primary);
+  margin-top: var(--spacing-lg);
   text-align: center;
+  font-size: 6rem;
+  margin-bottom: 0;
 }
 
 .main-title {
   color: var(--ion-color-primary);
   text-align: center;
   font-family: var(--ion-font-family);
-  font-size: 3rem;
+  font-size: 6rem;
   font-weight: 700;
   letter-spacing: -1px;
+  margin-top: var(--spacing-md);
   margin-bottom: var(--spacing-md);
+}
+.animated-title span {
+  display: inline-block;
+  opacity: 0;
+  transform: scale(0.3);
+  animation: bounceIn 0.7s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+}
+
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.3);}
+  50% { opacity: 1; transform: scale(1.1);}
+  70% { transform: scale(0.9);}
+  100% { opacity: 1; transform: scale(1);}
 }
 
 .subtitle {
@@ -34,14 +50,3 @@
 }
 
 
-/* Responsive adjustments */
-@media (max-width: 414px) {
-  .home-container {
-    padding-left: var(--spacing-sm);
-    padding-right: var(--spacing-sm);
-
-  }
-  .main-title {
-    font-size: 2.5rem;
-  }
-}

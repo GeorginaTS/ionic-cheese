@@ -1,66 +1,23 @@
-.input-field {
+ion-item {
+  --background: #f4f5f8; /* Gris claro típico de Ionic */
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-family: var(--ion-font-family);
+  margin: 0 var(--spacing-xl) 12px var(--spacing-xl);// usa tu variable para el margen lateral
+}
+
+ion-item:first-of-type {
+  margin-top: 6rem;
+}
+
+ion-icon {
   display: flex;
-  height: 53px;
-  padding: 12px 16px;
-  justify-content: flex-start;
+  width: 20px;
+  height: 20px;
+  justify-content: center;
   align-items: center;
-  gap: 6px;
-  border-radius: 20px;
-  background: #EFEFF0;
-  position: absolute;
-  width: 380px;
-
-  &:first-of-type {
-    left: 18px;
-    top: 347px;
-  }
-
-  &:nth-of-type(2) {
-    left: 21px;
-    top: 425px;
-    width: 377px;
-    height: 51px;
-  }
-
-  .search-icon {
-    display: flex;
-    width: 20px;
-    height: 20px;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-  }
-
-  input {
-    flex: 1;
-    border: none;
-    background: transparent;
-    color: #AFB1B6;
-    font-family: 'Cuprum', -apple-system, Roboto, Helvetica, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: -0.32px;
-    outline: none;
-
-    &::placeholder {
-      color: #AFB1B6;
-    }
-
-    &:focus {
-      color: #92400E;
-    }
-  }
-
-  .password-toggle {
-    width: 32px;
-    height: 22px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  flex-shrink: 0;
+  color: #afb1b6; /* Gris claro para iconos */
 }
 
 .login-button {
@@ -72,42 +29,31 @@
   align-items: center;
   gap: 6px;
   border-radius: 24px;
-  background: #FCD34D;
+  background: #fcd34d;
   border: none;
-  position: absolute;
-  left: 118px;
-  top: 517px;
+  margin: 24px auto 0 auto;
   cursor: pointer;
-  color: #92400E;
-  font-family: 'Cuprum', -apple-system, Roboto, Helvetica, sans-serif;
+  color: #92400e;
+  font-family: "Cuprum", -apple-system, Roboto, Helvetica, sans-serif;
   font-size: 16px;
   font-weight: 600;
-
-  &:hover {
-    background: #F59E0B;
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
 }
 
-// Mobile responsive adjustments
-@media (max-width: 414px) {
-  .input-field {
-    &:first-of-type {
-      left: 18px;
-      width: calc(100vw - 36px);
-    }
-
-    &:nth-of-type(2) {
-      left: 18px;
-      width: calc(100vw - 36px);
-    }
-  }
-
-  .login-button {
-    left: 50%;
-    transform: translateX(-50%);
-  }
+.login-button:hover {
+  background: #f59e0b;
 }
+.login-button:active {
+  background: #fcd34d;
+  transform: scale(0.98);
+}
+
+.login-button:focus,
+.login-button:focus-visible {
+  background: #fcd34d; // el color normal
+  outline: none; // opcional, para quitar el borde azul
+}
+
+
+
+
+

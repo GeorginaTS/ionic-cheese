@@ -13,7 +13,7 @@ import  { FooterNavComponent } from '../../components-alternatives/footer-nav/fo
   imports: [IonIcon, IonContent, CommonModule, LoginAlternativeComponent, FooterNavComponent]
 })
 export class HomeAlternativeComponent implements OnInit {
-
+cheesyLetters = 'CHEESY'.split('');
   constructor() { }
 
   ngOnInit() {}
