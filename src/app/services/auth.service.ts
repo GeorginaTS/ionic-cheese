@@ -8,9 +8,10 @@ import {
   signInWithPopup,
   updateProfile,
   User,
+  onAuthStateChanged,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { Firestore, collection, doc, serverTimestamp, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, doc, serverTimestamp, setDoc, getDoc, DocumentSnapshot } from '@angular/fire/firestore';
 import { AppUser } from '../interfaces/user';
 import { ToastController } from '@ionic/angular';
 
@@ -24,8 +25,37 @@ export class AuthService {
   ) {}
 
   async login(email: string, password: string) {
-    await signInWithEmailAndPassword(this.auth, email, password);
-    this.router.navigate(['/my-cheeses']);
+    try {
+      console.log('Attempting to login with:', { email, password: '***' });
+      const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
+      console.log('Login successful, user:', userCredential.user);
+      this.router.navigate(['/my-cheeses']);
+      return userCredential;
+    } catch (error: any) {
+      console.error('Login error:', error);
+      let errorMessage = 'Login failed';
+      
+      switch(error.code) {
+        case 'auth/invalid-email':
+          errorMessage = 'Invalid email format';
+          break;
+        case 'auth/user-not-found':
+          errorMessage = 'No user found with this email';
+          break;
+        case 'auth/wrong-password':
+          errorMessage = 'Incorrect password';
+          break;
+        case 'auth/too-many-requests':
+          errorMessage = 'Too many failed login attempts. Try again later';
+          break;
+        case 'auth/network-request-failed':
+          errorMessage = 'Network error. Check your connection';
+          break;
+      }
+      
+      this.showToast(errorMessage, 'danger');
+      throw error;
+    }
   }
 
   async register(
@@ -100,8 +130,30 @@ export class AuthService {
     console.log('Current user:', this.auth.currentUser);
     return this.auth.currentUser;
   }
+  
+  async getUserProfile(uid?: string) {
+    const userId = uid || this.auth.currentUser?.uid;
+    if (!userId) {
+      throw new Error('No authenticated user');
+    }
+    
+    const userDoc = doc(this.firestore, `users/${userId}`);
+    const userSnapshot = await getDoc(userDoc);
+    
+    if (userSnapshot.exists()) {
+      return userSnapshot.data();
+    } else {
+      console.log('User document not found. Returning basic profile.');
+      // Return basic user info from auth if firestore document doesn't exist
+      return {
+        email: this.auth.currentUser?.email,
+        name: this.auth.currentUser?.displayName,
+        uid: userId,
+      };
+    }
+  }
 
-    private async showToast(message: string, color: 'success' | 'danger' = 'success') {
+  private async showToast(message: string, color: 'success' | 'danger' = 'success') {
     const toast = await this.toastController.create({
       message,
       duration: 3000,

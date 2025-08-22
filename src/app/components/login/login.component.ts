@@ -31,25 +31,30 @@ export class LoginComponent  implements OnInit {
 
 async login(): Promise<void> {
     if (this.authForm.invalid) {
-      console.log('Form invalid');
+      console.log('Form validation failed:', this.authForm.errors);
+      
+      // Mark all fields as touched to show validation errors
+      Object.keys(this.authForm.controls).forEach(key => {
+        const control = this.authForm.get(key);
+        control?.markAsTouched();
+      });
+      
       return;
     }
+    
     const email: string = this.authForm.get('email')?.value;
     const password: string = this.authForm.get('password')?.value;
+    
+    console.log('Attempting login with email:', email);
 
     try {
       await this.authService.login(email, password);
       console.log('Login successful');
     } catch (error: any) {
-        let message = 'Error login';
-        if (error.code === 'auth/user-not-found') {
-          message = 'User not found';
-        } else if (error.code === 'auth/wrong-password') {
-          message = 'Incorrect password';
-        }
-        this.showToast(message);
-      }
+      console.error('Login error in component:', error);
+      // The toast is already shown in the service
     }
+  }
 
 
   async loginWithGoogle(): Promise<void> {
