@@ -20,38 +20,7 @@ ion-icon {
   color: #afb1b6; /* Gris claro para iconos */
 }
 
-.login-button {
-  display: flex;
-  width: 172px;
-  height: 43px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  border-radius: 24px;
-  background: #fcd34d;
-  border: none;
-  margin: 24px auto 0 auto;
-  cursor: pointer;
-  color: #92400e;
-  font-family: "Cuprum", -apple-system, Roboto, Helvetica, sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-}
 
-.login-button:hover {
-  background: #f59e0b;
-}
-.login-button:active {
-  background: #fcd34d;
-  transform: scale(0.98);
-}
-
-.login-button:focus,
-.login-button:focus-visible {
-  background: #fcd34d; // el color normal
-  outline: none; // opcional, para quitar el borde azul
-}
 
 
 

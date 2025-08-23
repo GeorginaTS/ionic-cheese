@@ -70,10 +70,12 @@ TODO Verónica 21/08/2025
 **
 - ✅ Refactor `login-alternative` to use Ionic components and features  
 - ✅ Adding a 'ñapa' animator of CHEESY 😂 
-- [ ] Implement login logic and authentication  
+- ✅ Implement login/sing up logic and  basic frontend authentication  
+- ✅ **Commit before to erase all that is not "alternative" to avoid style ionic conflicts.**
 - [ ] Create and display the list of cheeses  
 - [ ] Review and clean up unused code or components  
 - [ ] Test all features on multiple devices  
 **
 
 │
+

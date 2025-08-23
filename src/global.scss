@@ -74,3 +74,30 @@ hr {
 // ion-content {
 //   --background: var(--bg-color);
 // }
+
+ion-button {
+  --background: var(--ion-button-background);
+  --color: var(--ion-button-color);
+  --border-radius: 24px;
+  --box-shadow: none;
+  font-family: var(--ion-font-family);
+  font-size: 16px;
+  font-weight: 600;
+  width: 172px;
+  height: 43px;
+  margin: 24px auto 0 auto;
+  transition: background 0.2s, transform 0.1s;
+}
+
+ion-button:hover,
+ion-button:focus {
+  --background: var(--ion-button-background-hover);
+  --color: #fff;
+  transform: scale(0.98);
+}
+
+ion-button:active {
+  --background: var(--ion-button-background-active);
+  outline: none;
+  transform: scale(0.98);
+}
