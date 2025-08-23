@@ -10,13 +10,7 @@ import {
   IonButton,
   IonIcon,
   IonCard,
-  IonCardContent,
-  IonItem,
-  IonLabel,
   IonAvatar,
-  IonSkeletonText,
-  IonChip,
-  IonList,
 } from '@ionic/angular/standalone';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { AuthService } from 'src/app/services/auth.service';

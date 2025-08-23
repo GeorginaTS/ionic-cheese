@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, from, Observable } from 'rxjs';
 import {
   Auth,
   user,
@@ -9,6 +9,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   updateProfile,
+  getAuth,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { serverTimestamp } from '@angular/fire/firestore';
@@ -123,7 +124,14 @@ export class AuthService {
     await signInWithPopup(this.auth, provider);
     this.router.navigate(['/my-cheeses']);
   }
-
+  get currentUser() {
+    return this.auth.currentUser;
+  }
+  getIdToken$(): Observable<string> {
+    const user = this.auth.currentUser;
+    if (!user) throw new Error('Usuari no autenticat');
+    return from(user.getIdToken());
+  }
   async getUserProfile(uid?: string): Promise<AppUser | null> {
     try {
       // Espera a que l'usuari autenticat estigui disponible
