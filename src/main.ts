@@ -28,9 +28,13 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideHttpClient(),
-    //Firebase 
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
+    provideFirestore(() => {
+      const firestore = getFirestore();
+      // Persistència automàtica ja habilitada en SDK modular
+      // No cal enableIndexedDbPersistence() deprecated
+      return firestore;
+    }),
   ],
 });
