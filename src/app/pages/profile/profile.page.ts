@@ -2,16 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonButton,
-  IonIcon,
-  IonCard,
-  IonAvatar,
-} from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonCard, IonAvatar, IonText } from '@ionic/angular/standalone';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { addIcons } from 'ionicons';
@@ -45,17 +36,19 @@ import { AppUser } from 'src/app/interfaces/user';
     IonCard,
     RouterLink,
     IonAvatar,
-  ],
+    IonText
+],
 })
 export class ProfilePage implements OnInit {
   user: User | null = null;
+  currentUser: any = null;
   userProfile: AppUser = {
     uid: '',
     displayName: '',
     email: '',
     photoURL: '',
   };
-  loading = true;
+  isLoading = true;
 
   constructor(private authService: AuthService) {
     addIcons({
@@ -76,25 +69,55 @@ export class ProfilePage implements OnInit {
     this.loadProfile();
   }
   async loadProfile() {
+    this.isLoading = true;
     try {
-      const profile: AppUser | null = await this.authService.getUserProfile();
-      this.userProfile = profile ?? {
-        uid: '',
-        displayName: '',
-        email: '',
-        photoURL: '',
+      this.user = this.authService.currentUser;
+      if (!this.user) {
+        console.warn('No authenticated user found');
+        return;
+      }
+
+      // Assignar les dades bàsiques de l'usuari autenticat
+      this.currentUser = {
+        uid: this.user.uid,
+        displayName: this.user.displayName || 'User',
+        email: this.user.email || '',
+        photoURL: this.user.photoURL || '',
       };
-      console.log('User profile loaded:', this.userProfile);
+
+      // Intentar carregar dades adicionals del perfil des de Firestore
+      const profile = await this.authService.getUserProfile();
+      if (profile) {
+        // Si es troba el perfil a Firestore, actualitzar el currentUser
+        this.currentUser = {
+          ...this.currentUser,
+          ...profile,
+        };
+        console.log('User profile loaded from Firestore:', profile);
+      }
+
+      console.log('Final currentUser:', this.currentUser);
     } catch (error) {
       console.error('Error loading profile:', error);
-      this.userProfile = {
-        uid: '',
-        displayName: '',
-        email: '',
-        photoURL: '',
-      };
+      if (this.user) {
+        // Si falla la càrrega del perfil però tenim un usuari autenticat
+        this.currentUser = {
+          uid: this.user.uid,
+          displayName: this.user.displayName || 'User',
+          email: this.user.email || '',
+          photoURL: this.user.photoURL || '',
+        };
+      } else {
+        // Fallback si no hi ha usuari
+        this.currentUser = {
+          uid: '',
+          displayName: 'Guest',
+          email: '',
+          photoURL: '',
+        };
+      }
     } finally {
-      this.loading = false;
+      this.isLoading = false;
     }
   }
 

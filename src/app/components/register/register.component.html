@@ -3,9 +3,9 @@
 
     <ion-item>
       <ion-label position="floating">Nom</ion-label>
-      <ion-input formControlName="name" type="text"></ion-input>
+      <ion-input formControlName="displayName" type="text"></ion-input>
     </ion-item>
-    @if(registerForm.get('name')?.touched && registerForm.get('name')?.invalid) {
+    @if(registerForm.get('displayName')?.touched && registerForm.get('displayName')?.invalid) {
       <ion-note color="danger">El nom és obligatori</ion-note>
     }
 

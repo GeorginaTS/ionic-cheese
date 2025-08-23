@@ -16,12 +16,13 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { IonicModule, ToastController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  standalone: true,
   imports: [
     IonButton,
     IonItem,
