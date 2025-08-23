@@ -1,5 +1,7 @@
 // Importació explícita de zone.js per evitar problemes amb Vite
 import 'zone.js';
+import { addIcons } from 'ionicons';
+import * as allIcons from 'ionicons/icons';
 
 import { bootstrapApplication } from '@angular/platform-browser';
 import {
@@ -17,6 +19,8 @@ import { provideHttpClient } from '@angular/common/http';
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
+
+addIcons(allIcons);
 
 bootstrapApplication(AppComponent, {
   providers: [

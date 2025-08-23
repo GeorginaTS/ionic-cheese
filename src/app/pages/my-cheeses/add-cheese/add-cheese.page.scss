@@ -17,14 +17,14 @@ ion-item {
         color: var(--primary-color);
         font-size: 1rem;
         margin-right: 1rem;
-    } 
+    }
     > ion-input {
         font-size: 0.9rem;
         color: var(--dark-color);
-    } 
+    }
     > ion-select {
         font-size: 0.9rem;
         color: var(--dark-color);
-        width:100vw
-    }   
+        width: 100%;
+    }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { CustomIconsService } from './services/custom-icons.service';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,8 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
-  constructor() {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  constructor(private customIcons: CustomIconsService  ) {}
 }
+
+
