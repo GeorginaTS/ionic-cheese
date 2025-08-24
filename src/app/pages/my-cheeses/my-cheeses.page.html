@@ -5,13 +5,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <div>
-        <ion-title size="large">my-cheeses</ion-title>
-      </div>
-    </ion-toolbar>
-  </ion-header>
   <section>
   <ion-searchbar [formControl]="searchControl"></ion-searchbar>
     @if(!isLoading && cheeses.length > 0) {

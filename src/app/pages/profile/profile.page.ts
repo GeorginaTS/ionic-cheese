@@ -70,6 +70,7 @@ export class ProfilePage implements OnInit {
   }
   async loadProfile() {
     this.isLoading = true;
+    
     try {
       this.user = this.authService.currentUser;
       if (!this.user) {
