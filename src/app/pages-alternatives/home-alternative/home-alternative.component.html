@@ -1,9 +1,8 @@
 <ion-content class="home-container">
-  <!-- Cheese logotipo personalizado -->
+
   <div class="cheese-icon">
     <ion-icon name="mycheese"></ion-icon>
   </div>
-  <!-- Main Title -->
   <h1 class="main-title animated-title">
     <span
       *ngFor="let letter of cheesyLetters; let i = index"
@@ -12,15 +11,10 @@
       {{ letter }}
     </span>
   </h1>
-
-  <!-- Subtitle -->
   <h2 class="subtitle">DISCOVER, CREATE<br />AND SHARE CHEESE</h2>
 
-  <!-- Login Alternative Component -->
   <app-login-alternative></app-login-alternative>
-  <!-- Sign Up Button -->
-  <ion-button class="app-button" [routerLink]="['/register-alternative']">
-    Sign Up
-  </ion-button>
+
+  <ion-button [routerLink]="['/register-alternative']"> Sign Up </ion-button>
 </ion-content>
 <app-footer-nav></app-footer-nav>

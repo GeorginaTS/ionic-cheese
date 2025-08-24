@@ -7,27 +7,32 @@
   z-index: 100;
   padding: 4px 0 env(safe-area-inset-bottom) 0;
 
-  ion-toolbar {
-    --background: transparent;
-    background: transparent;
-    box-shadow: none;
-    border: none;
-  }
-
-  .nav-item {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-    font-size: 12px;
-    font-weight: 400;
-    margin-top: 0;
-    color: var(--ion-color-tertiary);
-
-    &.active {
-      color: var(--ion-color-primary);
+  ion-button {
+    width: 70px;
+    min-width: 0;
+    height: 70px;
+    --padding-start: 0;
+    --padding-end: 0;
+    --border-radius: 50%;
+    margin: 0 auto;
+    --box-shadow: none;
+    // HOVER: sincroniza icono y label
+    &:hover .nav-label,
+    &:focus .nav-label,
+    &:hover ion-icon,
+    &:focus ion-icon {
+      color: #fff !important;
+      stroke: #fff !important;
+      fill: #fff !important;
+      transition: color 0.2s, stroke 0.2s, fill 0.2s;
     }
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 
     ion-icon {
       font-size: 28px;
@@ -35,21 +40,37 @@
       margin: 0 auto 0 auto;
     }
   }
+  .nav-label {
+    font-size: 12px;
+    font-weight: 400;
+    margin-top: 0;
+    color: var(--ion-color-tertiary);
+    transition: color 0.2s;
+    &.active {
+      color: var(--ion-color-primary);
+    }
+  }
+  ion-grid,
+  ion-row {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  ion-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  ion-col {
+    flex: 1 1 0;
+    max-width: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+  }
 }
-.nav-label {
-  font-size: 12px;
-  font-weight: 400;
-  margin-top: 0;
-  color: var(--ion-color-tertiary);
-}
-
-/* Color global para el icono myheart */
-ion-icon[name="myheart"] {
-  color: var(--ion-color-tertiary) !important;
-  stroke: var(--ion-color-tertiary) !important;
-  fill: none !important;
-}
-
 @media (max-width: 414px) {
   .bottom-nav {
     padding-left: var(--spacing-sm);

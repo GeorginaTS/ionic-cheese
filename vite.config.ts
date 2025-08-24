@@ -7,7 +7,7 @@ export default defineConfig({
   },
   build: {
     commonjsOptions: {
-      include: ['tailwind.config.js', 'node_modules/**'],
+      include: ['node_modules/**'],
     },
   },
   resolve: {

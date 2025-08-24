@@ -25,79 +25,52 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
-
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-//@import '@ionic/angular/css/palettes/dark.system.css';
-
-body {
-  --ion-background-color: var(--bg-color);
-  --ion-text-color: var(--dark-color);
-}
-a {
-  text-decoration: none;
-}
-hr {
-  margin: 0.6rem 0;
-  border: none;
-  border-top: 1px solid var(--primary-color);
-  width: 100%;
-}
-// ion-button {
-//   --background: var(--secondary-color);
-//   --color: var(--tertiary-color);
-//   font-weight: bold;
-//   --border-radius: 24px;
-//   text-transform: capitalize;
-//   --padding-top: 0;
-//   --padding-bottom: 0;
-//   --padding-start: 1rem;
-//   --padding-end: 1rem;
-// }
-// ion-button:hover {
-//   font-weight: bolder;
-// }
-
-// ion-toolbar {
-//   --background: var(--ion-color-light);
-//   --box-shadow: none;
-//   --border-width: 0;
-//   --border-color: transparent;
-// }
-
-// ion-content {
-//   --background: var(--bg-color);
-// }
-
-ion-button {
-  --background: var(--ion-button-background);
-  --color: var(--ion-button-color);
-  --border-radius: 24px;
+ion-content {
+  --background: var(--ion-background-color);
   --box-shadow: none;
-  font-family: var(--ion-font-family);
+  padding-bottom: var(--footer-height);
+}
+html,
+body {
+  overflow-x: hidden;
+}
+ion-button {
+  margin: 24px auto 0 auto;
+  display: block;
+  width: 172px;
+  max-width: 90vw;
+  position: relative;
+  z-index: 2;
   font-size: 16px;
   font-weight: 600;
-  width: 172px;
-  height: 43px;
-  margin: 24px auto 0 auto;
+  --border-radius: 24px;
+  font-family: var(--ion-font-family);
+  --color: var(--ion-color-tertiary);
+  --box-shadow: none;
+  text-transform: none;
   transition: background 0.2s, transform 0.1s;
 }
-
-ion-button:hover,
-ion-button:focus {
-  --background: var(--ion-button-background-hover);
-  --color: #fff;
-  transform: scale(0.98);
+ion-button {
+  --background: var(--ion-button-background);
 }
-
+ion-button:hover {
+  --background: var(--ion-button-background-hover);
+  color: #fff;
+}
 ion-button:active {
   --background: var(--ion-button-background-active);
-  outline: none;
-  transform: scale(0.98);
+}
+ion-button:focus {
+  color: #fff;
+}
+ion-toolbar {
+  --background: transparent;
+  background: transparent;
+  box-shadow: none;
+  border: none;
+}
+@media (max-width: 600px) {
+  .main-title {
+    font-size: 2.2rem;
+  }
 }

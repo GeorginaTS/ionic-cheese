@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginAlternativeComponent } from '../../components-alternatives/login-alternative/login-alternative.component';
-import { IonContent, IonIcon, IonButton } from "@ionic/angular/standalone";
+import { IonContent, IonIcon } from "@ionic/angular/standalone";
 import { FooterNavComponent } from '../../components-alternatives/footer-nav/footer-nav.component';
 import { RouterModule } from '@angular/router';
 
