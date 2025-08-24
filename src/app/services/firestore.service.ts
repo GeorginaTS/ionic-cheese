@@ -1,5 +1,18 @@
-import { Injectable, inject, Injector, runInInjectionContext } from '@angular/core';
-import { Firestore, doc, getDoc, setDoc, updateDoc, serverTimestamp, FirestoreDataConverter } from '@angular/fire/firestore';
+import {
+  Injectable,
+  inject,
+  Injector,
+  runInInjectionContext,
+} from '@angular/core';
+import {
+  Firestore,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  serverTimestamp,
+  FirestoreDataConverter,
+} from '@angular/fire/firestore';
 import { Observable, from, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { AppUser } from '../interfaces/user';
@@ -21,7 +34,7 @@ const appUserConverter: FirestoreDataConverter<AppUser> = {
       createdAt: data['createdAt'],
       updatedAt: data['updatedAt'],
     } as AppUser;
-  }
+  },
 };
 
 @Injectable({ providedIn: 'root' })
@@ -29,18 +42,23 @@ export class FirestoreService {
   private firestore = inject(Firestore);
   private injector = inject(Injector);
 
+  constructor() {
+    // La persistència s'ha configurat a main.ts mitjançant FirestoreSettings.cache
+    // No necessitem habilitar-la aquí
+  }
+
   /** Obté un document com a observable tipat (offline-ready) */
   getDocument$(collectionPath: string, docId: string): Observable<any> {
     // Creem l'observable manualment, sense dependre de les APIs de Firebase
-    return new Observable(observer => {
+    return new Observable((observer) => {
       // Executem el codi dins del context d'injecció
       runInInjectionContext(this.injector, () => {
         try {
           const docRef = doc(this.firestore, collectionPath, docId);
-          
+
           // Fem la crida a getDoc dins del context d'injecció
           getDoc(docRef)
-            .then(docSnap => {
+            .then((docSnap) => {
               if (docSnap.exists()) {
                 observer.next({ id: docSnap.id, ...docSnap.data() });
               } else {
@@ -48,7 +66,7 @@ export class FirestoreService {
               }
               observer.complete();
             })
-            .catch(error => {
+            .catch((error) => {
               console.error('Error fetching document:', error);
               observer.error(error);
               observer.complete();
@@ -72,12 +90,12 @@ export class FirestoreService {
           updatedAt: serverTimestamp(),
           createdAt: data.createdAt ?? serverTimestamp(),
         };
-        
+
         // Eliminem les propietats undefined que poden causar problemes
-        Object.keys(docData).forEach(key => 
-          docData[key] === undefined && delete docData[key]
+        Object.keys(docData).forEach(
+          (key) => docData[key] === undefined && delete docData[key]
         );
-        
+
         await setDoc(docRef, docData, { merge: true });
         return true;
       } catch (error) {
@@ -94,14 +112,14 @@ export class FirestoreService {
         const docRef = doc(this.firestore, collectionPath, docId);
         const updateData = {
           ...data,
-          updatedAt: serverTimestamp()
+          updatedAt: serverTimestamp(),
         };
-        
+
         // Eliminem les propietats undefined que poden causar problemes
-        Object.keys(updateData).forEach(key => 
-          updateData[key] === undefined && delete updateData[key]
+        Object.keys(updateData).forEach(
+          (key) => updateData[key] === undefined && delete updateData[key]
         );
-        
+
         await updateDoc(docRef, updateData);
         return true;
       } catch (error) {

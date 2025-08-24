@@ -135,70 +135,63 @@ export class AuthService {
   }
   async getUserProfile(uid?: string): Promise<AppUser | null> {
   try {
-    // Utilitzem l'observable user() per accedir a l'usuari actual dins del context d'injecció
-    return new Promise<AppUser | null>((resolve) => {
-      user(this.auth).pipe(take(1)).subscribe(async (firebaseUser) => {
-        // Obtenir l'ID d'usuari del paràmetre o de l'usuari autenticat
-        const userId = uid || firebaseUser?.uid;
+    // Utilitzar directament currentUser en lloc de l'observable user()
+    const firebaseUser = this.auth.currentUser;
+    
+    // Obtenir l'ID d'usuari del paràmetre o de l'usuari autenticat
+    const userId = uid || firebaseUser?.uid;
+    
+    if (!userId) {
+      console.log('No authenticated user found');
+      this.router.navigate(['/home']);
+      return null;
+    }
+    
+    try {
+      // Obtenir dades extra del perfil des de Firestore
+      const userData = await firstValueFrom(
+        this.firestoreService.getDocument$('users', userId)
+      );
+      
+      // Crear objecte d'usuari combinant dades principals de currentUser i extra de Firestore
+      const appUser: AppUser = {
+        uid: userId,
+        // Dades principals de l'usuari autenticat
+        displayName: firebaseUser?.displayName || userData?.displayName || 'NO name - User',
+        email: firebaseUser?.email || userData?.email || '',
+        photoURL: firebaseUser?.photoURL || userData?.photoURL || null,
+        // Dades extra de Firestore
+        birthDate: userData?.birthDate,
+        country: userData?.country,
+        province: userData?.province,
+        city: userData?.city,
+        createdAt: userData?.createdAt,
+        // Qualsevol altra dada de userData
+        ...userData
+      } as AppUser;
+      
+      console.log('User profile loaded successfully:', appUser);
+      return appUser;
+    } catch (error) {
+      console.error('Error loading Firestore user data:', error);
+      
+      // Si falla l'accés a Firestore, retornem les dades bàsiques de l'usuari autenticat
+      if (firebaseUser) {
+        const basicUser: AppUser = {
+          uid: firebaseUser.uid,
+          displayName: firebaseUser.displayName || 'NO name - User',
+          email: firebaseUser.email || '',
+          photoURL: firebaseUser.photoURL || null,
+        } as AppUser;
         
-        if (!userId) {
-          console.log('No authenticated user found');
-          resolve(null);
-          this.router.navigate(['/home']);
-          return;
-        }
-        
-        try {
-          // Obtenir dades extra del perfil des de Firestore
-          const userData = await firstValueFrom(
-            this.firestoreService.getDocument$('users', userId)
-          );
-          
-          // Crear objecte d'usuari combinant dades principals de currentUser i extra de Firestore
-          const appUser: AppUser = {
-            uid: userId,
-            // Dades principals de l'usuari autenticat
-            displayName: firebaseUser?.displayName || userData?.displayName || 'NO name - User',
-            email: firebaseUser?.email || userData?.email || '',
-            photoURL: firebaseUser?.photoURL || userData?.photoURL || null,
-            // Dades extra de Firestore
-            birthDate: userData?.birthDate,
-            country: userData?.country,
-            province: userData?.province,
-            city: userData?.city,
-            createdAt: userData?.createdAt,
-            // Qualsevol altra dada de userData
-            ...userData
-          } as AppUser;
-          
-          console.log('User profile loaded successfully:', appUser);
-          resolve(appUser);
-        } catch (error) {
-          console.error('Error loading Firestore user data:', error);
-          
-          // Si falla l'accés a Firestore, retornem les dades bàsiques de l'usuari autenticat
-          if (firebaseUser) {
-            const basicUser: AppUser = {
-              uid: firebaseUser.uid,
-              displayName: firebaseUser.displayName || 'NO name - User',
-              email: firebaseUser.email || '',
-              photoURL: firebaseUser.photoURL || null,
-            } as AppUser;
-            
-            console.log('Returning basic user profile:', basicUser);
-            resolve(basicUser);
-          } else {
-            console.log('No user data available');
-            resolve(null);
-            this.router.navigate(['/home']);
-          }
-        }
-      }, (error) => {
-        console.error('Error getting authentication state:', error);
-        resolve(null);
+        console.log('Returning basic user profile:', basicUser);
+        return basicUser;
+      } else {
+        console.log('No user data available');
         this.router.navigate(['/home']);
-      });
-    });
+        return null;
+      }
+    }
   } catch (error) {
     console.error('getUserProfile failed:', error);
     this.router.navigate(['/home']);

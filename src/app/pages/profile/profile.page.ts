@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -17,6 +17,7 @@ import {
 } from 'ionicons/icons';
 import { User } from '@angular/fire/auth';
 import { AppUser } from 'src/app/interfaces/user';
+import { FocusManagerService } from 'src/app/services/focus-manager.service';
 
 @Component({
   selector: 'app-profile',
@@ -49,7 +50,7 @@ export class ProfilePage implements OnInit {
   };
   isLoading = true;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private focusManager: FocusManagerService,  private elementRef: ElementRef) {
     addIcons({
       logOutOutline,
       mailOutline,
@@ -67,6 +68,10 @@ export class ProfilePage implements OnInit {
   ionViewWillEnter() {
     this.loadProfile();
   }
+  // El mètode ionViewWillLeave:
+ionViewWillLeave() {
+  this.focusManager.clearFocus(this.elementRef);
+}
   async loadProfile() {
     this.isLoading = true;
 

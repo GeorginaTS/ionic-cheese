@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import {
   IonContent,
   IonSegment,
@@ -9,6 +9,7 @@ import { LoginComponent } from '../../components/login/login.component';
 import { MenuComponent } from '../../components/menu/menu.component';
 import { RegisterComponent } from '../../components/register/register.component';
 import { FormsModule } from '@angular/forms';
+import { FocusManagerService } from 'src/app/services/focus-manager.service';
 
 @Component({
   selector: 'app-home',
@@ -28,5 +29,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class HomePage {
   selectedTab: 'login' | 'register' = 'login';
-  constructor() {}
+  constructor(private elementRef: ElementRef,
+  private focusManager: FocusManagerService) {}
+  ionViewWillLeave() {
+    this.focusManager.clearFocus(this.elementRef);
+  }
 }
