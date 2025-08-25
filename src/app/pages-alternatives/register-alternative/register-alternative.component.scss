@@ -1,11 +1,4 @@
-.register-container {
-  background: var(--ion-background-color);
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: var(--spacing-lg) var(--spacing-md) 0 var(--spacing-md);
-}
+@import 'src/theme/forms.scss';
 
 .cheese-icon {
   color: var(--ion-color-primary);
@@ -14,7 +7,6 @@
   margin-top: var(--spacing-md);
   text-align: center;
 }
-
 .register-title {
   color: var(--ion-color-primary);
   text-align: center;
@@ -24,51 +16,7 @@
   margin-bottom: var(--spacing-lg);
   letter-spacing: 1px;
 }
-
-form {
-  width: 100%;
-  max-width: 350px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-}
 .text-date {
   font-size: 1rem;
   color: #92949c;
-}
-
-ion-item {
-  --background: #f4f5f8;
-  border-radius: 8px;
-  margin-bottom: var(--spacing-xs);
-  width: 100%;
-  min-height: 44px;
-  --padding-start: 8px;
-  --padding-end: 8px;
-  margin-bottom: 12px;
-}
-
-ion-icon[slot="start"] {
-  color: var(--ion-color-tertiary);
-  font-size: 1.2rem;
-}
-
-ion-input {
-  font-size: 1rem;
-  color: #92949c;
-}
-
-ion-icon[slot="end"] {
-  color: var(--ion-color-tertiary);
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-.error-message {
-  color: var(--ion-color-danger, #e74c3c);
-  margin: 8px 0;
-  text-align: center;
-  font-size: 0.95rem;
 }

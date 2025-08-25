@@ -74,6 +74,7 @@ TODO Verónica 21/08/2025
 - ✅ **Commit before to erase all that is not "alternative" to avoid style ionic conflicts.**
 - ✅ Fix: resolve button and style conflicts with Tailwind, move all shared styles to global.scss 
 - ✅ Refactor login using FormGroup, polish registros styles 
+- ✅ Refactor style(forms): unify layout and styles for login and registration forms 
 - [ ] Create and display the list of cheeses  
 - [ ] Review and clean up unused code or components  
 - [ ] Test all features on multiple devices  
