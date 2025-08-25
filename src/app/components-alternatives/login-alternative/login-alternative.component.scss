@@ -9,6 +9,7 @@ ion-input {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+  color: #92949c;
 }
 ion-icon {
   display: flex;
@@ -18,6 +19,9 @@ ion-icon {
   align-items: center;
   flex-shrink: 0;
   color: #afb1b6; /* Gris claro para iconos */
+}
+ion-icon[name="eye"], ion-icon[name="eye-off"] {
+  color: var(--ion-color-tertiary);
 }
 
 

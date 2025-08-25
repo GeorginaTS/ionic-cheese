@@ -31,6 +31,12 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+.text-date {
+  font-size: 1rem;
+  color: #92949c;
 }
 
 ion-item {
@@ -41,6 +47,7 @@ ion-item {
   min-height: 44px;
   --padding-start: 8px;
   --padding-end: 8px;
+  margin-bottom: 12px;
 }
 
 ion-icon[slot="start"] {
@@ -50,7 +57,7 @@ ion-icon[slot="start"] {
 
 ion-input {
   font-size: 1rem;
-  color: var(--ion-color-dark);
+  color: #92949c;
 }
 
 ion-icon[slot="end"] {

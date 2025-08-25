@@ -1,14 +1,20 @@
-  <!-- Email Input -->
+<form [formGroup]="loginForm" (ngSubmit)="login()">
   <ion-item lines="none">
     <ion-icon name="search-outline" slot="start"></ion-icon>
     <ion-input type="email" placeholder="email"></ion-input>
   </ion-item>
-
   <ion-item lines="none">
     <ion-icon name="search-outline" slot="start"></ion-icon>
-    <ion-input type="password" placeholder="password"></ion-input>
+    <ion-input
+      [type]="showPassword ? 'text' : 'password'"
+      placeholder="password"
+    ></ion-input>
+    <ion-icon
+      [name]="showPassword ? 'eye-off' : 'eye'"
+      slot="end"
+      (click)="showPassword = !showPassword"
+    >
+    </ion-icon>
   </ion-item>
-
-  <!-- Login Button -->
-  <ion-button (click)="login()">Login</ion-button>
-
+  <ion-button type="submit">Login</ion-button>
+</form>

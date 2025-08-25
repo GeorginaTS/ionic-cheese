@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'; // <- Solo Validators
 import { CommonModule } from '@angular/common';
 import { IonInput, IonIcon, IonItem, IonButton } from "@ionic/angular/standalone";
 
@@ -8,25 +8,23 @@ import { IonInput, IonIcon, IonItem, IonButton } from "@ionic/angular/standalone
   templateUrl: './login-alternative.component.html',
   styleUrls: ['./login-alternative.component.scss'],
   standalone: true,
-  imports: [IonButton, IonItem, IonIcon, IonInput, FormsModule, CommonModule]
+  imports: [IonButton, IonItem, IonIcon, IonInput, ReactiveFormsModule, CommonModule]
 })
-export class LoginAlternativeComponent implements OnInit {
-  email: string = '';
-  password: string = '';
+export class LoginAlternativeComponent {
+  loginForm: FormGroup;
   showPassword: boolean = false;
 
-  constructor() { }
-
-  ngOnInit() {}
-
-  togglePassword() {
-    this.showPassword = !this.showPassword;
+  constructor(private fb: FormBuilder) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
   }
 
   login() {
-    if (this.email && this.password) {
-      console.log('Login attempt with:', { email: this.email, password: '***' });
-      // Add your login logic here
+    if (this.loginForm.valid) {
+      const { email, password } = this.loginForm.value;
+      console.log('Login attempt with:', { email, password: '***' });
     } else {
       console.log('Please fill in both email and password');
     }
