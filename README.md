@@ -65,9 +65,6 @@ TODO Verónica
  - ✅ fixed and change all the Builder made manually using IONIC and Elements HTML and CSS
  - ✅ Applying the styles and variables of IONIC
  - ✅ fixed nav tab to the bottom of vista. 
-**
-TODO Verónica 21/08/2025
-**
 - ✅ Refactor `login-alternative` to use Ionic components and features  
 - ✅ Adding a 'ñapa' animator of CHEESY 😂 
 - ✅ Implement login/sing up logic and  basic frontend authentication  
@@ -75,6 +72,7 @@ TODO Verónica 21/08/2025
 - ✅ Fix: resolve button and style conflicts with Tailwind, move all shared styles to global.scss 
 - ✅ Refactor login using FormGroup, polish registros styles 
 - ✅ Refactor style(forms): unify layout and styles for login and registration forms 
+- ✅ feat: integrate Firebase Authentication and Firestore user registration 🌞
 - [ ] Create and display the list of cheeses  
 - [ ] Review and clean up unused code or components  
 - [ ] Test all features on multiple devices  

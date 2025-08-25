@@ -16,6 +16,10 @@ import {
 import { CommonModule } from '@angular/common';
 import { FooterNavComponent } from 'src/app/components-alternatives/footer-nav/footer-nav.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { auth } from 'firebase.config';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { getFirestore, setDoc, doc } from "firebase/firestore";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-alternative',
@@ -47,10 +51,13 @@ export class RegisterAlternativeComponent {
 ];
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
+  db = getFirestore();
+
 
   constructor(
     private authService: AuthAlternativeService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -73,26 +80,28 @@ export class RegisterAlternativeComponent {
     }
     this.register();
   }
-  register() {
-    const formValues = this.registerForm.value;
-    const validation = this.authService.validateRegistration(
-      formValues.name,
-      formValues.lastname,
-      formValues.birth,
-      formValues.email,
-      formValues.password,
-      formValues.confirmPassword
-    );
-    if (!validation.valid) {
-      this.errorMessage = validation.message;
-      return;
-    }
-    this.authService.register(
-      formValues.name,
-      formValues.lastname,
-      formValues.birth,
-      formValues.email,
-      formValues.password
-    );
-  }
+register() {
+  const { name, lastname, birth, email, password } = this.registerForm.value;
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then(userCredential => {
+      const uid = userCredential.user.uid;
+      // Guarda los datos extra en Firestore
+      return setDoc(doc(this.db, "usuarios", uid), {
+        name,
+        lastname,
+        birth,
+        email
+      });
+    })
+    .then(() => {
+      // Registro y guardado exitoso
+      this.errorMessage = '';
+      alert('Registration successful!');
+      this.router.navigate(['/login']);
+    })
+    .catch(error => {
+      this.errorMessage = error.message;
+    });
+}
 }
