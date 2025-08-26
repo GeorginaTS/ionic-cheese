@@ -71,8 +71,11 @@ jobs:
           echo "Created environment files"
           ls -la src/environments/
 
+      - name: Install Ionic CLI
+        run: npm install -g @ionic/cli
+
       - name: Build Ionic app
-        run: npx ionic build --prod
+        run: ionic build --prod
 
       - name: Create web.config for Azure
         run: |
