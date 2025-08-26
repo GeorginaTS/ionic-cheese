@@ -11,22 +11,22 @@ Before the GitHub Actions workflow can deploy the application, you need to add y
 3. Click on **New repository secret**
 4. Add the following secrets with values from your Firebase project:
 
-| Secret Name | Value from your .env file |
-|-------------|---------------------------|
-| `FIREBASE_API_KEY` | `AIzaSyB8s4uDCXbfihLyk17fIXPQyq7GEg0q4tI` |
-| `FIREBASE_AUTH_DOMAIN` | `cheese-29925.firebaseapp.com` |
-| `FIREBASE_PROJECT_ID` | `cheese-29925` |
-| `FIREBASE_STORAGE_BUCKET` | `cheese-29925.firebasestorage.app` |
-| `FIREBASE_MESSAGING_SENDER_ID` | `667487841882` |
-| `FIREBASE_APP_ID` | `1:667487841882:web:e4cafc22a81221aa5cf263` |
-| `FIREBASE_MEASUREMENT_ID` | `G-V5G0WLWDPM` |
+| Secret Name                    | Value from your .env file                   |
+| ------------------------------ | ------------------------------------------- |
+| `FIREBASE_API_KEY`             | `AIzaSyB8s4uDCXbfihLyk17fIXPQyq7GEg0q4tI`   |
+| `FIREBASE_AUTH_DOMAIN`         | `cheese-29925.firebaseapp.com`              |
+| `FIREBASE_PROJECT_ID`          | `cheese-29925`                              |
+| `FIREBASE_STORAGE_BUCKET`      | `cheese-29925.firebasestorage.app`          |
+| `FIREBASE_MESSAGING_SENDER_ID` | `667487841882`                              |
+| `FIREBASE_APP_ID`              | `1:667487841882:web:e4cafc22a81221aa5cf263` |
+| `FIREBASE_MEASUREMENT_ID`      | `G-V5G0WLWDPM`                              |
 
 The following Azure authentication secrets should already be set up:
 
-| Secret Name | Description |
-|-------------|-------------|
-| `AZUREAPPSERVICE_CLIENTID_0F9D2722DF2D44B0AB3275506E818DB8` | Azure Client ID |
-| `AZUREAPPSERVICE_TENANTID_0847DB209E4D438697D0ADACAA3379AA` | Azure Tenant ID |
+| Secret Name                                                       | Description           |
+| ----------------------------------------------------------------- | --------------------- |
+| `AZUREAPPSERVICE_CLIENTID_0F9D2722DF2D44B0AB3275506E818DB8`       | Azure Client ID       |
+| `AZUREAPPSERVICE_TENANTID_0847DB209E4D438697D0ADACAA3379AA`       | Azure Tenant ID       |
 | `AZUREAPPSERVICE_SUBSCRIPTIONID_1D6FC8EE1CA84AB0957F563BC6CE5BC2` | Azure Subscription ID |
 
 ## How the Deployment Works

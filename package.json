@@ -4,10 +4,9 @@
   "description": "Ionic Cheese Application",
   "private": true,
   "scripts": {
-    "config-env": "ts-node config-env.ts",
-    "start": "npm run config-env && ionic serve",
-    "build": "npm run config-env && ionic build",
-    "build:prod": "npm run config-env && ionic build --configuration production"
+    "start": "ionic serve",
+    "build": "ionic build",
+    "build:prod": "ionic build --configuration production"
   },
   "dependencies": {
     "@angular/animations": "^20.1.7",
