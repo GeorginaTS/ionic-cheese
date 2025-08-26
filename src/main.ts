@@ -34,11 +34,11 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideHttpClient(),
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
     provideFirestore(() => {
       // Configurem Firestore amb la persistència multi-pestanya utilitzant l'API recomanada
-      const app = initializeApp(environment.firebase);
+      const app = initializeApp(environment.firebaseConfig);
       return initializeFirestore(app, {
         // Configuració de cache per suportar persistència i multi-pestanyes
         localCache: persistentLocalCache({
