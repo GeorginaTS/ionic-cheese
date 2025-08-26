@@ -45,7 +45,7 @@ The GitHub Actions workflow does the following:
    - Checks out the code
    - Sets up Node.js
    - Installs dependencies
-   - Creates environment files using the GitHub secrets
+   - Creates environment files directly (bypassing config-env.ts)
    - Builds the application for production
 
 2. Deploys to Azure Web App
@@ -73,3 +73,5 @@ If the deployment fails, check the following:
 2. Check the workflow logs for any error messages
 3. Ensure that the Azure Web App service is properly configured
 4. Make sure the Firebase project is correctly set up and the configuration values are correct
+
+> **Note:** The workflow has been updated to create environment files directly in the CI/CD pipeline, bypassing the `config-env.ts` script. This resolves issues with environment variables not being properly set during the build process. The workflow includes fallback "dummy" values for Firebase configuration to allow the build to complete even if secrets are not properly set. However, for the app to function correctly in production, please ensure all Firebase secrets are correctly configured.

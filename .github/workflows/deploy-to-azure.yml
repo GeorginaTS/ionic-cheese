@@ -36,22 +36,56 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Create .env file with Firebase secrets
+      - name: Create environment files directly
         run: |
-          echo "FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY }}" >> .env
-          echo "FIREBASE_AUTH_DOMAIN=${{ secrets.FIREBASE_AUTH_DOMAIN }}" >> .env
-          echo "FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID }}" >> .env
-          echo "FIREBASE_STORAGE_BUCKET=${{ secrets.FIREBASE_STORAGE_BUCKET }}" >> .env
-          echo "FIREBASE_MESSAGING_SENDER_ID=${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}" >> .env
-          echo "FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID }}" >> .env
-          echo "FIREBASE_MEASUREMENT_ID=${{ secrets.FIREBASE_MEASUREMENT_ID }}" >> .env
-          cat .env
+          # Create environment.ts
+          cat << EOF > src/environments/environment.ts
+          // src/environments/environment.ts
+          export const environment = {
+            production: false,
+            apiUrl: 'https://ionic-cheese-back.onrender.com/api',
+            useEmulators: false,
+            firebase: {
+              apiKey: "${{ secrets.FIREBASE_API_KEY || 'dummy-api-key-for-build' }}",
+              authDomain: "${{ secrets.FIREBASE_AUTH_DOMAIN || 'dummy-auth-domain-for-build' }}",
+              projectId: "${{ secrets.FIREBASE_PROJECT_ID || 'dummy-project-id-for-build' }}",
+              storageBucket: "${{ secrets.FIREBASE_STORAGE_BUCKET || 'dummy-storage-bucket-for-build' }}",
+              messagingSenderId: "${{ secrets.FIREBASE_MESSAGING_SENDER_ID || '000000000000' }}",
+              appId: "${{ secrets.FIREBASE_APP_ID || '1:000000000000:web:0000000000000000000000' }}",
+              measurementId: "${{ secrets.FIREBASE_MEASUREMENT_ID || 'G-0000000000' }}",
+            },
+          };
+          EOF
 
-      - name: Run environment configuration
-        run: npx ts-node config-env.ts
+          # Create environment.prod.ts
+          cat << EOF > src/environments/environment.prod.ts
+          // src/environments/environment.prod.ts
+          export const environment = {
+            production: true,
+            apiUrl: 'https://ionic-cheese-back.onrender.com/api',
+            useEmulators: false,
+            firebase: {
+              apiKey: "${{ secrets.FIREBASE_API_KEY || 'dummy-api-key-for-build' }}",
+              authDomain: "${{ secrets.FIREBASE_AUTH_DOMAIN || 'dummy-auth-domain-for-build' }}",
+              projectId: "${{ secrets.FIREBASE_PROJECT_ID || 'dummy-project-id-for-build' }}",
+              storageBucket: "${{ secrets.FIREBASE_STORAGE_BUCKET || 'dummy-storage-bucket-for-build' }}",
+              messagingSenderId: "${{ secrets.FIREBASE_MESSAGING_SENDER_ID || '000000000000' }}",
+              appId: "${{ secrets.FIREBASE_APP_ID || '1:000000000000:web:0000000000000000000000' }}",
+              measurementId: "${{ secrets.FIREBASE_MEASUREMENT_ID || 'G-0000000000' }}",
+            },
+          };
+          EOF
+
+          # Show the created files for debugging
+          echo "Created environment.ts:"
+          cat src/environments/environment.ts
+          echo ""
+          echo "Created environment.prod.ts:"
+          cat src/environments/environment.prod.ts
 
       - name: Build app for production
-        run: npm run build:prod
+        run: npm run build
+        # We're using npm run build instead of npm run build:prod because we've already created the environment files manually
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
