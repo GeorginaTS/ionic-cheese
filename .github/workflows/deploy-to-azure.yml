@@ -36,35 +36,74 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Create .env file for config-env.ts
+      - name: Create environment files directly
         run: |
-          # Create a proper .env file with dummy values for CI/CD
-          echo "FIREBASE_API_KEY=dummy-api-key-for-build" > .env
-          echo "FIREBASE_AUTH_DOMAIN=dummy-auth-domain-for-build" >> .env
-          echo "FIREBASE_PROJECT_ID=dummy-project-id-for-build" >> .env
-          echo "FIREBASE_STORAGE_BUCKET=dummy-storage-bucket-for-build" >> .env
-          echo "FIREBASE_MESSAGING_SENDER_ID=000000000000" >> .env
-          echo "FIREBASE_APP_ID=1:000000000000:web:0000000000000000000000" >> .env
-          echo "FIREBASE_MEASUREMENT_ID=G-0000000000" >> .env
-
-          # Show the created .env file
-          echo "Created .env file with dummy values:"
-          cat .env
+          # Create environment directories if they don't exist
+          mkdir -p src/environments
+          
+          # Create environment.ts directly
+          cat > src/environments/environment.ts << EOL
+          // src/environments/environment.ts
+          export const environment = {
+            production: false,
+            apiUrl: 'https://ionic-cheese-back.onrender.com/api',
+            useEmulators: false,
+            firebase: {
+              apiKey: "dummy-api-key-for-build",
+              authDomain: "dummy-auth-domain-for-build",
+              projectId: "dummy-project-id-for-build",
+              storageBucket: "dummy-storage-bucket-for-build",
+              messagingSenderId: "000000000000",
+              appId: "1:000000000000:web:0000000000000000000000",
+              measurementId: "G-0000000000",
+            },
+          };
+          EOL
+          
+          # Create environment.prod.ts directly
+          cat > src/environments/environment.prod.ts << EOL
+          // src/environments/environment.prod.ts
+          export const environment = {
+            production: true,
+            apiUrl: 'https://ionic-cheese-back.onrender.com/api',
+            useEmulators: false,
+            firebase: {
+              apiKey: "dummy-api-key-for-build",
+              authDomain: "dummy-auth-domain-for-build",
+              projectId: "dummy-project-id-for-build",
+              storageBucket: "dummy-storage-bucket-for-build",
+              messagingSenderId: "000000000000",
+              appId: "1:000000000000:web:0000000000000000000000",
+              measurementId: "G-0000000000",
+            },
+          };
+          EOL
+          
+          # Show created files
+          echo "Created environment.ts file:"
+          cat src/environments/environment.ts
+          echo ""
+          echo "Created environment.prod.ts file:"
+          cat src/environments/environment.prod.ts
 
       - name: Debug environment
         run: |
-          echo "Checking if .env file exists:"
-          ls -la .env
-          echo "Checking .env file content:"
-          cat .env
-          echo "Checking if config-env.ts exists:"
-          ls -la config-env.ts
+          echo "Checking environment files:"
+          ls -la src/environments/
           echo "Current directory structure:"
           ls -la
 
+      - name: Modify build script
+        run: |
+          # Create a custom build script that bypasses the config-env.ts script
+          echo '#!/bin/bash' > custom-build.sh
+          echo 'ionic build --configuration production' >> custom-build.sh
+          chmod +x custom-build.sh
+          cat custom-build.sh
+
       - name: Build app for production
-        run: npm run build:prod
-        # We're using build:prod to ensure production mode is enabled
+        run: ./custom-build.sh
+        # Using a custom build script to bypass the config-env.ts dependency
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
