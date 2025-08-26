@@ -5,7 +5,6 @@
   "private": true,
   "scripts": {
     "generate:env": "ts-node config-env.ts",
-    "ci:generate:env": "ts-node ci-generate-env.ts",
     "start": "npm run generate:env && ng serve",
     "build": "npm run generate:env && ng build",
     "build:azure": "npm run generate:env && ng build"
