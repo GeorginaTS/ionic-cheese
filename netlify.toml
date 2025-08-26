@@ -1,9 +1,10 @@
 [build]
-  command = "npm run build:netlify"
+  command = "npm install && (npm install @ionic/cli || true) && npm run build:netlify"
   publish = "www"
 
 [build.environment]
   NODE_VERSION = "20"
+  NPM_FLAGS = "--no-optional"
   # Asegúrate de establecer las variables de entorno de Firebase en el panel de Netlify
   # No las coloques aquí ya que este archivo se versiona en Git
 

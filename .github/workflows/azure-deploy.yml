@@ -39,6 +39,9 @@ jobs:
           apiUrl: ${{ secrets.API_URL }}
 
       # 5. Build Angular/Ionic app (sin generar el env de nuevo)
+      - name: Install Ionic CLI
+        run: npm install -g @ionic/cli
+
       - name: Build project
         run: ionic build
 
