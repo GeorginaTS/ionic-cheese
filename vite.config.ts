@@ -9,11 +9,23 @@ export default defineConfig({
     commonjsOptions: {
       include: ['tailwind.config.js', 'node_modules/**'],
     },
+    rollupOptions: {
+      external: [
+        '@capacitor/core',
+        '@capacitor/camera',
+        '@capacitor/filesystem',
+        '@capacitor/geolocation',
+      ],
+    },
   },
   resolve: {
     alias: {
       // Resolució per a zone.js
       'zone.js': 'zone.js/dist/zone.js',
+      '@capacitor/core': '@capacitor/core',
+      '@capacitor/camera': '@capacitor/camera',
+      '@capacitor/filesystem': '@capacitor/filesystem',
+      '@capacitor/geolocation': '@capacitor/geolocation',
     },
   },
   server: {

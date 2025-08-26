@@ -1,4 +1,18 @@
 {
+  "name": "ionic-cheese",
+  "version": "1.0.0",
+  "description": "Ionic Cheese Application",
+  "private": true,
+  "scripts": {
+    "generate:env": "ts-node config-env.ts",
+    "start": "npm run generate:env && ng serve",
+    "build": "npm run generate:env && ng build",
+    "build:azure": "npm run generate:env && ng build"
+  },
+  "engines": {
+    "node": ">=20.19.0",
+    "npm": ">=9.0.0"
+  },
   "dependencies": {
     "@angular/animations": "^20.1.7",
     "@angular/common": "^20.1.7",
@@ -10,6 +24,8 @@
     "@angular/platform-browser-dynamic": "^20.1.7",
     "@angular/router": "^20.1.7",
     "@capacitor/camera": "^7.0.2",
+    "@capacitor/cli": "^7.4.3",
+    "@capacitor/core": "^7.4.3",
     "@capacitor/filesystem": "^7.1.4",
     "@capacitor/geolocation": "^7.1.5",
     "@ionic/angular": "^8.7.2",
@@ -25,12 +41,17 @@
     "@angular/cli": "^20.1.6",
     "@angular/compiler-cli": "^20.1.7",
     "@ionic/angular-toolkit": "^12.3.0",
+    "@ionic/cli": "^7.2.0",
+    "@types/dotenv": "^6.1.1",
     "@types/jasmine": "^5.1.9",
     "@types/leaflet": "^1.9.20",
     "@types/leaflet.markercluster": "^1.5.5",
+    "@types/node": "^24.3.0",
     "autoprefixer": "^10.4.16",
+    "dotenv": "^17.2.1",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.5",
+    "ts-node": "^10.9.2",
     "typescript": "~5.8.2"
   }
 }
