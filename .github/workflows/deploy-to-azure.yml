@@ -39,19 +39,28 @@ jobs:
       - name: Create .env file for config-env.ts
         run: |
           # Create a proper .env file with dummy values for CI/CD
-          cat << EOF > .env
-          FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY || 'dummy-api-key-for-build' }}
-          FIREBASE_AUTH_DOMAIN=${{ secrets.FIREBASE_AUTH_DOMAIN || 'dummy-auth-domain-for-build' }}
-          FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID || 'dummy-project-id-for-build' }}
-          FIREBASE_STORAGE_BUCKET=${{ secrets.FIREBASE_STORAGE_BUCKET || 'dummy-storage-bucket-for-build' }}
-          FIREBASE_MESSAGING_SENDER_ID=${{ secrets.FIREBASE_MESSAGING_SENDER_ID || '000000000000' }}
-          FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID || '1:000000000000:web:0000000000000000000000' }}
-          FIREBASE_MEASUREMENT_ID=${{ secrets.FIREBASE_MEASUREMENT_ID || 'G-0000000000' }}
-          EOF
+          echo "FIREBASE_API_KEY=dummy-api-key-for-build" > .env
+          echo "FIREBASE_AUTH_DOMAIN=dummy-auth-domain-for-build" >> .env
+          echo "FIREBASE_PROJECT_ID=dummy-project-id-for-build" >> .env
+          echo "FIREBASE_STORAGE_BUCKET=dummy-storage-bucket-for-build" >> .env
+          echo "FIREBASE_MESSAGING_SENDER_ID=000000000000" >> .env
+          echo "FIREBASE_APP_ID=1:000000000000:web:0000000000000000000000" >> .env
+          echo "FIREBASE_MEASUREMENT_ID=G-0000000000" >> .env
 
-          # Show the created .env file (but mask secrets)
-          echo "Created .env file with dummy or secret values"
-          cat .env | sed 's/=.*/=*****/g'
+          # Show the created .env file
+          echo "Created .env file with dummy values:"
+          cat .env
+
+      - name: Debug environment
+        run: |
+          echo "Checking if .env file exists:"
+          ls -la .env
+          echo "Checking .env file content:"
+          cat .env
+          echo "Checking if config-env.ts exists:"
+          ls -la config-env.ts
+          echo "Current directory structure:"
+          ls -la
 
       - name: Build app for production
         run: npm run build:prod
