@@ -2,7 +2,6 @@
 export const environment = {
   production: false,
   apiUrl: 'https://ionic-cheese-back.onrender.com/api',
-  useEmulators: false,
   firebase: {
     apiKey: '%FIREBASE_API_KEY%',
     authDomain: '%FIREBASE_AUTH_DOMAIN%',
