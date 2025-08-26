@@ -8,6 +8,10 @@
     "start": "npm run generate:env && ng serve",
     "build": "npm run generate:env && ng build"
   },
+  "engines": {
+    "node": ">=20.19.0",
+    "npm": ">=9.0.0"
+  },
   "dependencies": {
     "@angular/animations": "^20.1.7",
     "@angular/common": "^20.1.7",
