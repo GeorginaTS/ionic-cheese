@@ -79,8 +79,25 @@ jobs:
 
       - name: Build Ionic app
         run: |
-          # Skip config-env.ts and build directly
-          ionic build --configuration=production
+          # Create a custom package.json script without the config-env.ts dependency
+          # By using jq to modify the package.json script temporarily
+          cp package.json package.json.backup
+          
+          # Install jq for JSON manipulation
+          sudo apt-get update
+          sudo apt-get install -y jq
+          
+          # Modify the build:prod script to bypass config-env.ts
+          jq '.scripts."build:prod" = "ionic build --configuration production"' package.json > temp.json && mv temp.json package.json
+          
+          # Show the modified package.json
+          cat package.json
+          
+          # Run the build with the modified script
+          npm run build:prod
+          
+          # Restore the original package.json
+          mv package.json.backup package.json
 
       - name: Create web.config for Azure
         run: |
