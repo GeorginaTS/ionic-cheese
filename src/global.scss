@@ -25,52 +25,52 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
-
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-//@import '@ionic/angular/css/palettes/dark.system.css';
-
+ion-content {
+  --background: var(--ion-background-color);
+  --box-shadow: none;
+  padding-bottom: var(--footer-height);
+}
+html,
 body {
-  --ion-background-color: var(--bg-color);
-  --ion-text-color: var(--dark-color);
-}
-a {
-  text-decoration: none;
-}
-hr {
-  margin: 0.6rem 0;
-  border: none;
-  border-top: 1px solid var(--primary-color);
-  width: 100%;
+  overflow-x: hidden;
 }
 ion-button {
-  --background: var(--secondary-color);
-  --color: var(--tertiary-color);
-  font-weight: bold;
+  margin: 24px auto 0 auto;
+  display: block;
+  width: 172px;
+  max-width: 90vw;
+  position: relative;
+  z-index: 2;
+  font-size: 16px;
+  font-weight: 600;
   --border-radius: 24px;
-  text-transform: capitalize;
-  --padding-top: 0;
-  --padding-bottom: 0;
-  --padding-start: 1rem;
-  --padding-end: 1rem;
+  font-family: var(--ion-font-family);
+  --color: var(--ion-color-tertiary);
+  --box-shadow: none;
+  text-transform: none;
+  transition: background 0.2s, transform 0.1s;
+}
+ion-button {
+  --background: var(--ion-button-background);
 }
 ion-button:hover {
-  font-weight: bolder;
+  --background: var(--ion-button-background-hover);
+  color: #fff;
 }
-
+ion-button:active {
+  --background: var(--ion-button-background-active);
+}
+ion-button:focus {
+  color: #fff;
+}
 ion-toolbar {
-  --background: var(--ion-color-light);
-  --box-shadow: none;
-  --border-width: 0;
-  --border-color: transparent;
+  --background: transparent;
+  background: transparent;
+  box-shadow: none;
+  border: none;
 }
-
-ion-content {
-  --background: var(--bg-color);
+@media (max-width: 600px) {
+  .main-title {
+    font-size: 2.2rem;
+  }
 }

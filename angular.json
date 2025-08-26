@@ -34,7 +34,6 @@
               }
             ],
             "styles": [
-              "src/tailwind.css",
               "src/global.scss",
               "src/theme/variables.scss"
             ],
@@ -126,7 +125,6 @@
           },
           "configurations": {
             "ci": {
-              "progress": false,
               "watch": false
             }
           }

@@ -1,5 +1,4 @@
 # Cheese App
-# Vero Testing Pull Request
 19/08/2025
 Integrate Figma design to angular with AI Builder.io
 ~  Perfect! I've successfully implemented the alternative components with the new design and functionality:
@@ -39,8 +38,6 @@ Integrate Figma design to angular with AI Builder.io
 │  - ✅ Bottom navigation with SVG icons
 │  - ✅ Custom cheese icon SVG
 
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
 The server has successfully compiled and is running. You can now access:
 │
 │  1. **Original home page**: http://localhost:4200/home
@@ -59,12 +56,27 @@ The server has successfully compiled and is running. You can now access:
 │  The server is running in watch mode, so any changes you make to the code will automatically
 │  reload the page.
 
-Tareas
+
+TODO Verónica
 
 **
-hay que arreglar el componente home al original, 
-hay que insertar bien el logotipo.
-también el logotipoo de profile de nav
+ - ✅ I have to fix the home component, theme and global scss to the original repo. 
+ - ✅ Adding logo alternative
+ - ✅ fixed and change all the Builder made manually using IONIC and Elements HTML and CSS
+ - ✅ Applying the styles and variables of IONIC
+ - ✅ fixed nav tab to the bottom of vista. 
+- ✅ Refactor `login-alternative` to use Ionic components and features  
+- ✅ Adding a 'ñapa' animator of CHEESY 😂 
+- ✅ Implement login/sing up logic and  basic frontend authentication  
+- ✅ **Commit before to erase all that is not "alternative" to avoid style ionic conflicts.**
+- ✅ Fix: resolve button and style conflicts with Tailwind, move all shared styles to global.scss 
+- ✅ Refactor login using FormGroup, polish registros styles 
+- ✅ Refactor style(forms): unify layout and styles for login and registration forms 
+- ✅ feat: integrate Firebase Authentication and Firestore user registration 🌞
+- [ ] Create and display the list of cheeses  
+- [ ] Review and clean up unused code or components  
+- [ ] Test all features on multiple devices  
 **
 
 │
+

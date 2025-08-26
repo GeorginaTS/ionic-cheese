@@ -1,26 +1,19 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
 
-// :root {
-//   --primary-color: #d97706;
-//   --secondary-color: #FCD34D;
-//   --tertiary-color:#92400E;
-//   --success-color: #10dc60;
-//   --warning-color: #ffce00;
-//   --danger-color: #f04134;
-//   --light-color: #FEF3C7;
-//   --dark-color:#92400e;
-//   --bg-color:#FFFAF1;
-
-
-//   --ion-color-primary: var(--primary-color);
-//   --ion-color-secondary: var(--secondary-color);
-//   --ion-color-tertiary: var(--tertiary-color);
-//   --ion-color-success: var(--success-color);
-//   --ion-color-warning: var(--warning-color);
-//   --ion-color-danger: var(--danger-color);
-//   --ion-color-light: var(--light-color);
-//   --ion-color-dark: var(--dark-color);
-// }
-
-
+:root {
+  --ion-color-primary: #d87706;
+  --ion-color-secondary: #fef3c7;
+  --ion-color-tertiary: #92400e;
+  --ion-background-color: #fffaf1;
+  --ion-button-background-hover: #f59e0b;
+  --ion-button-background: #fcd34d;
+  --ion-button-background-active: #b36a00;
+  --ion-font-family: "Cuprum", -apple-system, Roboto, Helvetica, sans-serif;
+  --spacing-xs: 4px; /* Muy pequeño - para detalles minúsculos */
+  --spacing-sm: 8px; /* Pequeño - para espacios reducidos */
+  --spacing-md: 16px; /* Margen estándar entre tarjetas */
+  --spacing-lg: 24px; /* Margen extra para secciones grandes */
+  --spacing-xl: 32px; /* Extra grande - para espacios amplios */
+  --footer-height: 90px;
+}
