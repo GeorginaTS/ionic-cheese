@@ -20,6 +20,14 @@
   "platform": {
     "apiRuntime": "node:20"
   },
+  "mimeTypes": {
+    ".js": "application/javascript",
+    ".css": "text/css",
+    ".html": "text/html",
+    ".json": "application/json",
+    ".png": "image/png",
+    ".svg": "image/svg+xml",
+    ".ico": "image/x-icon"
+  },
   "trailingSlash": "auto"
 }
-
