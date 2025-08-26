@@ -1,4 +1,3 @@
-// Importació explícita de zone.js per evitar problemes amb Vite
 import 'zone.js';
 
 import { bootstrapApplication } from '@angular/platform-browser';
