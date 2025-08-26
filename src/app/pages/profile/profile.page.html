@@ -1,23 +1,42 @@
+
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Your profile</ion-title>
+    <ion-title>profile</ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-          <ion-title size="large">Hi  welcome</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <section>
-    <div class="menu-profile">
-      <ion-button>Edit profile</ion-button>
-      <ion-button>followers / Following</ion-button>
-      <ion-button>My cheeses</ion-button>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- User Profile Card -->
+  <ion-card>
+    <div class="profile-header">
+      <ion-avatar class="profile-avatar">
+        <img [src]="currentUser.photoURL || '../assets/icon/cheese.png'" alt="{{currentUser.displayName}}" />
+      </ion-avatar>
+      <h2 class="user-name">
+        {{currentUser.displayName}}
+      </h2><p>{{currentUser.uid}}</p>
+      <p class="user-email">{{ currentUser.email }}</p>
     </div>
-      <img src="../../assets/img/cheese-logo.png" alt="CheeseLy">
-  </section>
-  <br><br><br><br><br>
+  </ion-card>
+
+  <!-- Actions -->
+  <div class="menu-profile">
+    <ion-button expand="block">
+      <ion-icon slot="start" name="person-outline"></ion-icon>
+      Edit Profile
+    </ion-button>
+    <ion-button expand="block">
+      <ion-icon slot="start" name="people-outline"></ion-icon>
+      Followers / Following
+    </ion-button>
+    <ion-button expand="block" routerLink="/my-cheeses">
+      <ion-icon slot="start" name="restaurant-outline"></ion-icon>
+      My Cheeses
+    </ion-button>
+    <ion-button color="danger" (click)="logout()" expand="block">
+      <ion-icon slot="start" name="log-out-outline"></ion-icon>
+      Logout
+    </ion-button>
+  </div>
 </ion-content>
+
 <app-menu></app-menu>

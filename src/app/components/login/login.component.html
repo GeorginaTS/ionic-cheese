@@ -1,13 +1,38 @@
-<form>
+<div class="w-full max-w-md mx-auto">
+  <form [formGroup]="authForm" class="w-full">
+
+  <!-- Email -->
   <ion-item>
-<ion-input type="email" fill="solid" placeholder="Enter email" label="Email" labelPlacement="floating">
-    
-</ion-input>
+    <ion-label position="floating">Email</ion-label>
+    <ion-input type="email" formControlName="email"></ion-input>
   </ion-item>
+  @if(authForm.get('email')?.touched && authForm.get('email')?.invalid) {
+    <ion-note color="danger">
+      @if(authForm.get('email')?.hasError('required')) {<span>Email is required</span>}
+      @if(authForm.get('email')?.hasError('pattern')) {<span>Invalid email format</span>}
+    </ion-note>
+  }
+
+  <!-- Password -->
   <ion-item>
-  <ion-input type="password" fill="solid" placeholder="Enter password" label="Password" labelPlacement="floating">
-    <ion-input-password-toggle slot="end" color="primary"></ion-input-password-toggle>
-  </ion-input>
-</ion-item>
-  <ion-button expand="block" shape="round" (click)="login()">Login</ion-button>
+    <ion-label position="floating">Password</ion-label>
+    <ion-input type="password" formControlName="password"></ion-input>
+  </ion-item>
+  @if(authForm.get('password')?.touched && authForm.get('password')?.invalid) {
+    <ion-note color="danger">
+      @if(authForm.get('password')?.hasError('required')) {<span>Password is required</span>}
+      @if(authForm.get('password')?.hasError('minlength')) {<span>Password must be at least 6 characters</span>}
+    </ion-note>
+  }
+
+  <ion-button expand="block" (click)="login()" [disabled]="authForm.invalid">
+    Login
+  </ion-button>
 </form>
+  <br><hr><br>
+    <!-- Google -->
+  <ion-button expand="block" (click)="loginWithGoogle()">
+    <ion-icon name="logo-google" slot="start"></ion-icon>
+    Continue with Google
+  </ion-button>
+</div>

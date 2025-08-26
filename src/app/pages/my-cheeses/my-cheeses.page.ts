@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -9,7 +9,7 @@ import {
   IonFabButton,
   IonFab,
   IonSpinner,
-  IonSearchbar
+  IonSearchbar,
 } from '@ionic/angular/standalone';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { CheeseService } from '../../services/cheese.service';
@@ -19,6 +19,7 @@ import { addIcons } from 'ionicons';
 import { IonIcon } from '@ionic/angular/standalone';
 import { add, addCircleOutline } from 'ionicons/icons';
 import { RouterLink } from '@angular/router';
+import { FocusManagerService } from 'src/app/services/focus-manager.service';
 
 @Component({
   selector: 'app-my-cheeses',
@@ -40,8 +41,8 @@ import { RouterLink } from '@angular/router';
     IonFab,
     IonSpinner,
     IonSearchbar,
-    ReactiveFormsModule
-],
+    ReactiveFormsModule,
+  ],
 })
 export class MyCheesesPage implements OnInit {
   cheeses: Cheese[] = [];
@@ -50,18 +51,25 @@ export class MyCheesesPage implements OnInit {
   searchControl = new FormControl('');
   filteredCheeses: Cheese[] = [];
 
-  constructor(private cheeseService: CheeseService) {
+  constructor(
+    private cheeseService: CheeseService,
+    private elementRef: ElementRef,
+    private focusManager: FocusManagerService
+  ) {
     addIcons({ addCircleOutline, add });
   }
   ngOnInit(): void {
     this.loadCheeses();
-    this.searchControl.valueChanges.subscribe(value => {
+    this.searchControl.valueChanges.subscribe((value) => {
       this.filterCheeses(value ?? '');
     });
   }
   ionViewWillEnter() {
     this.loadCheeses();
   }
+  ionViewWillLeave() {
+  this.focusManager.clearFocus(this.elementRef);
+}
   loadCheeses(): void {
     this.cheeseService.getAllCheeses().subscribe({
       next: (data) => {
@@ -78,7 +86,7 @@ export class MyCheesesPage implements OnInit {
   }
   filterCheeses(term: string): void {
     const searchTerm = term.toLowerCase();
-    this.filteredCheeses = this.cheeses.filter(cheese =>
+    this.filteredCheeses = this.cheeses.filter((cheese) =>
       cheese.name.toLowerCase().includes(searchTerm)
     );
   }

@@ -1,0 +1,28 @@
+<ion-content fullscreen="true" class="ion-padding">
+  <div class="flex flex-col justify-center items-center w-full">
+    <img src="../../assets/img/cheese-logo.png" alt="CheeseLy" class="h-40 mt-16">
+<!-- Pestanyes -->
+    <ion-segment [(ngModel)]="selectedTab" class="w-full my-4">
+      <ion-segment-button value="login">
+        <ion-label>Login</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="register">
+        <ion-label>Register</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <!-- Components segons la pestanya activa -->
+    <div class="w-full">
+      @if (selectedTab === 'login') {
+      <ng-container>
+        <app-login style="width: 100%;"></app-login>
+      </ng-container>
+    }
+    @if(selectedTab === 'register') {
+      <ng-container>
+        <app-register style="width: 100%;"></app-register>
+      </ng-container>}
+    </div>
+  </div>
+</ion-content>
+<app-menu></app-menu>

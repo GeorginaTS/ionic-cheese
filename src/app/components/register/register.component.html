@@ -1,0 +1,65 @@
+<div class="w-full max-w-md mx-auto">
+  <form [formGroup]="registerForm" class="w-full">
+
+    <ion-item>
+      <ion-label position="floating">Nom</ion-label>
+      <ion-input formControlName="displayName" type="text"></ion-input>
+    </ion-item>
+    @if(registerForm.get('displayName')?.touched && registerForm.get('displayName')?.invalid) {
+      <ion-note color="danger">El nom és obligatori</ion-note>
+    }
+
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input formControlName="email" type="email"></ion-input>
+    </ion-item>
+    @if(registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
+      <ion-note color="danger">Email invàlid</ion-note>
+    }
+
+    <ion-item>
+      <ion-label position="floating">Contrasenya</ion-label>
+      <ion-input formControlName="password" type="password"></ion-input>
+    </ion-item>
+    @if(registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
+      <ion-note color="danger">Mínim 6 caràcters</ion-note>
+    }
+    <ion-item>
+        <ion-label position="stacked">Date</ion-label>
+        <ion-datetime-button datetime="birthDate"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime
+              id="birthDate"
+              formControlName="birthDate"
+              presentation="date"
+              [formatOptions]=" { day: '2-digit', month: 'long', year:'2-digit' }"
+            >
+            </ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">País</ion-label>
+      <ion-input formControlName="country" type="text"></ion-input>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label position="floating">Província</ion-label>
+      <ion-input formControlName="province" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Ciutat</ion-label>
+      <ion-input formControlName="city" type="text"></ion-input>
+    </ion-item>
+
+    <ion-button
+      expand="block"
+      [disabled]="registerForm.invalid" (click)="register()">
+      Create account
+    </ion-button>
+  </form>
+</div>

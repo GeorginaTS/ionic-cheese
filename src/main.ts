@@ -17,6 +17,17 @@ import { provideHttpClient } from '@angular/common/http';
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import {
+  provideFirestore,
+  getFirestore,
+  initializeFirestore,
+  persistentLocalCache,
+  persistentMultipleTabManager,
+} from '@angular/fire/firestore';
+import { provideStorage, getStorage } from '@angular/fire/storage';
+import { environment } from './environments/environment';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -24,6 +35,18 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideHttpClient(),
-    // Firebase will be initialized in the FirebaseStorageService
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => {
+      // Configurem Firestore amb la persistència multi-pestanya utilitzant l'API recomanada
+      const app = initializeApp(environment.firebase);
+      return initializeFirestore(app, {
+        // Configuració de cache per suportar persistència i multi-pestanyes
+        localCache: persistentLocalCache({
+          tabManager: persistentMultipleTabManager(),
+        }),
+      });
+    }),
+    provideStorage(() => getStorage()),
   ],
 });
