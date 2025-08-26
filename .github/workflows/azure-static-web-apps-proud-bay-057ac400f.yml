@@ -42,9 +42,9 @@ jobs:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
           FIREBASE_MEASUREMENT_ID: ${{ secrets.FIREBASE_MEASUREMENT_ID }}
 
-      # 5. Build Angular/Ionic project amb base-href correcte i output-path "www"
+      # 5. Build Angular/Ionic project amb npx
       - name: Build Angular/Ionic
-        run: ng build --configuration production --output-path=www --base-href=/
+        run: npx ng build --configuration production --output-path=www --base-href=/
 
       # 6. Deploy to Azure Static Web Apps
       - name: Deploy to Azure SWA
@@ -54,9 +54,9 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PROUD_BAY_057AC400F }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "/"           # arrel del projecte
-          api_location: "api"         # elimina si no tens API functions
-          output_location: "www"      # build final
+          app_location: "/"
+          api_location: "api"
+          output_location: "www"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
