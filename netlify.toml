@@ -1,0 +1,13 @@
+[build]
+  command = "npm run build:netlify"
+  publish = "www"
+
+[build.environment]
+  NODE_VERSION = "20"
+  # Asegúrate de establecer las variables de entorno de Firebase en el panel de Netlify
+  # No las coloques aquí ya que este archivo se versiona en Git
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

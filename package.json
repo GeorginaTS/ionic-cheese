@@ -4,9 +4,14 @@
   "description": "Ionic Cheese Application",
   "private": true,
   "scripts": {
-  "generate:env": "ts-node config-env.ts",
-  "start": "npm run generate:env && ionic serve",
-  "build": "npm run generate:env && ionic build"
+    "generate:env": "ts-node config-env.ts",
+    "ci:generate:env": "ts-node ci-generate-env.ts",
+    "start": "npm run generate:env && ionic serve",
+    "build": "npm run generate:env && ionic build",
+    "build:ci": "npm run ci:generate:env && ionic build",
+    "build:netlify": "npm run ci:generate:env && ionic build",
+    "predeploy": "npm run build",
+    "deploy": "firebase deploy"
   },
   "dependencies": {
     "@angular/animations": "^20.1.7",
