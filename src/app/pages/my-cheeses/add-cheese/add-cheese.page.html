@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <section>
     <form [formGroup]="addCheeseForm">
       <ion-item class="form-item">
@@ -23,18 +23,15 @@
       </ion-item>
 
       <ion-item>       
-          <ion-label>Milk Quantity</ion-label>
+        <ion-label position="stacked">Milk Quantity: {{ addCheeseForm.get('milkQuantity')?.value }} liters</ion-label>          
         <ion-range
           [min]="2"
-          [max]="40"
-          [pin]="true"
-          [ticks]="true"
-          [snaps]="true"
+          [max]="20"
           formControlName="milkQuantity"
-        ></ion-range>
-          <ion-text>
-            {{ addCheeseForm.get('milkQuantity')?.value }} liters
-          </ion-text>
+        >
+        <ion-label slot="start">2</ion-label>
+        <ion-label slot="end">20</ion-label>
+      </ion-range>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Milk Origin</ion-label>
@@ -45,6 +42,7 @@
         <ion-textarea
           placeholder="Type description"
           formControlName="description"
+          auto-grow="true"
         ></ion-textarea>
       </ion-item>
       <ion-item>
@@ -68,12 +66,11 @@
         <ion-toggle [checked]="true"></ion-toggle>
       </ion-item>
 
-      <div class="button-container">
+      <div class="flex justify-center">
         <ion-button
-          expand="full"
           (click)="addCheese()"
           [disabled]="addCheeseForm.invalid"
-          >Create cheese</ion-button
+          > Create cheese </ion-button
         >
       </div>
     </form>

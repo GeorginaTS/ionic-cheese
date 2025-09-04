@@ -2,7 +2,7 @@
   <form [formGroup]="registerForm" class="w-full">
 
     <ion-item>
-      <ion-label position="floating">Nom</ion-label>
+      <ion-label>Nom</ion-label>
       <ion-input formControlName="displayName" type="text"></ion-input>
     </ion-item>
     @if(registerForm.get('displayName')?.touched && registerForm.get('displayName')?.invalid) {
@@ -10,7 +10,7 @@
     }
 
     <ion-item>
-      <ion-label position="floating">Email</ion-label>
+      <ion-label>Email</ion-label>
       <ion-input formControlName="email" type="email"></ion-input>
     </ion-item>
     @if(registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
@@ -18,14 +18,14 @@
     }
 
     <ion-item>
-      <ion-label position="floating">Contrasenya</ion-label>
+      <ion-label>Contrasenya</ion-label>
       <ion-input formControlName="password" type="password"></ion-input>
     </ion-item>
     @if(registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
       <ion-note color="danger">Mínim 6 caràcters</ion-note>
     }
     <ion-item>
-        <ion-label position="stacked">Date</ion-label>
+        <ion-label>Birth Date</ion-label>
         <ion-datetime-button datetime="birthDate"></ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
@@ -41,18 +41,11 @@
       </ion-item>
 
     <ion-item>
-      <ion-label position="floating">País</ion-label>
+      <ion-label>Country</ion-label>
       <ion-input formControlName="country" type="text"></ion-input>
     </ion-item>
-
-
     <ion-item>
-      <ion-label position="floating">Província</ion-label>
-      <ion-input formControlName="province" type="text"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Ciutat</ion-label>
+      <ion-label>City</ion-label>
       <ion-input formControlName="city" type="text"></ion-input>
     </ion-item>
 

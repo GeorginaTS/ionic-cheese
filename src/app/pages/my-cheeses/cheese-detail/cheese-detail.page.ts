@@ -33,6 +33,7 @@ import {
 import { CheeseDetailComponent } from 'src/app/components/my-cheeses/cheese-detail/cheese-detail.component';
 import { AddNoteModalComponent } from 'src/app/components/add-note-modal/add-note-modal.component';
 import { CheesePhotoCaptureComponent } from 'src/app/components/my-cheeses/cheese-photo-capture/cheese-photo-capture.component';
+import { CheeseElaborationModalComponent } from "src/app/components/my-cheeses/cheese-elaboration-modal/cheese-elaboration-modal.component";
 
 @Component({
   selector: 'app-cheese-detail-page',
@@ -59,8 +60,9 @@ import { CheesePhotoCaptureComponent } from 'src/app/components/my-cheeses/chees
     AddNoteModalComponent,
     IonModal,
     CheesePhotoCaptureComponent,
-    CheeseDetailComponent
-  ],
+    CheeseDetailComponent,
+    CheeseElaborationModalComponent
+],
 })
 export class CheeseDetailPage implements OnInit {
   cheeseId: string = '';
@@ -68,6 +70,7 @@ export class CheeseDetailPage implements OnInit {
   isLoading: boolean = true;
   addNoteModalOpen = false;
   photoModalOpen = false;
+  makingModalOpen = false;
   photo1: string | null = null;
 
   private routeSub!: Subscription;
@@ -131,5 +134,8 @@ export class CheeseDetailPage implements OnInit {
   }
   openPhotoModal() {
     this.photoModalOpen = true;
+  }
+  openMakingModal() {
+    this.makingModalOpen = true;
   }
 }

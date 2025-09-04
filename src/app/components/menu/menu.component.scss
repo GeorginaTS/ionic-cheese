@@ -1,0 +1,16 @@
+ion-tab-bar {
+  --background: var(--background-color);
+  border-top: 1px solid var(--primary-color);
+  padding-top: 0.4rem;
+  padding-bottom: 0.2rem;
+}
+ion-tab-button hover {
+  background-color: var(--secondary-color);
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+ion-label {
+  font-size: 0.9rem;
+  font-weight: regular;
+  color: var(--primary-color);
+}

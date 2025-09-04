@@ -42,6 +42,7 @@ body {
 }
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 hr {
   margin: 0.6rem 0;
@@ -51,18 +52,24 @@ hr {
 }
 ion-button {
   --background: var(--secondary-color);
+  --background-hover: var(--secondary-color);
+  --background-activated: var(--secondary-color);
+  --background-focused: var(--secondary-color);
   --color: var(--tertiary-color);
   font-weight: bold;
   --border-radius: 24px;
   text-transform: capitalize;
   --padding-top: 0;
   --padding-bottom: 0;
-  --padding-start: 1rem;
-  --padding-end: 1rem;
+  --padding-start: 2rem;
+  --padding-end: 2rem;
+  margin: 1rem 0.4rem;
 }
-ion-button:hover {
-  font-weight: bolder;
-}
+
+ion-button:hover, ion-button:active, ion-button:focus {
+  --background: var(--secondary-color);
+  --ripple-color: transparent;
+} 
 
 ion-toolbar {
   --background: var(--ion-color-light);
@@ -70,7 +77,75 @@ ion-toolbar {
   --border-width: 0;
   --border-color: transparent;
 }
-
 ion-content {
   --background: var(--bg-color);
+}
+ion-item {
+  --border-color: transparent;
+  --highlight-height: 0;
+  margin: 0.4rem 0;
+}
+ion-label {
+  color: var(--primary-color) !important;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+ion-text {
+  text-align: center;
+  width: 100%;
+}
+ion-input,
+ion-textarea {
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+  --padding-top: 0.5rem;
+  --padding-bottom: 0.5rem;
+  width: 100%;
+  border-radius: 0.8rem;
+  background-color: var(--grey-light-color);
+}
+ion-searchbar {
+  --background: var(--grey-light-color) !important;
+  border-radius: 0.8rem;
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+ion-textarea {
+  height: fit-content;
+}
+ion-select {
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+  background-color: var(--grey-light-color);
+  border-radius: 0.8rem;
+  width: 100% !important;
+}
+ion-select icon {
+  background-color: green;
+  color: var(--primary-color);
+}
+
+ion-input {
+  background-color: var(--grey-light-color);
+  border-radius: 0.8rem;
+  --inner-padding-start: 0.5rem;
+  --inner-padding-end: 0.5rem;
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+}
+ion-input input {
+  padding-left: 0.8rem !important;
+  padding-right: 0.8rem !important;
+  height: fit-content;
+}
+
+ion-textarea {
+  min-height: 8rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem;
 }

@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" >
   <ion-toolbar>
     <ion-back-button
       defaultHref="/my-cheeses"
@@ -8,7 +8,7 @@
     <ion-title>{{cheese?.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <section>
     @if (isLoading) {
     <ion-spinner></ion-spinner>
@@ -30,13 +30,15 @@
         [breakpoints]="[0.8, 0.5, 0]"
       >
         <ng-template>
-          <app-cheese-photo-capture [id]="cheese._id"></app-cheese-photo-capture>
+          <app-cheese-photo-capture
+            [id]="cheese._id"
+          ></app-cheese-photo-capture>
         </ng-template>
       </ion-modal>
 
       <ion-button (click)="addNote()">add note</ion-button>
       <!-- add note modal -->
-  <ion-modal
+      <ion-modal
         [isOpen]="addNoteModalOpen"
         (didDismiss)="addNoteModalOpen = false"
         initialBreakpoint="0.8"
@@ -54,34 +56,51 @@
     <ion-accordion-group
       [multiple]="true"
       expand="inset"
-      [value]="['elaboration', 'maduration', 'taste']"
+      [value]="['making', 'ripening', 'taste']"
       style="width: 100%"
     >
       <ion-accordion
-        value="elaboration"
+        value="making"
         toggleIcon="caret-down-circle"
         toggleIconSlot="start"
       >
         <ion-item slot="header" color="light">
           <ion-label color="primary">
             <div class="title-accordion">
-              <span>Elaboration:</span>
-              <ion-icon
+              <span>Making:</span>
+</div
+          ></ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">Making contents
+          <ion-icon
                 name="create-outline"
                 size="large"
                 color="primary"
-              ></ion-icon></div
-          ></ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content">Elaboration contents</div>
+                (click)="openMakingModal()"
+              ></ion-icon></div>
+        <ion-modal
+          [isOpen]="makingModalOpen"
+          (didDismiss)="makingModalOpen = false"
+          initialBreakpoint="0.9"
+          [breakpoints]="[1, 0.9, 0.6, 0]"
+        >
+          <ng-template>
+            <ion-content class="modal-scroll">
+              <app-cheese-elaboration-modal
+                [id]="cheese._id"
+              ></app-cheese-elaboration-modal>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
       </ion-accordion>
+      <!-- Maduration -->
       <ion-accordion
-        value="maduration"
+        value="ripening"
         toggleIcon="caret-down-circle"
         toggleIconSlot="start"
       >
         <ion-item slot="header" color="light">
-          <ion-label color="primary">Maduration</ion-label>
+          <ion-label color="primary">Ripening</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">Maduration content</div>
       </ion-accordion>
@@ -103,9 +122,7 @@
   </section>
   <br />
   <div class="flex justify-center mb-4">
-    <ion-button
-      (click)="deleteCheese(cheese?._id ?? '')"
-      class="delete-btn"
+    <ion-button (click)="deleteCheese(cheese?._id ?? '')" class="delete-btn"
       ><ion-icon name="trash-outline"></ion-icon
     ></ion-button>
   </div>

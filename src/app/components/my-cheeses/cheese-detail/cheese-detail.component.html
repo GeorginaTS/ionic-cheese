@@ -76,17 +76,14 @@
     <ng-template>
       <ion-list>
         <ion-item>
+          <div class="w-full min-h-48 mt-6">
           <ion-textarea
             #descArea
             [value]="item.description"
-            style="
-              border: 1px solid #ccc;
-              border-radius: 4px;
-              margin: 1rem;
-              height: 30vh;
-              padding: 1rem;
-            "
+            placeholder="Enter your description"
+            auto-grow="true"
           ></ion-textarea>
+          </div>
         </ion-item>
         <ion-button
           expand="block"

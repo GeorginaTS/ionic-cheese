@@ -12,15 +12,17 @@ import {
   IonTextarea,
   IonSpinner,
 } from '@ionic/angular/standalone';
+import { FormsModule } from '@angular/forms';
+import { Router} from '@angular/router';
+import { createOutline, trashOutline } from 'ionicons/icons';
+import { IonDatetime, IonModal } from '@ionic/angular/standalone';
+
 import { Cheese } from 'src/app/interfaces/cheese';
-import { DatePipe } from '@angular/common';
 import { CheeseService } from 'src/app/services/cheese.service';
-import { Router, RouterLink } from '@angular/router';
 import { IcoCheeseStatusComponent } from '../ico-cheese-status/ico-cheese-status.component';
 import { IcoMilkTypeComponent } from '../ico-milk-type/ico-milk-type.component';
 import { addIcons } from 'ionicons';
-import { createOutline, trashOutline } from 'ionicons/icons';
-import { IonDatetime, IonModal } from '@ionic/angular/standalone';
+
 import { FirebaseStorageService } from 'src/app/services/firebase-storage.service';
 
 @Component({
@@ -38,7 +40,7 @@ import { FirebaseStorageService } from 'src/app/services/firebase-storage.servic
     IonDatetime,
     IonList,
     IonTextarea,
-    IonSpinner,
+    IonSpinner, FormsModule
   ],
 })
 export class CheeseDetailComponent implements OnInit {
@@ -161,7 +163,6 @@ export class CheeseDetailComponent implements OnInit {
       });
   }
   saveDescription(newDescription: string) {
-    console.log(newDescription);
     this.cheeseService
       .updateCheese(this.item._id, { description: newDescription })
       .subscribe({
