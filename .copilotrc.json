@@ -1,0 +1,49 @@
+{
+  "style": {
+    "language": "typescript",
+    "framework": "angular",
+    "ui": ["ionic", "tailwind"],
+    "patterns": [
+      "use Angular standalone components (no NgModules)",
+      "use Angular injectable services for business logic and data access",
+      "prefer Observables and RxJS operators instead of Promises when possible",
+      "build UI with Ionic components combined with Tailwind classes",
+      "style only with Tailwind, avoid inline CSS",
+      "place feature pages under /src/app/pages and shared components under /src/app/components",
+      "use Capacitor plugins for native features (camera, geolocation, filesystem)",
+      "use AngularFire for Firebase integration (auth, firestore, storage)",
+      "do not use jQuery or direct DOM manipulation"
+    ]
+  },
+  "context": {
+    "project": "Cheesely",
+    "description": "Community and cheese management app built with Angular + Ionic + Tailwind. Includes favorites, kanban boards, geolocation, and Firebase integration.",
+    "entities": [
+      "Cheese",
+      "User",
+      "Board",
+      "Favorites",
+      "CommunityPost"
+    ],
+    "db": "MongoDB with Mongoose (backend) and Firebase for authentication and real-time data"
+  },
+  "conventions": {
+    "naming": {
+      "components": "PascalCase",
+      "services": "PascalCase with suffix Service",
+      "selectors": "kebab-case",
+      "files": "kebab-case"
+    },
+    "routing": {
+      "strategy": "Angular Router with lazy loading",
+      "guards": "use AuthGuards for protected routes"
+    },
+    "testing": {
+      "framework": "Jasmine + Karma for Angular",
+      "practices": [
+        "write unit tests for components, services, and guards",
+        "mock dependencies with TestBed"
+      ]
+    }
+  }
+}

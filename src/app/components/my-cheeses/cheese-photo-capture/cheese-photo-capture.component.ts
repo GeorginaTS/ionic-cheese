@@ -50,6 +50,11 @@ export class CheesePhotoCaptureComponent implements OnInit {
   }
 
   async takePhoto() {
+    console.log('Taking photo for cheese ID:', this.id);
+    if (!this.id) {
+      this.showToast('Cheese ID is missing!', true);
+      return;
+    }
     const loading = await this.loadingController.create({
       message: 'Saving image...',
       spinner: 'circles',
