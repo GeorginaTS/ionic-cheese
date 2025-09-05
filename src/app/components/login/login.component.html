@@ -1,9 +1,8 @@
 <div class="w-full max-w-md mx-auto">
-  <form [formGroup]="authForm" class="w-full">
-
+  <form [formGroup]="authForm" class="w-full flex flex-col gap-2 p-4">
   <!-- Email -->
   <ion-item>
-    <ion-label position="floating">Email</ion-label>
+    <ion-label>Email</ion-label>
     <ion-input type="email" formControlName="email"></ion-input>
   </ion-item>
   @if(authForm.get('email')?.touched && authForm.get('email')?.invalid) {
@@ -15,7 +14,7 @@
 
   <!-- Password -->
   <ion-item>
-    <ion-label position="floating">Password</ion-label>
+    <ion-label>Password</ion-label>
     <ion-input type="password" formControlName="password"></ion-input>
   </ion-item>
   @if(authForm.get('password')?.touched && authForm.get('password')?.invalid) {
@@ -29,7 +28,7 @@
     Login
   </ion-button>
 </form>
-  <br><hr><br>
+<hr>
     <!-- Google -->
   <ion-button expand="block" (click)="loginWithGoogle()">
     <ion-icon name="logo-google" slot="start"></ion-icon>

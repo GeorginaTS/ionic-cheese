@@ -18,8 +18,7 @@ import {
   IonLabel,
   IonSelectOption,
   IonButton,
-  IonDatetimeButton,
-  IonText,
+  IonDatetimeButton
 } from '@ionic/angular/standalone';
 import { Cheese } from 'src/app/interfaces/cheese';
 import { IonInput, IonSelect, IonRange } from '@ionic/angular/standalone';
@@ -32,7 +31,6 @@ import { AuthService } from 'src/app/services/auth.service';
   selector: 'app-add-cheese',
   templateUrl: './add-cheese.page.html',
   styleUrls: ['./add-cheese.page.scss'],
-  standalone: true,
   imports: [
     CommonModule,
     FormsModule,
@@ -53,8 +51,7 @@ import { AuthService } from 'src/app/services/auth.service';
     IonRange,
     IonDatetimeButton,
     IonModal,
-    IonDatetime,
-    IonText,
+    IonDatetime
   ],
 })
 export class AddCheesePage {
@@ -86,10 +83,10 @@ export class AddCheesePage {
         Validators.maxLength(50),
       ]),
       milkType: new FormControl('cow', [Validators.required]),
-      milkQuantity: new FormControl('', [
+      milkQuantity: new FormControl('4', [
         Validators.required,
-        Validators.min(1),
-        Validators.max(100),
+        Validators.min(2),
+        Validators.max(20),
       ]),
       milkOrigin: new FormControl('', [
         Validators.required,
@@ -125,7 +122,6 @@ export class AddCheesePage {
       console.error('Formulari invàlid', this.addCheeseForm.errors);
       this.addCheeseForm.markAllAsTouched();
     }
-
     this.addCheeseForm.reset();
   }
 }

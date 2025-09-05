@@ -1,0 +1,37 @@
+
+  <form formGroupName="elaborationForm" class="ion-padding">  
+    <ion-item>
+      <ion-label>Milk Temperature</ion-label>
+      <ion-input formControlName="temperature"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Time (Minutes)</ion-label>
+      <ion-input formControlName="time"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Fermentation</ion-label>
+      <ion-select formControlName="fermentation">
+        <ion-select-option value="Enzimatic">Enzimatic</ion-select-option>
+        <ion-select-option value="Lactic">Lactic</ion-select-option>
+        <ion-select-option value="Mixted">Mixted</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Ferments (gr)</ion-label>
+      <ion-input formControlName="ferments"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Rennet (ml)</ion-label>
+      <ion-input formControlName="rennet"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Calcium (gr)</ion-label>
+      <ion-input formControlName="calcium"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Comments</ion-label>
+      <ion-textarea formControlName="comments" auto-grow="true"></ion-textarea>
+    </ion-item>
+    <div class="w-full flex justify-center my-2"><ion-button (click)="saveElaboration()">Save</ion-button></div>
+  </form>
+
