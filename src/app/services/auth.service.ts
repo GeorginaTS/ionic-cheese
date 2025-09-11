@@ -1,15 +1,14 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { firstValueFrom, from, Observable, take } from 'rxjs';
 import {
   Auth,
-  user,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
   updateProfile,
-  getAuth,
+
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { serverTimestamp } from '@angular/fire/firestore';
@@ -19,42 +18,33 @@ import { FirestoreService } from './firestore.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(
-    private auth: Auth,
-    private router: Router,
-    private firestoreService: FirestoreService,
-    private toastController: ToastController
-  ) {}
+  
+  private auth = inject(Auth);
+  private firestoreService = inject(FirestoreService);
+  private router = inject(Router);
+  private toastController = inject(ToastController);
 
-  async register(
-    displayName: string,
-    email: string,
-    password: string,
-    birthDate: string,
-    country: string,
-    province: string,
-    city: string
-  ) {
+  constructor() {}
+
+  async register(newUser: Partial<AppUser> & { password: string }) {
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        this.auth,
-        email,
-        password
-      );
+    const { email, password, displayName, ...extraData } = newUser;
+      console.log('Registering user:', newUser);
+        if (!email || !password) throw new Error('Email i contrasenya requerits');
+
+      const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
       const user = userCredential.user;
-      console.log('Registering user:', user);
-      await updateProfile(user, { displayName: displayName });
+
+      await updateProfile(user, { displayName: displayName || '' });
 
       const appUser: AppUser = {
         uid: user.uid,
         displayName,
         email,
-        birthDate,
-        country,
-        province,
-        city,
+        ...extraData,
         createdAt: serverTimestamp(),
       };
+      
       console.log('AppUser object:', appUser);
 
       // Use firestore service to save user data
@@ -63,20 +53,7 @@ export class AuthService {
       this.showToast('✅ User registered', 'success');
       this.router.navigate(['/my-cheeses']);
     } catch (error: any) {
-      let message = 'ERROR:';
-
-      switch (error.code) {
-        case 'auth/email-already-in-use':
-          message = 'This email is already in use.';
-          break;
-        case 'auth/invalid-email':
-          message = 'Invalid email address.';
-          break;
-        case 'auth/weak-password':
-          message = 'Weak password.';
-          break;
-      }
-
+      const message = this.mapAuthError(error);
       this.showToast(message, 'danger');
       console.error('Error registering user:', message, error);
     }
@@ -93,32 +70,25 @@ export class AuthService {
       console.log('Login successful, user:', userCredential.user);
       this.router.navigate(['/my-cheeses']);
       return userCredential;
+
     } catch (error: any) {
-      console.error('Login error:', error);
-      let errorMessage = 'Login failed';
-
-      switch (error.code) {
-        case 'auth/invalid-email':
-          errorMessage = 'Invalid email format';
-          break;
-        case 'auth/user-not-found':
-          errorMessage = 'No user found with this email';
-          break;
-        case 'auth/wrong-password':
-          errorMessage = 'Incorrect password';
-          break;
-        case 'auth/too-many-requests':
-          errorMessage = 'Too many failed login attempts. Try again later';
-          break;
-        case 'auth/network-request-failed':
-          errorMessage = 'Network error. Check your connection';
-          break;
-      }
-
+      const errorMessage = this.mapAuthError(error, 'login');
       this.showToast(errorMessage, 'danger');
       this.router.navigate(['/home']);
       throw error;
     }
+  }
+    private mapAuthError(error: any, context: 'register' | 'login' = 'register'): string {
+    const codes: Record<string, string> = {
+      'auth/email-already-in-use': 'This email is already in use.',
+      'auth/invalid-email': 'Invalid email address.',
+      'auth/weak-password': 'Weak password.',
+      'auth/user-not-found': 'No user found with this email',
+      'auth/wrong-password': 'Incorrect password',
+      'auth/too-many-requests': 'Too many failed attempts. Try again later',
+      'auth/network-request-failed': 'Network error. Check your connection',
+    };
+    return codes[error.code] || `Unexpected ${context} error`;
   }
   async googleLogin() {
     const provider = new GoogleAuthProvider();

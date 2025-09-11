@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -17,6 +17,7 @@ import {
 } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { AppUser } from 'src/app/interfaces/user';
 
 @Component({
   selector: 'app-register',
@@ -36,38 +37,44 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './register.component.html',
 })
 export class RegisterComponent {
+  
+  private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
   registerForm: FormGroup;
-
-  constructor(private fb: FormBuilder, private authService: AuthService) {
-    this.registerForm = this.fb.group({
-      displayName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      birthDate: [new Date().toISOString(), [Validators.required]],
-      country: ['', Validators.required],
-      province: [''],
-      city: [''],
-    });
+  constructor() {
+    this.registerForm = this.initForm();
   }
 
+  private initForm(): FormGroup {
+    return this.fb.group({
+      displayName: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],      
+      birthDate: ['', [Validators.required]],
+      country: ['', [Validators.required]],      
+      province: [''],      
+      city: [''],      
+    });
+  }
   async register() {
-    if (this.registerForm.valid) {
-      const { displayName, email, password, birthDate, country, province, city } =
-        this.registerForm.value;
+    if (this.registerForm.invalid) return;
 
-      try {
-        await this.authService.register(
-          displayName,
-          email,
-          password,
-          birthDate,
-          country,
-          province,
-          city
-        );
-      } catch (error) {
-        console.error('Error en el registre:', error);
-      }
+    const formValue = this.registerForm.value;
+
+    const newUser: Partial<AppUser> & { password: string } = {
+      displayName: formValue.displayName,
+      email: formValue.email,
+      password: formValue.password, // només per crear l’usuari
+      birthDate: formValue.birthDate,
+      country: formValue.country,
+      province: formValue.province,
+      city: formValue.city,
+    };
+
+    try {
+      await this.authService.register(newUser);
+    } catch (error) {
+      console.error('Error en el registre:', error);
     }
   }
 }

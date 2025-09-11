@@ -21,12 +21,10 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import {
   provideFirestore,
   getFirestore,
-  initializeFirestore,
-  persistentLocalCache,
-  persistentMultipleTabManager,
 } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { environment } from './environments/environment';
+import { getMessaging, provideMessaging } from '@angular/fire/messaging';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -36,16 +34,8 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => {
-      // Configurem Firestore amb la persistència multi-pestanya utilitzant l'API recomanada
-      const app = initializeApp(environment.firebaseConfig);
-      return initializeFirestore(app, {
-        // Configuració de cache per suportar persistència i multi-pestanyes
-        localCache: persistentLocalCache({
-          tabManager: persistentMultipleTabManager(),
-        }),
-      });
-    }),
+    provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
+    provideMessaging(() => getMessaging()),
   ],
 });

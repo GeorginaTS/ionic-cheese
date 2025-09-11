@@ -41,9 +41,9 @@ export const NoAuthGuard: CanActivateFn = () => {
       console.log('User already authenticated, redirecting to my-cheeses');
       router.navigate(['/my-cheeses']);
       return false;
-    }
-    
+    }  
     console.log('User not authenticated, allowing access to login page');
+    router.navigate(['/home']);
     return true;
   } catch (error) {
     console.error('Error checking authentication:', error);
