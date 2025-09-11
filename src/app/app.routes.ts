@@ -1,37 +1,33 @@
 import { Routes } from '@angular/router';
-import { redirectUnauthorizedTo, redirectLoggedInTo, canActivate } from '@angular/fire/auth-guard';
-
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/home']);
-const redirectLoggedInToHome = () => redirectLoggedInTo(['/my-cheeses']);
+import { AuthGuard, NoAuthGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
+    loadComponent: () =>
+      import('./pages/home/home.page').then((m) => m.HomePage),
   },
   {
     path: 'home',
     loadComponent: () =>
       import('./pages/home/home.page').then((m) => m.HomePage),
-    ...canActivate(redirectLoggedInToHome),
   },
   {
     path: 'community',
     loadComponent: () =>
-      import('./pages/community/community.page').then((m) => m.CommunityPage),   
+      import('./pages/community/community.page').then((m) => m.CommunityPage),
   },
   {
     path: 'profile',
     loadComponent: () =>
       import('./pages/profile/profile.page').then((m) => m.ProfilePage),
-    ...canActivate(redirectUnauthorizedToLogin),
+    canActivate: [AuthGuard],
   },
   {
     path: 'my-cheeses',
     loadComponent: () =>
       import('./pages/my-cheeses/my-cheeses.page').then((m) => m.MyCheesesPage),
-    ...canActivate(redirectUnauthorizedToLogin),
+    canActivate: [AuthGuard],
   },
   {
     path: 'cheese/add',
@@ -39,7 +35,7 @@ export const routes: Routes = [
       import('./pages/my-cheeses/add-cheese/add-cheese.page').then(
         (m) => m.AddCheesePage
       ),
-    ...canActivate(redirectUnauthorizedToLogin),
+    canActivate: [AuthGuard],
   },
   {
     path: 'cheese/:id',
@@ -47,7 +43,7 @@ export const routes: Routes = [
       import('./pages/my-cheeses/cheese-detail/cheese-detail.page').then(
         (m) => m.CheeseDetailPage
       ),
-    ...canActivate(redirectUnauthorizedToLogin),
+    canActivate: [AuthGuard],
   },
   {
     path: 'world-cheeses',

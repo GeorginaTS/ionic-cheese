@@ -18,7 +18,7 @@ import {
   IonLabel,
   IonSelectOption,
   IonButton,
-  IonDatetimeButton
+  IonDatetimeButton,
 } from '@ionic/angular/standalone';
 import { Cheese } from 'src/app/interfaces/cheese';
 import { IonInput, IonSelect, IonRange } from '@ionic/angular/standalone';
@@ -51,7 +51,7 @@ import { AuthService } from 'src/app/services/auth.service';
     IonRange,
     IonDatetimeButton,
     IonModal,
-    IonDatetime
+    IonDatetime,
   ],
 })
 export class AddCheesePage {
@@ -64,7 +64,7 @@ export class AddCheesePage {
     date: new Date(),
     status: 'To do',
     public: false,
-    userId: this.authService.currentUser?.uid || '',
+    userId: '', // Se establecerá de manera asíncrona
     description: '',
   };
 
@@ -98,10 +98,10 @@ export class AddCheesePage {
     });
   }
 
-  addCheese() {
+  async addCheese() {
     if (this.addCheeseForm.valid) {
       const cheeseData = this.addCheeseForm.value;
-      const currentUser = this.authService.currentUser;
+      const currentUser = await this.authService.getCurrentUserAsync();
       if (!currentUser) {
         console.error('Usuari no autenticat');
         this.router.navigate(['/home']);

@@ -51,11 +51,9 @@ export class MyCheesesPage implements OnInit {
   searchControl = new FormControl('');
   filteredCheeses: Cheese[] = [];
   private cheeseService = inject(CheeseService);
-
-  constructor(
-    private elementRef: ElementRef,
-    private focusManager: FocusManagerService
-  ) {
+  private focusManager = inject(FocusManagerService);
+  private elementRef = inject(ElementRef);
+  constructor() {
     addIcons({ addCircleOutline, add });
   }
   ngOnInit(): void {
@@ -66,10 +64,13 @@ export class MyCheesesPage implements OnInit {
   }
   ionViewWillEnter() {
     this.loadCheeses();
+    this.searchControl.valueChanges.subscribe((value) => {
+      this.filterCheeses(value ?? '');
+    });
   }
   ionViewWillLeave() {
-  this.focusManager.clearFocus(this.elementRef);
-}
+    this.focusManager.clearFocus(this.elementRef);
+  }
   loadCheeses(): void {
     this.cheeseService.getAllCheeses().subscribe({
       next: (data) => {

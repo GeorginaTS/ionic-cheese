@@ -43,7 +43,9 @@ export class CheeseCardComponent implements OnInit {
   ngOnInit() {
     this.loadPhoto();
   }
-
+  ionViewWillEnter() {
+    this.loadPhoto();
+  }
   async loadPhoto() {
     if (!this.cheese) {
       console.error('Cheese object is null');

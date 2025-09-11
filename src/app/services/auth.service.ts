@@ -1,5 +1,10 @@
-import { inject, Injectable } from '@angular/core';
-import { firstValueFrom, from, Observable, take } from 'rxjs';
+import {
+  inject,
+  Injectable,
+  Injector,
+  runInInjectionContext,
+} from '@angular/core';
+import { firstValueFrom, from, Observable, take, switchMap } from 'rxjs';
 import {
   Auth,
   signInWithEmailAndPassword,
@@ -8,6 +13,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   updateProfile,
+  user,
+  User,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { serverTimestamp } from '@angular/fire/firestore';
@@ -18,6 +25,7 @@ import { FirestoreService } from './firestore.service';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private auth = inject(Auth);
+  private injector = inject(Injector);
   private firestoreService = inject(FirestoreService);
   private router = inject(Router);
   private toastController = inject(ToastController);
@@ -81,9 +89,23 @@ export class AuthService {
   }
 
   get currentUser() {
-    return this.auth.currentUser;
+    return runInInjectionContext(this.injector, () => {
+      return this.auth.currentUser;
+    });
   }
-  
+
+  /** Get current user using the Observable approach (recommended) */
+  async getCurrentUserAsync() {
+    try {
+      return await runInInjectionContext(this.injector, async () => {
+        return await firstValueFrom(user(this.auth));
+      });
+    } catch (error) {
+      console.error('Error getting current user:', error);
+      return null;
+    }
+  }
+
   private mapAuthError(
     error: any,
     context: 'register' | 'login' = 'register'
@@ -105,14 +127,19 @@ export class AuthService {
     this.router.navigate(['/my-cheeses']);
   }
   getIdToken$(): Observable<string> {
-    const user = this.auth.currentUser;
-    if (!user) throw new Error('Usuari no autenticat');
-    return from(user.getIdToken());
+    return runInInjectionContext(this.injector, () => {
+      return from(user(this.auth)).pipe(
+        switchMap((currentUser: User | null) => {
+          if (!currentUser) throw new Error('Usuari no autenticat');
+          return from(currentUser.getIdToken());
+        })
+      );
+    });
   }
   async getUserProfile(uid?: string): Promise<AppUser | null> {
     try {
-      // Utilitzar directament currentUser en lloc de l'observable user()
-      const firebaseUser = this.auth.currentUser;
+      // Utilizar el método recomendado con user() Observable
+      const firebaseUser = await this.getCurrentUserAsync();
 
       // Obtenir l'ID d'usuari del paràmetre o de l'usuari autenticat
       const userId = uid || firebaseUser?.uid;

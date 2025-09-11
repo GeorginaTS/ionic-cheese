@@ -90,20 +90,6 @@ export class CheeseDetailComponent implements OnInit {
           'No hem trobat la foto a Firebase, intentant localment...',
           error.message
         );
-
-        const fileName = `${this.item._id}-1.jpeg`;
-        try {
-          // Utilitzem el mètode getLocalImage que implementarem a continuació
-          const localImage = await this.getLocalImage(fileName);
-          if (localImage) {
-            this.photo1 = localImage;
-            console.log('Imatge carregada des del dispositiu local');
-            this.isLoading = false;
-            return;
-          }
-        } catch (localError) {
-          console.log('No hem trobat la foto ni localment', localError);
-        }
       }
 
       // Si no hem pogut carregar la foto ni de Firebase ni localment, deixem la foto1 buida
@@ -113,25 +99,6 @@ export class CheeseDetailComponent implements OnInit {
       this.photo1 = '';
     } finally {
       this.isLoading = false;
-    }
-  }
-
-  // Mètode auxiliar per carregar imatges locals si no estan a Firebase
-  private async getLocalImage(fileName: string): Promise<string | null> {
-    try {
-      // Importem i utilitzem Filesystem directament
-      const { Filesystem, Directory } = await import('@capacitor/filesystem');
-      try {
-        const file = await Filesystem.readFile({
-          path: fileName,
-          directory: Directory.Data,
-        });
-        return `data:image/jpeg;base64,${file.data}`;
-      } catch {
-        return null;
-      }
-    } catch {
-      return null;
     }
   }
 
