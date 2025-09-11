@@ -49,11 +49,21 @@ export class RegisterComponent {
       displayName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      birthDate: [new Date().toISOString()],
+      birthDate: [this.maxBirthDate()],
       country: ['', [Validators.required]],
       province: [''],
       city: [''],
     });
+  }
+
+  getCurrentDate(): string {
+    return new Date().toISOString();
+  }
+
+  maxBirthDate(): string {
+    const today = new Date();
+    const maxDate = new Date(today.getFullYear() - 16, today.getMonth(), today.getDate());
+    return maxDate.toISOString();
   }
 
   async register() {

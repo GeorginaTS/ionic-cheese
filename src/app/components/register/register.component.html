@@ -26,22 +26,27 @@
     registerForm.get('password')?.invalid) {
     <ion-note color="danger">Mínim 6 caràcters</ion-note>
     }
-     <ion-item>
-        <ion-label>Birth Date</ion-label>
-        <ion-datetime-button datetime="datetime"></ion-datetime-button>
-        <ion-modal [keepContentsMounted]="true">
-          <ng-template>
-            <ion-datetime
-              id="datetime"
-              [value]="registerForm.get('birthDate')?.value "
-              (ionChange)="registerForm.get('birthDate')?.setValue($event.detail.value)"
-              presentation="date"
-              [formatOptions]="{date: { day: '2-digit', month: 'long', year:'2-digit' }}"
-            >
-            </ion-datetime>
-          </ng-template>
-        </ion-modal>
-      </ion-item>
+    <ion-item>
+      <ion-label>Birth Date</ion-label>
+      <ion-datetime-button datetime="datetime"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime
+            id="datetime"
+            [value]="registerForm.get('birthDate')?.value"
+            (ionChange)="
+              registerForm.get('birthDate')?.setValue($event.detail.value)
+            "
+            presentation="date"
+            [max]="maxBirthDate()"
+            [formatOptions]="{
+              date: { day: '2-digit', month: 'long', year: '2-digit' }
+            }"
+          >
+          </ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-item>
 
     <ion-item>
       <ion-label>Country</ion-label>

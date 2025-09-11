@@ -25,6 +25,11 @@
       <h2 class="user-name">{{currentUser?.displayName || 'User'}}</h2>
       <p>{{currentUser?.uid || ''}}</p>
       <p class="user-email">{{ currentUser?.email || '' }}</p>
+      <p class="user-birthdate">{{ currentUser?.birthDate || '' }}</p>
+      <p class="user-location">
+        {{ currentUser?.city || '' }}, {{ currentUser?.province || '' }},
+        {{ currentUser?.country || '' }}
+      </p>
     </div>
   </ion-card>
   }
