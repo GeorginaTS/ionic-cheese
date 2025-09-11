@@ -123,8 +123,31 @@ export class AuthService {
   }
   async googleLogin() {
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(this.auth, provider);
-    this.router.navigate(['/my-cheeses']);
+    provider.addScope('profile');
+    provider.addScope('email');
+    try {
+      const userCredential = await signInWithPopup(this.auth, provider);
+      const user = userCredential.user;
+      console.log('Google user:', user);
+      console.log('Photo URL:', user.photoURL);
+
+      // Prepara objecte AppUser amb dades de Google
+      const appUser: AppUser = {
+        uid: user.uid,
+        displayName: user.displayName || '',
+        email: user.email || '',
+        photoURL: user.photoURL || undefined,
+        createdAt: serverTimestamp(),
+      };
+
+      // Desa (merge) a Firestore perquè no sobreescrigui si ja existia
+      await this.firestoreService.setDocument('users', user.uid, appUser);
+
+      this.router.navigate(['/my-cheeses']);
+    } catch (error: any) {
+      console.error('Error signing in with Google:', error);
+      this.router.navigate(['/']);
+    }
   }
   getIdToken$(): Observable<string> {
     return runInInjectionContext(this.injector, () => {

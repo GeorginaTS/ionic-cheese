@@ -1,16 +1,7 @@
 import { Component, ElementRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonFabButton,
-  IonFab,
-  IonSpinner,
-  IonSearchbar,
-} from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonFabButton, IonFab, IonSpinner, IonSearchbar, IonNote } from '@ionic/angular/standalone';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { CheeseService } from '../../services/cheese.service';
 import { Cheese } from '../../interfaces/cheese';
@@ -42,7 +33,8 @@ import { FocusManagerService } from 'src/app/services/focus-manager.service';
     IonSpinner,
     IonSearchbar,
     ReactiveFormsModule,
-  ],
+    IonNote
+],
 })
 export class MyCheesesPage implements OnInit {
   cheeses: Cheese[] = [];

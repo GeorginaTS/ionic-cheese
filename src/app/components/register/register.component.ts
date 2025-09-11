@@ -37,7 +37,6 @@ import { AppUser } from 'src/app/interfaces/user';
   templateUrl: './register.component.html',
 })
 export class RegisterComponent {
-  
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   registerForm: FormGroup;
@@ -49,17 +48,24 @@ export class RegisterComponent {
     return this.fb.group({
       displayName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],      
-      birthDate: ['', [Validators.required]],
-      country: ['', [Validators.required]],      
-      province: [''],      
-      city: [''],      
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      birthDate: [new Date().toISOString()],
+      country: ['', [Validators.required]],
+      province: [''],
+      city: [''],
     });
   }
+
   async register() {
-    if (this.registerForm.invalid) return;
+    // Validar formulario y mostrar errores si es necesario
+    if (this.registerForm.invalid) {
+      console.log('Form is invalid');
+      this.registerForm.markAllAsTouched();
+      return;
+    }
 
     const formValue = this.registerForm.value;
+    console.log('Form values:', formValue);
 
     const newUser: Partial<AppUser> & { password: string } = {
       displayName: formValue.displayName,
