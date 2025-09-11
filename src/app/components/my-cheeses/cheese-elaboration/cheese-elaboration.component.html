@@ -2,7 +2,7 @@
   <ion-segment-button value="making" content-id="making">
     <ion-label>Making</ion-label>
   </ion-segment-button>
-  <ion-segment-button value="ripening" content-id="ripening">
+  <ion-segment-button value="ripening" content-id="ripening" >
     <ion-label>Ripening</ion-label>
   </ion-segment-button>
   <ion-segment-button value="taste" content-id="taste">
@@ -10,7 +10,7 @@
   </ion-segment-button>
 </ion-segment>
 <ion-segment-view>
-  <ion-segment-content id="making">
+  <ion-segment-content id="making" class="bg-amber-100">
     <ul>
       <li>Milk Temperature</li>
       <li>Starter Cultures</li>
@@ -22,7 +22,7 @@
       <li>Salting</li>
     </ul>
   </ion-segment-content>
-  <ion-segment-content id="ripening">
+  <ion-segment-content id="ripening" class="bg-amber-200">
     <ul>
       <li>Ripening Start Date</li>
       <li>Estimated Duration</li>
@@ -33,7 +33,7 @@
       <li>Brushing</li>
     </ul>
   </ion-segment-content>
-  <ion-segment-content id="taste">
+  <ion-segment-content id="taste" class="bg-amber-300">
     <ul>
       <li>Visual</li>
       <li>Aroma</li>
@@ -41,5 +41,4 @@
       <li>Flavor</li>
     </ul>
   </ion-segment-content>
-  <ion-segment-content id="taste">Taste Content</ion-segment-content>
 </ion-segment-view>
