@@ -1,0 +1,38 @@
+ion-segment {
+  --background: var(--grey-light-color);
+  border-radius: 0.8rem 0.8rem 0 0;
+  width: 100%;
+  box-sizing: border-box;
+}   
+ion-segment-button:nth-of-type(1) {
+    @apply bg-yellow-100;
+}
+ion-segment-button:nth-of-type(2) {
+  @apply bg-yellow-200;
+}
+ion-segment-button:nth-of-type(3) {
+    @apply bg-yellow-300;       
+}
+ion-segment-view {
+  background-color:var(--light-color);
+  border-radius: 0 0 0.8rem 0.8rem;
+  width: 100%;
+  min-height: 200px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+ion-segment-content {
+  background-color: var(--light-color);
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.6rem;
+}
+ion-segment-content:nth-of-type(1) {
+    @apply bg-yellow-100;
+}
+ion-segment-content:nth-of-type(2) {
+  @apply bg-yellow-200;
+}
+ion-segment-content:nth-of-type(3) {
+  @apply bg-yellow-300;
+}

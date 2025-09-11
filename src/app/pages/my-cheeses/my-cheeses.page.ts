@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -50,9 +50,9 @@ export class MyCheesesPage implements OnInit {
   errorMessage = '';
   searchControl = new FormControl('');
   filteredCheeses: Cheese[] = [];
+  private cheeseService = inject(CheeseService);
 
   constructor(
-    private cheeseService: CheeseService,
     private elementRef: ElementRef,
     private focusManager: FocusManagerService
   ) {

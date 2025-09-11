@@ -1,3 +1,45 @@
-<p>
-  cheese-elaboration works!
-</p>
+<ion-segment>
+  <ion-segment-button value="making" content-id="making">
+    <ion-label>Making</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="ripening" content-id="ripening">
+    <ion-label>Ripening</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="taste" content-id="taste">
+    <ion-label>Taste</ion-label>
+  </ion-segment-button>
+</ion-segment>
+<ion-segment-view>
+  <ion-segment-content id="making">
+    <ul>
+      <li>Milk Temperature</li>
+      <li>Starter Cultures</li>
+      <li>Coagulant</li>
+      <li>Coagulation Time</li>
+      <li>Curd Cutting</li>
+      <li>Molding</li>
+      <li>Applied Pressure</li>
+      <li>Salting</li>
+    </ul>
+  </ion-segment-content>
+  <ion-segment-content id="ripening">
+    <ul>
+      <li>Ripening Start Date</li>
+      <li>Estimated Duration</li>
+      <li>Temperature</li>
+      <li>Humidity</li>
+      <li>Turning /Flips</li>
+      <li>Washing</li>
+      <li>Brushing</li>
+    </ul>
+  </ion-segment-content>
+  <ion-segment-content id="taste">
+    <ul>
+      <li>Visual</li>
+      <li>Aroma</li>
+      <li>Texture</li>
+      <li>Flavor</li>
+    </ul>
+  </ion-segment-content>
+  <ion-segment-content id="taste">Taste Content</ion-segment-content>
+</ion-segment-view>

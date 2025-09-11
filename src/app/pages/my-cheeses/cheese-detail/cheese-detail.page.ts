@@ -34,6 +34,7 @@ import { CheeseDetailComponent } from 'src/app/components/my-cheeses/cheese-deta
 import { AddNoteModalComponent } from 'src/app/components/add-note-modal/add-note-modal.component';
 import { CheesePhotoCaptureComponent } from 'src/app/components/my-cheeses/cheese-photo-capture/cheese-photo-capture.component';
 import { CheeseElaborationModalComponent } from "src/app/components/my-cheeses/cheese-elaboration-modal/cheese-elaboration-modal.component";
+import { CheeseElaborationComponent } from "src/app/components/my-cheeses/cheese-elaboration/cheese-elaboration.component";
 
 @Component({
   selector: 'app-cheese-detail-page',
@@ -50,10 +51,6 @@ import { CheeseElaborationModalComponent } from "src/app/components/my-cheeses/c
     MenuComponent,
     CheeseDetailComponent,
     IonSpinner,
-    IonAccordion,
-    IonItem,
-    IonLabel,
-    IonAccordionGroup,
     IonIcon,
     IonButton,
     IonBackButton,
@@ -61,7 +58,7 @@ import { CheeseElaborationModalComponent } from "src/app/components/my-cheeses/c
     IonModal,
     CheesePhotoCaptureComponent,
     CheeseDetailComponent,
-    CheeseElaborationModalComponent
+    CheeseElaborationComponent
 ],
 })
 export class CheeseDetailPage implements OnInit {
@@ -134,8 +131,5 @@ export class CheeseDetailPage implements OnInit {
   }
   openPhotoModal() {
     this.photoModalOpen = true;
-  }
-  openMakingModal() {
-    this.makingModalOpen = true;
   }
 }
