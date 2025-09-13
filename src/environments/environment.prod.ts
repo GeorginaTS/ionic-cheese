@@ -1,6 +1,10 @@
+import * as dotenv from 'dotenv';
+
+dotenv.config({ override: true });
+
 export const environment = {
   production: false,
-  apiUrl: 'https://ionic-cheese-back.onrender.com/api',
+  apiUrl: process.env['API_URL'] || 'https://ionic-cheese-back.onrender.com/api',
   firebaseConfig: {
     apiKey: process.env['FIREBASE_API_KEY'],
     authDomain: process.env['FIREBASE_AUTH_DOMAIN'],
