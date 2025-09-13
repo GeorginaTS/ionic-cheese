@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -33,7 +33,9 @@ import {
 import { CheeseDetailComponent } from 'src/app/components/my-cheeses/cheese-detail/cheese-detail.component';
 import { AddNoteModalComponent } from 'src/app/components/add-note-modal/add-note-modal.component';
 import { CheesePhotoCaptureComponent } from 'src/app/components/my-cheeses/cheese-photo-capture/cheese-photo-capture.component';
-import { CheeseElaborationModalComponent } from "src/app/components/my-cheeses/cheese-elaboration-modal/cheese-elaboration-modal.component";
+import { CheeseElaborationModalComponent } from 'src/app/components/my-cheeses/cheese-elaboration-modal/cheese-elaboration-modal.component';
+import { CheeseElaborationComponent } from 'src/app/components/my-cheeses/cheese-elaboration/cheese-elaboration.component';
+import { FocusManagerService } from 'src/app/services/focus-manager.service';
 
 @Component({
   selector: 'app-cheese-detail-page',
@@ -50,10 +52,6 @@ import { CheeseElaborationModalComponent } from "src/app/components/my-cheeses/c
     MenuComponent,
     CheeseDetailComponent,
     IonSpinner,
-    IonAccordion,
-    IonItem,
-    IonLabel,
-    IonAccordionGroup,
     IonIcon,
     IonButton,
     IonBackButton,
@@ -61,8 +59,8 @@ import { CheeseElaborationModalComponent } from "src/app/components/my-cheeses/c
     IonModal,
     CheesePhotoCaptureComponent,
     CheeseDetailComponent,
-    CheeseElaborationModalComponent
-],
+    CheeseElaborationComponent,
+  ],
 })
 export class CheeseDetailPage implements OnInit {
   cheeseId: string = '';
@@ -73,11 +71,15 @@ export class CheeseDetailPage implements OnInit {
   makingModalOpen = false;
   photo1: string | null = null;
 
-  private routeSub!: Subscription;
+  private route = inject(ActivatedRoute);
+  private cheeseService = inject(CheeseService);
+  private router = inject(Router);
+
+  private focusManager = inject(FocusManagerService);
+  private elementRef = inject(ElementRef);
+  routeSub!: Subscription;
   constructor(
-    private route: ActivatedRoute,
-    private cheeseService: CheeseService,
-    private router: Router
+
   ) {
     // Add icons to the IonIcon component
     addIcons({
@@ -95,6 +97,12 @@ export class CheeseDetailPage implements OnInit {
         this.loadCheese();
       }
     });
+  }
+  ionViewWillEnter() {
+    this.loadCheese();
+  }
+  ionViewWillLeave() {
+    this.focusManager.clearFocus(this.elementRef);
   }
   loadCheese(): void {
     this.isLoading = true;
@@ -134,8 +142,5 @@ export class CheeseDetailPage implements OnInit {
   }
   openPhotoModal() {
     this.photoModalOpen = true;
-  }
-  openMakingModal() {
-    this.makingModalOpen = true;
   }
 }

@@ -1,9 +1,4 @@
 <article>
-  <h2 class="flex items-center justify-center gap-2">
-    {{ item.milkQuantity }} liters of
-    <app-ico-milk-type [tipus]="item.milkType"></app-ico-milk-type> milk from
-    {{ item.milkOrigin }}
-  </h2>
   @if (isLoading) {
   <div class="flex justify-center items-center h-32">
     <ion-spinner name="circular"></ion-spinner>
@@ -63,10 +58,14 @@
       </ion-modal>
     </div>
   </div>
-  <br />
+    <h2 class="flex items-center gap-2">
+    {{ item.milkQuantity }} liters of
+    <app-ico-milk-type [tipus]="item.milkType"></app-ico-milk-type> milk from
+    {{ item.milkOrigin }}
+  </h2>
   <ion-label (click)="descriptionModalOpen = true">
-    <h3 class="text-lg font-bold m-0 p-0">Description</h3>
-    <p class="text-sm text-gray-600 p-0 m-0">{{ item.description }}</p>
+    <h3 class="font-bold m-0 p-0">Description</h3>
+    <p class="text-gray-600 p-0 m-0">{{ item.description }}</p>
   </ion-label>
   <ion-modal
     [isOpen]="descriptionModalOpen"

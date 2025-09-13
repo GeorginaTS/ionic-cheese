@@ -2,7 +2,18 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonCard, IonAvatar, IonText } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonButton,
+  IonIcon,
+  IonCard,
+  IonAvatar,
+  IonText,
+  IonSpinner,
+} from '@ionic/angular/standalone';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { addIcons } from 'ionicons';
@@ -36,12 +47,18 @@ import { FocusManagerService } from 'src/app/services/focus-manager.service';
     IonIcon,
     IonCard,
     RouterLink,
-    IonAvatar
-],
+    IonAvatar,
+    IonSpinner,
+  ],
 })
 export class ProfilePage implements OnInit {
   user: User | null = null;
-  currentUser: any = null;
+  currentUser: any = {
+    uid: '',
+    displayName: 'User',
+    email: '',
+    photoURL: '',
+  };
   userProfile: AppUser = {
     uid: '',
     displayName: '',
@@ -50,7 +67,11 @@ export class ProfilePage implements OnInit {
   };
   isLoading = true;
 
-  constructor(private authService: AuthService, private focusManager: FocusManagerService,  private elementRef: ElementRef) {
+  constructor(
+    private authService: AuthService,
+    private focusManager: FocusManagerService,
+    private elementRef: ElementRef
+  ) {
     addIcons({
       logOutOutline,
       mailOutline,
@@ -69,14 +90,14 @@ export class ProfilePage implements OnInit {
     this.loadProfile();
   }
   // El mètode ionViewWillLeave:
-ionViewWillLeave() {
-  this.focusManager.clearFocus(this.elementRef);
-}
+  ionViewWillLeave() {
+    this.focusManager.clearFocus(this.elementRef);
+  }
   async loadProfile() {
     this.isLoading = true;
 
     try {
-      this.user = this.authService.currentUser;
+      this.user = await this.authService.getCurrentUserAsync();
       if (!this.user) {
         console.warn('No authenticated user found');
         return;

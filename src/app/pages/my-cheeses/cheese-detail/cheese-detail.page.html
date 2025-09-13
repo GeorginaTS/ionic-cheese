@@ -20,7 +20,8 @@
     ></app-cheese-detail-component>
     <hr />
     <!-- Buttons -->
-    <div>
+    <div class="flex justify-around">
+      <ion-button>Edit</ion-button>
       <ion-button (click)="openPhotoModal()">Photos</ion-button>
       <!--Modal make photo-->
       <ion-modal
@@ -52,69 +53,7 @@
       </ion-modal>
     </div>
     <br />
-    <!-- Accordion for elaboration, maturation, and taste notes -->
-    <ion-accordion-group
-      [multiple]="true"
-      expand="inset"
-      [value]="['making', 'ripening', 'taste']"
-      style="width: 100%"
-    >
-      <ion-accordion
-        value="making"
-        toggleIcon="caret-down-circle"
-        toggleIconSlot="start"
-      >
-        <ion-item slot="header" color="light">
-          <ion-label color="primary">
-            <div class="title-accordion">
-              <span>Making:</span>
-</div
-          ></ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content">Making contents
-          <ion-icon
-                name="create-outline"
-                size="large"
-                color="primary"
-                (click)="openMakingModal()"
-              ></ion-icon></div>
-        <ion-modal
-          [isOpen]="makingModalOpen"
-          (didDismiss)="makingModalOpen = false"
-          initialBreakpoint="0.9"
-          [breakpoints]="[1, 0.9, 0.6, 0]"
-        >
-          <ng-template>
-            <ion-content class="modal-scroll">
-              <app-cheese-elaboration-modal
-                [id]="cheese._id"
-              ></app-cheese-elaboration-modal>
-            </ion-content>
-          </ng-template>
-        </ion-modal>
-      </ion-accordion>
-      <!-- Maduration -->
-      <ion-accordion
-        value="ripening"
-        toggleIcon="caret-down-circle"
-        toggleIconSlot="start"
-      >
-        <ion-item slot="header" color="light">
-          <ion-label color="primary">Ripening</ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content">Maduration content</div>
-      </ion-accordion>
-      <ion-accordion
-        value="taste"
-        toggleIcon="caret-down-circle"
-        toggleIconSlot="start"
-      >
-        <ion-item slot="header" color="light">
-          <ion-label color="primary">Taste</ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content">Taste content</div>
-      </ion-accordion>
-    </ion-accordion-group>
+    <app-cheese-elaboration></app-cheese-elaboration>
 
     } @else {
     <div>Cheese not found</div>

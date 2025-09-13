@@ -1,22 +1,38 @@
-
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>profile</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" class="ion-padding">
+  <!-- Loading Spinner -->
+  @if (isLoading) {
+  <div class="ion-text-center ion-margin-top">
+    <ion-spinner name="bubbles"></ion-spinner>
+    <p>Loading profile...</p>
+  </div>
+  }
+
   <!-- User Profile Card -->
+  @if (!isLoading) {
   <ion-card>
     <div class="profile-header">
       <ion-avatar class="profile-avatar">
-        <img [src]="currentUser.photoURL || '../assets/icon/cheese.png'" alt="{{currentUser.displayName}}" />
+        <img
+          [src]="currentUser?.photoURL || '../assets/icon/cheese.png'"
+          [alt]="currentUser?.displayName || 'User'"
+        />
       </ion-avatar>
-      <h2 class="user-name">
-        {{currentUser.displayName}}
-      </h2><p>{{currentUser.uid}}</p>
-      <p class="user-email">{{ currentUser.email }}</p>
+      <h2 class="user-name">{{currentUser?.displayName || 'User'}}</h2>
+      <p>{{currentUser?.uid || ''}}</p>
+      <p class="user-email">{{ currentUser?.email || '' }}</p>
+      <p class="user-birthdate">{{ currentUser?.birthDate || '' }}</p>
+      <p class="user-location">
+        {{ currentUser?.city || '' }}, {{ currentUser?.province || '' }},
+        {{ currentUser?.country || '' }}
+      </p>
     </div>
   </ion-card>
+  }
 
   <!-- Actions -->
   <div class="menu-profile">

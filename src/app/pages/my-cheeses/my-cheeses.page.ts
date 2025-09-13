@@ -1,16 +1,7 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonFabButton,
-  IonFab,
-  IonSpinner,
-  IonSearchbar,
-} from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonFabButton, IonFab, IonSpinner, IonSearchbar, IonNote } from '@ionic/angular/standalone';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { CheeseService } from '../../services/cheese.service';
 import { Cheese } from '../../interfaces/cheese';
@@ -42,7 +33,8 @@ import { FocusManagerService } from 'src/app/services/focus-manager.service';
     IonSpinner,
     IonSearchbar,
     ReactiveFormsModule,
-  ],
+    IonNote
+],
 })
 export class MyCheesesPage implements OnInit {
   cheeses: Cheese[] = [];
@@ -50,12 +42,10 @@ export class MyCheesesPage implements OnInit {
   errorMessage = '';
   searchControl = new FormControl('');
   filteredCheeses: Cheese[] = [];
-
-  constructor(
-    private cheeseService: CheeseService,
-    private elementRef: ElementRef,
-    private focusManager: FocusManagerService
-  ) {
+  private cheeseService = inject(CheeseService);
+  private focusManager = inject(FocusManagerService);
+  private elementRef = inject(ElementRef);
+  constructor() {
     addIcons({ addCircleOutline, add });
   }
   ngOnInit(): void {
@@ -66,10 +56,13 @@ export class MyCheesesPage implements OnInit {
   }
   ionViewWillEnter() {
     this.loadCheeses();
+    this.searchControl.valueChanges.subscribe((value) => {
+      this.filterCheeses(value ?? '');
+    });
   }
   ionViewWillLeave() {
-  this.focusManager.clearFocus(this.elementRef);
-}
+    this.focusManager.clearFocus(this.elementRef);
+  }
   loadCheeses(): void {
     this.cheeseService.getAllCheeses().subscribe({
       next: (data) => {

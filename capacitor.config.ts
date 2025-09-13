@@ -14,6 +14,9 @@ const config: CapacitorConfig = {
     },
     Filesystem: {
       accessControl: true
+    },     
+    PushNotifications: {
+      presentationOptions: ["badge", "sound", "alert"]
     }
   }
 };
