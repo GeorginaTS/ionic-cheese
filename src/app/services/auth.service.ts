@@ -106,21 +106,6 @@ export class AuthService {
     }
   }
 
-  private mapAuthError(
-    error: any,
-    context: 'register' | 'login' = 'register'
-  ): string {
-    const codes: Record<string, string> = {
-      'auth/email-already-in-use': 'This email is already in use.',
-      'auth/invalid-email': 'Invalid email address.',
-      'auth/weak-password': 'Weak password.',
-      'auth/user-not-found': 'No user found with this email',
-      'auth/wrong-password': 'Incorrect password',
-      'auth/too-many-requests': 'Too many failed attempts. Try again later',
-      'auth/network-request-failed': 'Network error. Check your connection',
-    };
-    return codes[error.code] || `Unexpected ${context} error`;
-  }
   async googleLogin() {
     const provider = new GoogleAuthProvider();
     provider.addScope('profile');
@@ -128,8 +113,6 @@ export class AuthService {
     try {
       const userCredential = await signInWithPopup(this.auth, provider);
       const user = userCredential.user;
-      console.log('Google user:', user);
-      console.log('Photo URL:', user.photoURL);
 
       // Prepara objecte AppUser amb dades de Google
       const appUser: AppUser = {
@@ -244,4 +227,21 @@ export class AuthService {
     });
     await toast.present();
   }
+
+   private mapAuthError(
+    error: any,
+    context: 'register' | 'login' = 'register'
+  ): string {
+    const codes: Record<string, string> = {
+      'auth/email-already-in-use': 'This email is already in use.',
+      'auth/invalid-email': 'Invalid email address.',
+      'auth/weak-password': 'Weak password.',
+      'auth/user-not-found': 'No user found with this email',
+      'auth/wrong-password': 'Incorrect password',
+      'auth/too-many-requests': 'Too many failed attempts. Try again later',
+      'auth/network-request-failed': 'Network error. Check your connection',
+    };
+    return codes[error.code] || `Unexpected ${context} error`;
+  }
 }
+

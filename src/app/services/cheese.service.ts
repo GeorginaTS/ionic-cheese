@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, switchMap } from 'rxjs';
 import { Cheese } from '../interfaces/cheese';
@@ -10,8 +10,10 @@ import { AuthService } from './auth.service';
 })
 export class CheeseService {
   private apiUrl = `${environment.apiUrl}/cheeses`;
+  private http = inject(HttpClient);
+  private authService = inject(AuthService);
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor() {}
 
   // Llistar tots els formatges
   getAllCheeses(): Observable<Cheese[]> {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
@@ -70,12 +70,11 @@ export class AddCheesePage {
 
   addCheeseForm!: FormGroup;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private cheeseService: CheeseService,
-    private router: Router,
-    private authService: AuthService
-  ) {
+  private formBuilder = inject(FormBuilder);
+  private cheeseService = inject(CheeseService);
+  private router = inject(Router);
+  private authService = inject(AuthService);
+  constructor() {
     this.addCheeseForm = this.formBuilder.group({
       name: new FormControl('', [
         Validators.required,
