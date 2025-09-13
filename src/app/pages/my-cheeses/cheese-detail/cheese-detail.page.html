@@ -55,8 +55,9 @@
     <br />
     <app-cheese-elaboration></app-cheese-elaboration>
 
-    } @else {
-    <div>Cheese not found</div>
+    }
+    @if (!isLoading && !cheese) {
+      this.router.navigate(['my-cheeses']);
     }
   </section>
   <br />
