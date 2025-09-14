@@ -24,7 +24,7 @@ jobs:
           java-version: 17
 
       - uses: android-actions/setup-android@v3
-
+      - run: chmod +x android/gradlew   # 🔹 donar permisos d'execució
       - run: |
           cd android
           ./gradlew bundleRelease
@@ -33,3 +33,4 @@ jobs:
         with:
           name: android-aab
           path: android/app/build/outputs/bundle/release/app-release.aab
+
