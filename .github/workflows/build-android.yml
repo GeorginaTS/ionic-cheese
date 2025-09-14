@@ -31,9 +31,10 @@ jobs:
 
       - run: |
           cd android
-          ./gradlew bundleRelease
+          ./gradlew bundleRelease --stacktrace --info
 
       - uses: actions/upload-artifact@v4
         with:
           name: android-aab
           path: android/app/build/outputs/bundle/release/app-release.aab
+
