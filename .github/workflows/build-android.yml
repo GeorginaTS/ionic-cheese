@@ -16,7 +16,9 @@ jobs:
 
       - run: npm ci
       - run: npm run build
-      - run: npx cap copy android
+
+      - run: npx cap sync android   # 🔹 molt important
+      - run: npx cap copy android   # encara que sync ja fa copy, no molesta
 
       - uses: actions/setup-java@v4
         with:
@@ -24,7 +26,9 @@ jobs:
           java-version: 17
 
       - uses: android-actions/setup-android@v3
-      - run: chmod +x android/gradlew   # 🔹 donar permisos d'execució
+
+      - run: chmod +x android/gradlew
+
       - run: |
           cd android
           ./gradlew bundleRelease
@@ -33,4 +37,3 @@ jobs:
         with:
           name: android-aab
           path: android/app/build/outputs/bundle/release/app-release.aab
-
