@@ -18,6 +18,8 @@ log.txt
 /coverage
 
 # Ionic
+/src/environments/environment.ts
+/src/environments/environment.prod.ts
 /.ionic
 /www
 /platforms
