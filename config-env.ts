@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv';
 dotenv.config({ override: true });
 
 const envConfigFile = `export const environment = {
-  production: false,
+  production: true,
   apiUrl: 'https://ionic-cheese-back.onrender.com/api',
   firebaseConfig: {
     apiKey: "${process.env['FIREBASE_API_KEY']}",
@@ -19,4 +19,4 @@ const envConfigFile = `export const environment = {
 
 
 fs.writeFileSync('./src/environments/environment.prod.ts', envConfigFile);
-console.log("✅ Fitxer environment.ts generat correctament!");
+console.log("✅ Fitxer environment.prod.ts generat correctament!");
