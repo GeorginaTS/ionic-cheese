@@ -38,6 +38,7 @@ import { CheeseElaborationModalComponent } from 'src/app/components/my-cheeses/c
 import { CheeseElaborationComponent } from 'src/app/components/my-cheeses/cheese-elaboration/cheese-elaboration.component';
 import { FocusManagerService } from 'src/app/services/focus-manager.service';
 import { Share } from '@capacitor/share';
+import { Dialog } from '@capacitor/dialog';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -81,16 +82,14 @@ export class CheeseDetailPage implements OnInit {
   private focusManager = inject(FocusManagerService);
   private elementRef = inject(ElementRef);
   routeSub!: Subscription;
-  constructor(
-
-  ) {
+  constructor() {
     // Add icons to the IonIcon component
     addIcons({
       arrowBackCircleOutline: arrowBackCircleOutline,
       caretDownCircle,
       createOutline,
       trashOutline,
-      shareOutline
+      shareOutline,
     });
   }
   ngOnInit(): void {
@@ -123,11 +122,13 @@ export class CheeseDetailPage implements OnInit {
       },
     });
   }
-  deleteCheese(id: string) {
-    const confirmed = window.confirm(
-      'are you sure you want to delete this cheese?'
-    );
-    if (!confirmed) {
+  async deleteCheese(id: string) {
+    const { value } = await Dialog.confirm({
+      title: 'Confirm',
+      message: `Are you sure you want to delete this cheese?`,
+    });
+
+    if (!value) {
       return;
     }
     this.cheeseService.deleteCheese(id).subscribe({
@@ -147,12 +148,12 @@ export class CheeseDetailPage implements OnInit {
   openPhotoModal() {
     this.photoModalOpen = true;
   }
-      async shareCheese(cheese: any) {
+  async shareCheese(cheese: any) {
     await Share.share({
       title: cheese.name,
       text: `Check out this artisanal cheese: ${cheese.name} 🧀`,
       url: `${environment.apiUrl}/cheese/` + cheese.id,
-      dialogTitle: 'Share this cheese'
+      dialogTitle: 'Share this cheese',
     });
   }
 }
