@@ -14,7 +14,7 @@ import {
 } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { Router} from '@angular/router';
-import { createOutline, trashOutline } from 'ionicons/icons';
+import { createOutline, shareOutline, trashOutline } from 'ionicons/icons';
 import { IonDatetime, IonModal } from '@ionic/angular/standalone';
 
 import { Cheese } from 'src/app/interfaces/cheese';
@@ -24,6 +24,9 @@ import { IcoMilkTypeComponent } from '../ico-milk-type/ico-milk-type.component';
 import { addIcons } from 'ionicons';
 
 import { FirebaseStorageService } from 'src/app/services/firebase-storage.service';
+import { Share } from '@capacitor/share';
+import { environment } from 'src/environments/environment.template';
+
 
 @Component({
   selector: 'app-cheese-detail-component',
@@ -40,8 +43,9 @@ import { FirebaseStorageService } from 'src/app/services/firebase-storage.servic
     IonDatetime,
     IonList,
     IonTextarea,
-    IonSpinner, FormsModule
-  ],
+    IonSpinner, FormsModule,
+    IonIcon
+],
 })
 export class CheeseDetailComponent implements OnInit {
   @Input() item!: Cheese;
@@ -55,7 +59,7 @@ export class CheeseDetailComponent implements OnInit {
     private router: Router,
     private firebaseStorage: FirebaseStorageService
   ) {
-    addIcons({ createOutline, trashOutline });
+    addIcons({ createOutline, trashOutline, shareOutline });
   }
 
   ngOnInit() {
@@ -143,4 +147,5 @@ export class CheeseDetailComponent implements OnInit {
       });
     this.descriptionModalOpen = false;
   }
+
 }

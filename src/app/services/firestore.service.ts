@@ -14,7 +14,6 @@ import {
   FirestoreDataConverter,
 } from '@angular/fire/firestore';
 import { Observable, from, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
 import { AppUser } from '../interfaces/user';
 
 const appUserConverter: FirestoreDataConverter<AppUser> = {

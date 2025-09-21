@@ -28,6 +28,7 @@ import {
   caretDownCircle,
   caretDownCircleOutline,
   createOutline,
+  shareOutline,
   trashOutline,
 } from 'ionicons/icons';
 import { CheeseDetailComponent } from 'src/app/components/my-cheeses/cheese-detail/cheese-detail.component';
@@ -36,6 +37,8 @@ import { CheesePhotoCaptureComponent } from 'src/app/components/my-cheeses/chees
 import { CheeseElaborationModalComponent } from 'src/app/components/my-cheeses/cheese-elaboration-modal/cheese-elaboration-modal.component';
 import { CheeseElaborationComponent } from 'src/app/components/my-cheeses/cheese-elaboration/cheese-elaboration.component';
 import { FocusManagerService } from 'src/app/services/focus-manager.service';
+import { Share } from '@capacitor/share';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cheese-detail-page',
@@ -87,6 +90,7 @@ export class CheeseDetailPage implements OnInit {
       caretDownCircle,
       createOutline,
       trashOutline,
+      shareOutline
     });
   }
   ngOnInit(): void {
@@ -142,5 +146,13 @@ export class CheeseDetailPage implements OnInit {
   }
   openPhotoModal() {
     this.photoModalOpen = true;
+  }
+      async shareCheese(cheese: any) {
+    await Share.share({
+      title: cheese.name,
+      text: `Check out this artisanal cheese: ${cheese.name} 🧀`,
+      url: `${environment.apiUrl}/cheese/` + cheese.id,
+      dialogTitle: 'Share this cheese'
+    });
   }
 }
