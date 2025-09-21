@@ -20,8 +20,7 @@ log.txt
 # Ionic
 /src/environments/environment.ts
 /src/environments/environment.prod.ts
-!src/environments/environment.template.ts
-!src/environments/environment.prod.template.ts
+
 /.ionic
 /www
 /platforms
