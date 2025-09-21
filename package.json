@@ -27,6 +27,7 @@
     "@capacitor/camera": "^7.0.2",
     "@capacitor/cli": "^7.4.3",
     "@capacitor/core": "^7.4.3",
+    "@capacitor/dialog": "^7.0.2",
     "@capacitor/filesystem": "^7.1.4",
     "@capacitor/geolocation": "^7.1.5",
     "@capacitor/push-notifications": "^7.0.3",
