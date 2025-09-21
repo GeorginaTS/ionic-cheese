@@ -27,6 +27,7 @@ import { IonTextarea, IonToggle } from '@ionic/angular/standalone';
 import { CheeseService } from 'src/app/services/cheese.service';
 import { IonModal, IonDatetime } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
+import { Toast } from '@capacitor/toast';
 @Component({
   selector: 'app-add-cheese',
   templateUrl: './add-cheese.page.html',
@@ -102,7 +103,7 @@ export class AddCheesePage {
       const cheeseData = this.addCheeseForm.value;
       const currentUser = await this.authService.getCurrentUserAsync();
       if (!currentUser) {
-        console.error('Usuari no autenticat');
+        console.error('User is not authenticated');
         this.router.navigate(['/home']);
         return;
       }
@@ -111,14 +112,18 @@ export class AddCheesePage {
       this.cheeseService.createCheese(cheeseData).subscribe({
         next: (response) => {
           console.log('Formatge creat:', response);
+          Toast.show({
+            text: 'Cheese added successfully!',
+          });
+
           this.router.navigate(['/my-cheeses']);
         },
         error: (error) => {
-          console.error('Error creant el formatge:', error);
+          console.error('Error creating cheese:', error);
         },
       });
     } else {
-      console.error('Formulari invàlid', this.addCheeseForm.errors);
+      console.error('Invalid form', this.addCheeseForm.errors);
       this.addCheeseForm.markAllAsTouched();
     }
     this.addCheeseForm.reset();

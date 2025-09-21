@@ -33,6 +33,7 @@
     "@capacitor/push-notifications": "^7.0.3",
     "@capacitor/share": "^7.0.2",
     "@capacitor/splash-screen": "^7.0.3",
+    "@capacitor/toast": "^7.0.2",
     "@ionic/angular": "^8.7.2",
     "firebase": "^12.1.0",
     "leaflet": "^1.9.4",
