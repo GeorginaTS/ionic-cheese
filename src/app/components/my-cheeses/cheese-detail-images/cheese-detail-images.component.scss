@@ -1,0 +1,69 @@
+// Importem els estils de Swiper
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+@import "swiper/css/autoplay";
+
+swiper-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+
+  swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+// Estils per les imatges
+.cheese-image {
+  width: 100%;
+  max-width: 480px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+// Estils per als bullets amb selectors més específics
+swiper-container::part(pagination) .swiper-pagination-bullet {
+  background-color: rgba(199, 24, 24, 0.4) !important;
+}
+
+swiper-container::part(pagination) .swiper-pagination-bullet-active {
+  background-color: orange !important;
+}
+
+// Alternativa amb més especificitat
+swiper-container .swiper-pagination .swiper-pagination-bullet {
+  background: orange !important;
+  opacity: 1 !important;
+  width: 12px !important;
+  height: 12px !important;
+  margin: 0 4px !important;
+  border-radius: 50% !important;
+  border: none !important;
+}
+
+swiper-container .swiper-pagination .swiper-pagination-bullet-active {
+  background: orange !important;
+  transform: scale(1.3) !important;
+  opacity: 1 !important;
+}
+
+swiper-container .swiper-pagination {
+  position: relative !important;
+  margin-top: 16px !important;
+  bottom: 0 !important;
+}
+
+// CSS Variables per forçar els colors
+swiper-container {
+  --swiper-pagination-color: orange;
+  --swiper-pagination-bullet-inactive-color: rgb(245, 216, 164);
+  --swiper-pagination-bullet-inactive-opacity: 1;
+  --swiper-pagination-bullet-size: 12px;
+  --swiper-pagination-bullet-horizontal-gap: 4px;
+}

@@ -4,11 +4,8 @@
     <ion-spinner name="circular"></ion-spinner>
   </div>
   } @else if (photo1 != '') {
-  <img
-    [src]="photo1"
-    alt="{{ item.name }}"
-    class="w-full h-auto object-cover rounded-lg"
-  />
+    <app-cheese-detail-images [cheeseId]="item._id"></app-cheese-detail-images>
+
   } @else {
   <img
     src="../../../assets/img/my-cheese-default.jpg"
@@ -58,15 +55,14 @@
       </ion-modal>
     </div>
   </div>
-    <h2 class="flex items-center gap-2">
-    {{ item.milkQuantity }} liters of
-    <app-ico-milk-type [tipus]="item.milkType"></app-ico-milk-type> milk from
-    {{ item.milkOrigin }}
-  </h2>
-  <ion-label (click)="descriptionModalOpen = true">
+  <h1 class="text-2xl font-bold mt-2">{{ item.name }}</h1>
+  <p>Liters: {{ item.milkQuantity }}</p>
+  <p class="flex items-center">Type: <app-ico-milk-type [tipus]="item.milkType"></app-ico-milk-type></p>
+  <p>From: {{ item.milkOrigin }}</p>
+  <div (click)="descriptionModalOpen = true" class="flex-col cursor-pointer">
     <h3 class="font-bold m-0 p-0">Description</h3>
     <p class="text-gray-600 p-0 m-0">{{ item.description }}</p>
-  </ion-label>
+  </div>
   <ion-modal
     [isOpen]="descriptionModalOpen"
     (didDismiss)="descriptionModalOpen = false"
@@ -76,12 +72,12 @@
       <ion-list>
         <ion-item>
           <div class="w-full min-h-48 mt-6">
-          <ion-textarea
-            #descArea
-            [value]="item.description"
-            placeholder="Enter your description"
-            auto-grow="true"
-          ></ion-textarea>
+            <ion-textarea
+              #descArea
+              [value]="item.description"
+              placeholder="Enter your description"
+              auto-grow="true"
+            ></ion-textarea>
           </div>
         </ion-item>
         <ion-button

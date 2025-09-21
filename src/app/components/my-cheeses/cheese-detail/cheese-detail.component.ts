@@ -26,6 +26,7 @@ import { addIcons } from 'ionicons';
 import { FirebaseStorageService } from 'src/app/services/firebase-storage.service';
 import { Share } from '@capacitor/share';
 import { environment } from 'src/environments/environment.template';
+import { CheeseDetailImagesComponent } from "../cheese-detail-images/cheese-detail-images.component";
 
 
 @Component({
@@ -44,7 +45,8 @@ import { environment } from 'src/environments/environment.template';
     IonList,
     IonTextarea,
     IonSpinner, FormsModule,
-    IonIcon
+    IonIcon,
+    CheeseDetailImagesComponent
 ],
 })
 export class CheeseDetailComponent implements OnInit {
