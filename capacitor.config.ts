@@ -7,18 +7,25 @@ const config: CapacitorConfig = {
   plugins: {
     Camera: {
       includeImages: true,
-      includeVideos: false
+      includeVideos: false,
     },
     Geolocation: {
-      requirePermissions: true
+      requirePermissions: true,
     },
     Filesystem: {
-      accessControl: true
-    },     
+      accessControl: true,
+    },
     PushNotifications: {
-      presentationOptions: ["badge", "sound", "alert"]
-    }
-  }
+      presentationOptions: ['badge', 'sound', 'alert'],
+    },
+    SplashScreen: {
+      launchShowDuration: 3000, // temps en ms
+      launchAutoHide: true,
+      backgroundColor: '#FFFAF1',
+      androidScaleType: 'CENTER_CROP',
+      showSpinner: true,
+      spinnerColor: '#000000',
+    },
+  },
 };
-
 export default config;

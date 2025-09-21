@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SplashScreen } from '@capacitor/splash-screen';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 
 @Component({
@@ -8,5 +9,15 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
   standalone: true,
 })
 export class AppComponent {
-  constructor() {}
+    constructor() {
+    this.initApp();
+  }
+
+  async initApp() {
+    // Forcem mostrar
+    await SplashScreen.show({
+      showDuration: 3000,
+      autoHide: true
+    });
+  }
 }
