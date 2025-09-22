@@ -4,7 +4,7 @@
     <ion-spinner name="circular"></ion-spinner>
   </div>
   } @else if (photo1 != '') {
-  <app-cheese-detail-images [cheeseId]="item._id"></app-cheese-detail-images>
+  <!-- <app-cheese-detail-images [cheeseId]="item._id"></app-cheese-detail-images> -->
 
   } @else {
   <img
@@ -61,17 +61,26 @@
     </ion-modal>
   </div>
   <div class="w-full flex justify-between gap-2 my-2">
-    <div class="bg-stone-200 w-[30%] p-4 rounded-lg">
+    <div
+      class="bg-stone-200 w-[25%] p-4 rounded-lg cursor-pointer hover:bg-stone-300"
+      (click)="milkQuantityModalOpen = true"
+    >
       <strong>Liters</strong><br />
       <hr />
       {{ item.milkQuantity }} l.
     </div>
-    <div class="bg-stone-200 w-[25%] p-4 rounded-lg">
+    <div
+      class="bg-stone-200 w-[20%] p-4 rounded-lg cursor-pointer hover:bg-stone-300"
+      (click)="milkTypeModalOpen = true"
+    >
       <strong>Milk</strong><br />
       <hr />
       <app-ico-milk-type [tipus]="item.milkType"></app-ico-milk-type>
     </div>
-    <div class="bg-stone-200 w-[45%] p-4 rounded-lg">
+    <div
+      (click)="milkOriginModalOpen = true"
+      class="bg-stone-200 w-[55%] p-4 rounded-lg cursor-pointer hover:bg-stone-300 transition-colors duration-200"
+    >
       <strong>Origin</strong> <br />
       <hr />
       {{ item.milkOrigin }}
@@ -104,6 +113,137 @@
         <ion-button
           expand="block"
           (click)="saveDescription(descArea.value ?? '')"
+          >Save</ion-button
+        >
+      </ion-list>
+    </ng-template>
+  </ion-modal>
+
+  <!-- Modal for milk quantity -->
+  <ion-modal
+    [isOpen]="milkQuantityModalOpen"
+    (didDismiss)="milkQuantityModalOpen = false"
+    initialBreakpoint="0.4"
+  >
+    <ng-template>
+      <ion-list>
+        <ion-item>
+          <div class="w-full mt-6">
+            <h3 class="text-lg font-bold mb-4 text-center">
+              Edit Milk Quantity
+            </h3>
+            <ion-input
+              #quantityInput
+              type="number"
+              [value]="item.milkQuantity"
+              placeholder="Enter quantity in liters"
+              min="0.1"
+              step="0.1"
+              fill="outline"
+              label="Liters"
+              labelPlacement="stacked"
+            ></ion-input>
+          </div>
+        </ion-item>
+        <ion-button
+          expand="block"
+          (click)="saveMilkQuantity(quantityInput.value ?? '')"
+          class="mx-4 mb-4"
+          >Save</ion-button
+        >
+      </ion-list>
+    </ng-template>
+  </ion-modal>
+
+  <!-- Modal for milk type -->
+  <ion-modal
+    [isOpen]="milkTypeModalOpen"
+    (didDismiss)="milkTypeModalOpen = false"
+    initialBreakpoint="0.6"
+  >
+    <ng-template>
+      <ion-list>
+        <ion-item>
+          <div class="w-full mt-6">
+            <h3 class="text-lg font-bold mb-6 text-center">Select Milk Type</h3>
+            <ion-radio-group [value]="item.milkType" #typeRadioGroup>
+              <ion-item>
+                <ion-radio slot="start" value="cow"></ion-radio>
+                <ion-label class="flex items-center gap-3">
+                  <span class="text-2xl">🐄</span>
+                  <span>Cow</span>
+                </ion-label>
+              </ion-item>
+
+              <ion-item>
+                <ion-radio slot="start" value="sheep"></ion-radio>
+                <ion-label class="flex items-center gap-3">
+                  <span class="text-2xl">🐑</span>
+                  <span>Sheep</span>
+                </ion-label>
+              </ion-item>
+
+              <ion-item>
+                <ion-radio slot="start" value="goat"></ion-radio>
+                <ion-label class="flex items-center gap-3">
+                  <span class="text-2xl">🐐</span>
+                  <span>Goat</span>
+                </ion-label>
+              </ion-item>
+
+              <ion-item>
+                <ion-radio slot="start" value="buffala"></ion-radio>
+                <ion-label class="flex items-center gap-3">
+                  <span class="text-2xl">🐂</span>
+                  <span>Buffalo</span>
+                </ion-label>
+              </ion-item>
+
+              <ion-item>
+                <ion-radio slot="start" value="mixed"></ion-radio>
+                <ion-label class="flex items-center gap-3">
+                  <span class="text-2xl">🥛</span>
+                  <span>Mixed</span>
+                </ion-label>
+              </ion-item>
+            </ion-radio-group>
+          </div>
+        </ion-item>
+        <ion-button
+          expand="block"
+          (click)="saveMilkType(typeRadioGroup.value)"
+          class="mx-4 mb-4"
+          >Save</ion-button
+        >
+      </ion-list>
+    </ng-template>
+  </ion-modal>
+
+  <!-- Modal per editar l'origen -->
+  <ion-modal
+    [isOpen]="milkOriginModalOpen"
+    (dismiss)="milkOriginModalOpen = false"
+    (didDismiss)="onOriginModalDismiss()"
+    initialBreakpoint="0.4"
+    id="milk-origin-modal"
+  >
+    <ng-template>
+      <ion-list>
+        <ion-item>
+          <ion-textarea
+            #originInput
+            [value]="item.milkOrigin"
+            label="Origin"
+            labelPlacement="stacked"
+            placeholder="Enter milk origin"
+            maxlength="100"
+            rows="2"
+          ></ion-textarea>
+        </ion-item>
+        <ion-button
+          expand="block"
+          (click)="saveMilkOrigin(originInput.value?.toString() || '')"
+          class="mx-4 mb-4"
           >Save</ion-button
         >
       </ion-list>

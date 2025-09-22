@@ -29,10 +29,14 @@
     <hr />
     <div>{{ cheese.milkQuantity }} litres {{ cheese.milkOrigin }}</div>
     <hr />
-    <div class="cheese-date">
-      <ion-icon name="calendar-outline" color="primary"></ion-icon>
-      <p>{{ cheese.date | date : "dd/MM/yyyy" }}</p>
+    <div>
+      <div class="cheese-date">
+        <ion-icon name="calendar-outline" color="primary"></ion-icon>
+        <p>{{ cheese.date | date : "dd/MM/yyyy" }}</p>
+      </div>
+      <div class="cheese-status">
+        <app-ico-cheese-status [status]="cheese.status"></app-ico-cheese-status>
+      </div>
     </div>
   </ion-card-content>
 </ion-card>
-<!-- <div><ion-button [routerLink]="['/my-cheeses/edit', cheese._id]"><ion-icon name="create-outline" color="primary"></ion-icon></ion-button> <ion-button><ion-icon name="trash-outline" color="primary"></ion-icon></ion-button></div> -->

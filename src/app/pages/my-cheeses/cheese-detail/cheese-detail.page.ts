@@ -28,6 +28,7 @@ import {
   arrowBackCircleOutline,
   caretDownCircle,
   caretDownCircleOutline,
+  cameraOutline,
   createOutline,
   shareOutline,
   trashOutline,
@@ -88,6 +89,7 @@ export class CheeseDetailPage implements OnInit {
     addIcons({
       arrowBackCircleOutline: arrowBackCircleOutline,
       caretDownCircle,
+      cameraOutline,
       createOutline,
       trashOutline,
       shareOutline,

@@ -25,7 +25,14 @@
     <hr />
     <!-- Buttons -->
     <div class="flex justify-around">
-      <ion-button (click)="openPhotoModal()">Photos</ion-button>
+      <ion-button (click)="shareCheese(cheese)">
+        <ion-icon name="share-outline" slot="start"></ion-icon>
+        Share
+      </ion-button>
+      <ion-button (click)="openPhotoModal()">
+        <ion-icon name="camera-outline" slot="start"></ion-icon>
+        Photos
+      </ion-button>
       <!--Modal make photo-->
       <ion-modal
         [isOpen]="photoModalOpen"
@@ -40,7 +47,10 @@
         </ng-template>
       </ion-modal>
 
-      <ion-button (click)="addNote()">add note</ion-button>
+      <ion-button (click)="addNote()">
+        <ion-icon name="create-outline" slot="start"></ion-icon>
+        Notes
+      </ion-button>
       <!-- add note modal -->
       <ion-modal
         [isOpen]="addNoteModalOpen"
@@ -63,10 +73,6 @@
 
   <br />
   <div class="flex flex-col items-center mb-4">
-    <ion-button (click)="shareCheese(cheese)">
-      <ion-icon name="share-outline" slot="start"></ion-icon>
-      Compartir
-    </ion-button>
     <br />
     <ion-button (click)="deleteCheese(cheese?._id ?? '')" class="delete-btn"
       ><ion-icon name="trash-outline"></ion-icon

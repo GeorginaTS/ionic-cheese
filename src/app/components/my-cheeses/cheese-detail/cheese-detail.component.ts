@@ -11,6 +11,11 @@ import {
   IonList,
   IonTextarea,
   IonSpinner,
+  IonInput,
+  IonRadioGroup,
+  IonRadio,
+  IonHeader,
+  IonButtons,
 } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -24,8 +29,6 @@ import { IcoMilkTypeComponent } from '../ico-milk-type/ico-milk-type.component';
 import { addIcons } from 'ionicons';
 
 import { FirebaseStorageService } from 'src/app/services/firebase-storage.service';
-import { Share } from '@capacitor/share';
-import { environment } from 'src/environments/environment.template';
 import { CheeseDetailImagesComponent } from '../cheese-detail-images/cheese-detail-images.component';
 import { FocusManagerService } from 'src/app/services/focus-manager.service';
 
@@ -36,7 +39,6 @@ import { FocusManagerService } from 'src/app/services/focus-manager.service';
   imports: [
     IcoCheeseStatusComponent,
     IcoMilkTypeComponent,
-    IonLabel,
     IonButton,
     IonDatetimeButton,
     IonItem,
@@ -45,8 +47,15 @@ import { FocusManagerService } from 'src/app/services/focus-manager.service';
     IonList,
     IonTextarea,
     IonSpinner,
+    IonInput,
+    IonRadioGroup,
+    IonRadio,
+    IonLabel,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonButtons,
     FormsModule,
-    IonIcon,
     CheeseDetailImagesComponent,
   ],
 })
@@ -54,6 +63,9 @@ export class CheeseDetailComponent implements OnInit {
   @Input() item!: Cheese;
   statusModalOpen = false;
   descriptionModalOpen = false;
+  milkQuantityModalOpen = false;
+  milkTypeModalOpen = false;
+  milkOriginModalOpen = false;
   photo1: string | '' = '';
   isLoading: boolean = true;
 
@@ -155,8 +167,76 @@ export class CheeseDetailComponent implements OnInit {
     this.descriptionModalOpen = false;
   }
 
+  saveMilkQuantity(newQuantity: string | number) {
+    const quantityNumber =
+      typeof newQuantity === 'string' ? parseFloat(newQuantity) : newQuantity;
+    if (isNaN(quantityNumber) || quantityNumber <= 0) {
+      console.error('Quantitat invàlida:', newQuantity);
+      return;
+    }
+
+    this.cheeseService
+      .updateCheese(this.item._id, { milkQuantity: quantityNumber })
+      .subscribe({
+        next: (response) => {
+          console.log('Quantitat actualitzada:', response, quantityNumber);
+          this.item.milkQuantity = quantityNumber;
+        },
+        error: (error) => {
+          console.error('Error actualitzant la quantitat:', error);
+        },
+      });
+    this.milkQuantityModalOpen = false;
+  }
+
+  saveMilkType(newType: string) {
+    const validTypes = ['cow', 'sheep', 'goat', 'buffala', 'mixed'];
+    if (!validTypes.includes(newType)) {
+      console.error('Tipus de llet invàlid:', newType);
+      return;
+    }
+
+    this.cheeseService
+      .updateCheese(this.item._id, { milkType: newType })
+      .subscribe({
+        next: (response) => {
+          console.log('Tipus de llet actualitzat:', response, newType);
+          this.item.milkType = newType;
+        },
+        error: (error) => {
+          console.error('Error actualitzant el tipus de llet:', error);
+        },
+      });
+    this.milkTypeModalOpen = false;
+  }
+
+  saveMilkOrigin(newOrigin: string) {
+    if (!newOrigin || newOrigin.trim().length === 0) {
+      console.error('Origen invàlid:', newOrigin);
+      return;
+    }
+
+    this.cheeseService
+      .updateCheese(this.item._id, { milkOrigin: newOrigin.trim() })
+      .subscribe({
+        next: (response) => {
+          console.log('Origen actualitzat:', response, newOrigin.trim());
+          this.item.milkOrigin = newOrigin.trim();
+        },
+        error: (error) => {
+          console.error("Error actualitzant l'origen:", error);
+        },
+      });
+    this.milkOriginModalOpen = false;
+  }
+
   onDateModalDismiss() {
     // Netegem el focus quan es tanca el modal de data per evitar warnings d'accessibilitat
+    this.focusManager.clearFocus(this.elementRef);
+  }
+
+  onOriginModalDismiss() {
+    // Netegem el focus quan es tanca el modal d'origen per evitar warnings d'accessibilitat
     this.focusManager.clearFocus(this.elementRef);
   }
 }
