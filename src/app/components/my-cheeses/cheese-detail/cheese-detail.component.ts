@@ -2,11 +2,6 @@ import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import {
   IonButton,
   IonItem,
-  IonIcon,
-  IonTitle,
-  IonLabel,
-  IonCardTitle,
-  IonToolbar,
   IonDatetimeButton,
   IonList,
   IonTextarea,
@@ -14,11 +9,9 @@ import {
   IonInput,
   IonRadioGroup,
   IonRadio,
-  IonHeader,
-  IonButtons,
+  IonLabel,
 } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { createOutline, shareOutline, trashOutline } from 'ionicons/icons';
 import { IonDatetime, IonModal } from '@ionic/angular/standalone';
 
@@ -51,10 +44,6 @@ import { FocusManagerService } from 'src/app/services/focus-manager.service';
     IonRadioGroup,
     IonRadio,
     IonLabel,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonButtons,
     FormsModule,
     CheeseDetailImagesComponent,
   ],
