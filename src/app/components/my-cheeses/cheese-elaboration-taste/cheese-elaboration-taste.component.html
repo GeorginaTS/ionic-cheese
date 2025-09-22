@@ -9,41 +9,31 @@
         </ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <p class="text-sm text-gray-600 mb-4">{{ aspect.description }}</p>
-
         <!-- Star Rating -->
         <div [formGroupName]="aspect.key">
-          <ion-item class="mb-4">
-            <ion-label position="stacked">
-              Rating
-              <span class="text-sm text-primary ml-2">
-                {{ getRatingText(tasteForm.get(aspect.key + ".rate")?.value) }}
-              </span>
-            </ion-label>
-            <div class="star-rating">
-              @for (star of [1, 2, 3, 4, 5]; track star) {
-              <ion-icon
-                [name]="
-                  getStarIcon(tasteForm.get(aspect.key + '.rate')?.value, star)
-                "
-                class="star-icon"
-                [class.star-filled]="
-                  star <= tasteForm.get(aspect.key + '.rate')?.value
-                "
-                [class.star-empty]="
-                  star > tasteForm.get(aspect.key + '.rate')?.value
-                "
-                (click)="setRating(aspect.key, star)"
-              ></ion-icon>
-              }
-            </div>
-          </ion-item>
+          <div class="star-rating">
+            @for (star of [1, 2, 3, 4, 5]; track star) {
+            <ion-icon
+              [name]="
+                getStarIcon(tasteForm.get(aspect.key + '.rate')?.value, star)
+              "
+              class="star-icon"
+              [class.star-filled]="
+                star <= tasteForm.get(aspect.key + '.rate')?.value
+              "
+              [class.star-empty]="
+                star > tasteForm.get(aspect.key + '.rate')?.value
+              "
+              (click)="setRating(aspect.key, star)"
+            ></ion-icon>
+            }
+            <ion-note class="text-sm text-primary" style="margin-left: 8px">
+              {{ getRatingText(tasteForm.get(aspect.key + ".rate")?.value) }}
+            </ion-note>
+          </div>
 
           <!-- Notes Textarea -->
-          <ion-item>
-            <ion-label position="stacked">
-              Notes about {{ aspect.label.toLowerCase() }}
-            </ion-label>
+          <div class="notes-section">
             <ion-textarea
               formControlName="text"
               [placeholder]="
@@ -54,8 +44,9 @@
               [rows]="3"
               [autoGrow]="true"
               [clearOnEdit]="false"
+              class="notes-textarea"
             ></ion-textarea>
-          </ion-item>
+          </div>
         </div>
       </ion-card-content>
     </ion-card>

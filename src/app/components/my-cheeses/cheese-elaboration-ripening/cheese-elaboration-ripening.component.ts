@@ -10,6 +10,7 @@ import {
   IonDatetimeButton,
   IonModal,
 } from '@ionic/angular/standalone';
+import { ToastController, LoadingController } from '@ionic/angular';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { addIcons } from 'ionicons';
 import { saveOutline } from 'ionicons/icons';
@@ -45,6 +46,8 @@ export class CheeseElaborationRipeningComponent implements OnInit {
   private cheeseService = inject(CheeseService);
   private focusManager = inject(FocusManagerService);
   private elementRef = inject(ElementRef);
+  private toastController = inject(ToastController);
+  private loadingController = inject(LoadingController);
 
   constructor() {
     addIcons({ saveOutline });
@@ -97,23 +100,34 @@ export class CheeseElaborationRipeningComponent implements OnInit {
     this.focusManager.clearFocus(this.elementRef);
   }
 
-  saveRipening() {
+  async saveRipening() {
     if (typeof this.cheeseId === 'string') {
+      const loading = await this.loadingController.create({
+        message: 'Saving ripening data...',
+        spinner: 'circles',
+      });
+      await loading.present();
+
       this.cheeseService
         .updateCheese(this.cheeseId, { ripening: this.ripeningForm.value })
         .subscribe({
-          next: (response) => {
+          next: async (response) => {
             console.log('Ripening data updated:', response);
             this.loadData();
             // Netegem el focus després de guardar
             this.clearFocus();
+            await loading.dismiss();
+            this.showToast('Ripening data saved successfully ✅');
           },
-          error: (error) => {
+          error: async (error) => {
             console.error('Error updating ripening data:', error);
+            await loading.dismiss();
+            this.showToast('Error saving ripening data ❌', true);
           },
         });
     } else {
       console.error('cheeseId is undefined, cannot save ripening data.');
+      this.showToast('Error: Cheese ID is missing ❌', true);
     }
   }
 
@@ -124,6 +138,16 @@ export class CheeseElaborationRipeningComponent implements OnInit {
       const value = formValue[key];
       return value && typeof value === 'string' && value.trim().length > 0;
     });
+  }
+
+  private async showToast(message: string, isError = false) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      position: 'bottom',
+      color: isError ? 'danger' : 'success',
+    });
+    await toast.present();
   }
 
   get f() {

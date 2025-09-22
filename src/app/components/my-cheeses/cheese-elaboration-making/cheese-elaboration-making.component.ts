@@ -15,6 +15,7 @@ import {
   IonButton,
   IonIcon,
 } from '@ionic/angular/standalone';
+import { ToastController, LoadingController } from '@ionic/angular';
 import {
   FormBuilder,
   FormGroup,
@@ -51,6 +52,8 @@ export class CheeseElaborationMakingComponent implements OnInit {
   private cheeseService = inject(CheeseService);
   private focusManager = inject(FocusManagerService);
   private elementRef = inject(ElementRef);
+  private toastController = inject(ToastController);
+  private loadingController = inject(LoadingController);
 
   constructor() {
     addIcons({ saveOutline });
@@ -97,24 +100,35 @@ export class CheeseElaborationMakingComponent implements OnInit {
     this.focusManager.clearFocus(this.elementRef);
   }
 
-  saveMaking() {
+  async saveMaking() {
     if (typeof this.cheeseId === 'string') {
+      const loading = await this.loadingController.create({
+        message: 'Saving making data...',
+        spinner: 'circles',
+      });
+      await loading.present();
+
       this.cheeseService
         .updateCheese(this.cheeseId, { making: this.makingForm.value })
         .subscribe({
-          next: (response) => {
+          next: async (response) => {
             console.log('Making data actualitzada:', response);
             this.loadData();
             // Netegem el focus després de guardar
             this.clearFocus();
+            await loading.dismiss();
+            this.showToast('Making data saved successfully ✅');
           },
-          error: (error) => {
+          error: async (error) => {
             console.error('Error actualitzant la descripció:', error);
+            await loading.dismiss();
+            this.showToast('Error saving making data ❌', true);
           },
         });
       // this.descriptionModalOpen = false; // Remove or update if needed
     } else {
       console.error('cheeseId is undefined, cannot save making data.');
+      this.showToast('Error: Cheese ID is missing ❌', true);
     }
   }
 
@@ -125,6 +139,16 @@ export class CheeseElaborationMakingComponent implements OnInit {
       const value = formValue[key];
       return value && typeof value === 'string' && value.trim().length > 0;
     });
+  }
+
+  private async showToast(message: string, isError = false) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      position: 'bottom',
+      color: isError ? 'danger' : 'success',
+    });
+    await toast.present();
   }
 
   get f() {

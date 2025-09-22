@@ -11,7 +11,9 @@ import {
   IonCardTitle,
   IonCardContent,
   IonGrid,
+  IonNote,
 } from '@ionic/angular/standalone';
+import { ToastController, LoadingController } from '@ionic/angular';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { addIcons } from 'ionicons';
 import {
@@ -34,8 +36,6 @@ import { FocusManagerService } from 'src/app/services/focus-manager.service';
   styleUrls: ['./cheese-elaboration-taste.component.scss'],
   standalone: true,
   imports: [
-    IonItem,
-    IonLabel,
     IonTextarea,
     IonButton,
     IonIcon,
@@ -45,6 +45,7 @@ import { FocusManagerService } from 'src/app/services/focus-manager.service';
     IonCardContent,
     IonGrid,
     ReactiveFormsModule,
+    IonNote,
   ],
 })
 export class CheeseElaborationTasteComponent implements OnInit {
@@ -91,6 +92,8 @@ export class CheeseElaborationTasteComponent implements OnInit {
   private cheeseService = inject(CheeseService);
   private focusManager = inject(FocusManagerService);
   private elementRef = inject(ElementRef);
+  private toastController = inject(ToastController);
+  private loadingController = inject(LoadingController);
 
   constructor() {
     addIcons({
@@ -160,23 +163,34 @@ export class CheeseElaborationTasteComponent implements OnInit {
     this.focusManager.clearFocus(this.elementRef);
   }
 
-  saveTaste() {
+  async saveTaste() {
     if (typeof this.cheeseId === 'string') {
+      const loading = await this.loadingController.create({
+        message: 'Saving taste data...',
+        spinner: 'circles',
+      });
+      await loading.present();
+
       this.cheeseService
         .updateCheese(this.cheeseId, { taste: this.tasteForm.value })
         .subscribe({
-          next: (response) => {
+          next: async (response) => {
             console.log('Taste data updated:', response);
             this.loadData();
             // Netegem el focus després de guardar
             this.clearFocus();
+            await loading.dismiss();
+            this.showToast('Taste data saved successfully ✅');
           },
-          error: (error) => {
+          error: async (error) => {
             console.error('Error updating taste data:', error);
+            await loading.dismiss();
+            this.showToast('Error saving taste data ❌', true);
           },
         });
     } else {
       console.error('cheeseId is undefined, cannot save taste data.');
+      this.showToast('Error: Cheese ID is missing ❌', true);
     }
   }
 
@@ -207,6 +221,16 @@ export class CheeseElaborationTasteComponent implements OnInit {
     if (aspectGroup) {
       aspectGroup.get('rate')?.setValue(rating);
     }
+  }
+
+  private async showToast(message: string, isError = false) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      position: 'bottom',
+      color: isError ? 'danger' : 'success',
+    });
+    await toast.present();
   }
 
   get f() {
