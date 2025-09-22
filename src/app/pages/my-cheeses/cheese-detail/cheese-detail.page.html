@@ -25,12 +25,11 @@
     <hr />
     <!-- Buttons -->
     <div class="flex justify-around">
-      <ion-button>Edit</ion-button>
       <ion-button (click)="openPhotoModal()">Photos</ion-button>
       <!--Modal make photo-->
       <ion-modal
         [isOpen]="photoModalOpen"
-        (didDismiss)="photoModalOpen = false"
+        (didDismiss)="onPhotoModalDismiss()"
         initialBreakpoint="0.8"
         [breakpoints]="[0.8, 0.5, 0]"
       >
@@ -45,7 +44,7 @@
       <!-- add note modal -->
       <ion-modal
         [isOpen]="addNoteModalOpen"
-        (didDismiss)="addNoteModalOpen = false"
+        (didDismiss)="onAddNoteModalDismiss()"
         initialBreakpoint="0.8"
         [breakpoints]="[0.8, 0.5, 0]"
       >

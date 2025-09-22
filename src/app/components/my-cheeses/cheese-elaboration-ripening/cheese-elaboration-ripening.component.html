@@ -4,7 +4,7 @@
     <ion-datetime-button datetime="ripeningStartDate"></ion-datetime-button>
   </ion-item>
 
-  <ion-modal [keepContentsMounted]="true">
+  <ion-modal [keepContentsMounted]="true" (didDismiss)="onDateModalDismiss()">
     <ng-template>
       <ion-datetime
         id="ripeningStartDate"

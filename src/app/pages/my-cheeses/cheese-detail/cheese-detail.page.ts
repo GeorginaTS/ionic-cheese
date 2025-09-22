@@ -1,7 +1,22 @@
 import { Component, ElementRef, inject, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonSpinner, IonAccordion, IonItem, IonLabel, IonAccordionGroup, IonIcon, IonButton, IonBackButton, IonModal, IonNote } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonSpinner,
+  IonAccordion,
+  IonItem,
+  IonLabel,
+  IonAccordionGroup,
+  IonIcon,
+  IonButton,
+  IonBackButton,
+  IonModal,
+  IonNote,
+} from '@ionic/angular/standalone';
 import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Cheese } from 'src/app/interfaces/cheese';
@@ -50,8 +65,8 @@ import { environment } from 'src/environments/environment';
     CheesePhotoCaptureComponent,
     CheeseDetailComponent,
     CheeseElaborationComponent,
-    IonNote
-],
+    IonNote,
+  ],
 })
 export class CheeseDetailPage implements OnInit {
   cheeseId: string = '';
@@ -131,9 +146,21 @@ export class CheeseDetailPage implements OnInit {
     // Logic to add a note can be implemented here
     this.addNoteModalOpen = true;
   }
+
   openPhotoModal() {
     this.photoModalOpen = true;
   }
+
+  onPhotoModalDismiss() {
+    this.photoModalOpen = false;
+    this.focusManager.clearFocus(this.elementRef);
+  }
+
+  onAddNoteModalDismiss() {
+    this.addNoteModalOpen = false;
+    this.focusManager.clearFocus(this.elementRef);
+  }
+
   async shareCheese(cheese: any) {
     await Share.share({
       title: cheese.name,

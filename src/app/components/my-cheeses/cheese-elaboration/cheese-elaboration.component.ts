@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, inject, ElementRef } from '@angular/core';
 import {
   IonSegmentContent,
   IonSegmentView,
@@ -14,6 +14,7 @@ import {
   CheeseRipening,
   CheeseTaste,
 } from '../../../interfaces/cheese';
+import { FocusManagerService } from 'src/app/services/focus-manager.service';
 
 @Component({
   selector: 'app-cheese-elaboration',
@@ -34,30 +35,14 @@ import {
 export class CheeseElaborationComponent implements OnInit {
   @Input() cheeseId?: string;
 
+  private focusManager = inject(FocusManagerService);
+  private elementRef = inject(ElementRef);
+
   constructor() {}
 
   ngOnInit() {}
 
-  onMakingDataSaved(makingData: CheeseMaking) {
-    console.log('Making data received in parent:', makingData);
-    // TODO: Save to service or emit to parent component
-    this.showSaveMessage('Making process data saved successfully!');
-  }
-
-  onRipeningDataSaved(ripeningData: CheeseRipening) {
-    console.log('Ripening data received in parent:', ripeningData);
-    // TODO: Save to service or emit to parent component
-    this.showSaveMessage('Ripening process data saved successfully!');
-  }
-
-  onTasteDataSaved(tasteData: CheeseTaste) {
-    console.log('Taste data received in parent:', tasteData);
-    // TODO: Save to service or emit to parent component
-    this.showSaveMessage('Taste evaluation data saved successfully!');
-  }
-
-  private showSaveMessage(message: string) {
-    // TODO: Implement toast notification
-    console.log(message);
+  ionViewWillLeave() {
+    this.focusManager.clearFocus(this.elementRef);
   }
 }

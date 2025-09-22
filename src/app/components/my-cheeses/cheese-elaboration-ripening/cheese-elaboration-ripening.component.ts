@@ -96,6 +96,11 @@ export class CheeseElaborationRipeningComponent implements OnInit {
     this.clearFocus();
   }
 
+  onDateModalDismiss() {
+    // Netegem el focus quan es tanca el modal de data per evitar warnings d'accessibilitat
+    this.clearFocus();
+  }
+
   private clearFocus() {
     this.focusManager.clearFocus(this.elementRef);
   }
@@ -148,6 +153,10 @@ export class CheeseElaborationRipeningComponent implements OnInit {
       color: isError ? 'danger' : 'success',
     });
     await toast.present();
+  }
+
+  ionViewWillLeave() {
+    this.clearFocus();
   }
 
   get f() {

@@ -13,7 +13,7 @@ import {
   IonSpinner,
 } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { createOutline, shareOutline, trashOutline } from 'ionicons/icons';
 import { IonDatetime, IonModal } from '@ionic/angular/standalone';
 
@@ -26,9 +26,8 @@ import { addIcons } from 'ionicons';
 import { FirebaseStorageService } from 'src/app/services/firebase-storage.service';
 import { Share } from '@capacitor/share';
 import { environment } from 'src/environments/environment.template';
-import { CheeseDetailImagesComponent } from "../cheese-detail-images/cheese-detail-images.component";
+import { CheeseDetailImagesComponent } from '../cheese-detail-images/cheese-detail-images.component';
 import { FocusManagerService } from 'src/app/services/focus-manager.service';
-
 
 @Component({
   selector: 'app-cheese-detail-component',
@@ -45,10 +44,11 @@ import { FocusManagerService } from 'src/app/services/focus-manager.service';
     IonDatetime,
     IonList,
     IonTextarea,
-    IonSpinner, FormsModule,
+    IonSpinner,
+    FormsModule,
     IonIcon,
-    CheeseDetailImagesComponent
-],
+    CheeseDetailImagesComponent,
+  ],
 })
 export class CheeseDetailComponent implements OnInit {
   @Input() item!: Cheese;
@@ -69,7 +69,7 @@ export class CheeseDetailComponent implements OnInit {
   ngOnInit() {
     this.loadPhoto();
   }
-    ionViewWillLeave() {
+  ionViewWillLeave() {
     this.focusManager.clearFocus(this.elementRef);
   }
 
@@ -153,5 +153,10 @@ export class CheeseDetailComponent implements OnInit {
         },
       });
     this.descriptionModalOpen = false;
+  }
+
+  onDateModalDismiss() {
+    // Netegem el focus quan es tanca el modal de data per evitar warnings d'accessibilitat
+    this.focusManager.clearFocus(this.elementRef);
   }
 }

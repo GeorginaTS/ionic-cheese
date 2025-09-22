@@ -4,7 +4,7 @@
     <ion-spinner name="circular"></ion-spinner>
   </div>
   } @else if (photo1 != '') {
-  <!-- <app-cheese-detail-images [cheeseId]="item._id"></app-cheese-detail-images> -->
+  <app-cheese-detail-images [cheeseId]="item._id"></app-cheese-detail-images>
 
   } @else {
   <img
@@ -14,12 +14,15 @@
   />
   }
   <div
-    class="w-full flex items-center justify-end bg-stone-200 px-2 rounded-lg"
+    class="w-full flex items-center justify-end bg-stone-200 px-2 rounded-lg mt-2"
   >
-    <div class="flex items-center justify-between w-full">
+    <div class="flex items-center justify-between w-full p-0">
       <ion-item>
         <ion-datetime-button datetime="datetime"></ion-datetime-button>
-        <ion-modal [keepContentsMounted]="true">
+        <ion-modal
+          [keepContentsMounted]="true"
+          (didDismiss)="onDateModalDismiss()"
+        >
           <ng-template>
             <ion-datetime
               id="datetime"
@@ -57,15 +60,28 @@
       </ng-template>
     </ion-modal>
   </div>
-  <div class="w-full flex justify-between gap-2 ion-padding">
-    <div class="bg-stone-200 w-[30%] p-4 rounded-lg"><strong>Liters</strong><br /><hr>{{ item.milkQuantity }} l.</div>
-    <div class="bg-stone-200 w-[25%] p-4 rounded-lg">
-      <strong>Milk</strong><br /><hr><app-ico-milk-type [tipus]="item.milkType"></app-ico-milk-type>
+  <div class="w-full flex justify-between gap-2 my-2">
+    <div class="bg-stone-200 w-[30%] p-4 rounded-lg">
+      <strong>Liters</strong><br />
+      <hr />
+      {{ item.milkQuantity }} l.
     </div>
-    <div class="bg-stone-200 w-[45%] p-4 rounded-lg"><strong>Origin</strong> <br /><hr>{{ item.milkOrigin }}</div>
+    <div class="bg-stone-200 w-[25%] p-4 rounded-lg">
+      <strong>Milk</strong><br />
+      <hr />
+      <app-ico-milk-type [tipus]="item.milkType"></app-ico-milk-type>
+    </div>
+    <div class="bg-stone-200 w-[45%] p-4 rounded-lg">
+      <strong>Origin</strong> <br />
+      <hr />
+      {{ item.milkOrigin }}
+    </div>
   </div>
 
-  <div (click)="descriptionModalOpen = true" class="flex-col cursor-pointer bg-amber-100 p-4 rounded-lg">
+  <div
+    (click)="descriptionModalOpen = true"
+    class="flex-col cursor-pointer bg-amber-100 p-4 rounded-lg"
+  >
     <p class="text-gray-600 p-0 m-0 text-center">" {{ item.description }} "</p>
   </div>
   <ion-modal

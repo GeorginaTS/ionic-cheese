@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
@@ -27,6 +27,7 @@ import { IonTextarea, IonToggle } from '@ionic/angular/standalone';
 import { CheeseService } from 'src/app/services/cheese.service';
 import { IonModal, IonDatetime } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
+import { FocusManagerService } from 'src/app/services/focus-manager.service';
 import { Toast } from '@capacitor/toast';
 @Component({
   selector: 'app-add-cheese',
@@ -75,6 +76,8 @@ export class AddCheesePage {
   private cheeseService = inject(CheeseService);
   private router = inject(Router);
   private authService = inject(AuthService);
+  private focusManager = inject(FocusManagerService);
+  private elementRef = inject(ElementRef);
   constructor() {
     this.addCheeseForm = this.formBuilder.group({
       name: new FormControl('', [
@@ -127,5 +130,14 @@ export class AddCheesePage {
       this.addCheeseForm.markAllAsTouched();
     }
     this.addCheeseForm.reset();
+  }
+
+  ionViewWillLeave() {
+    this.focusManager.clearFocus(this.elementRef);
+  }
+
+  onDateModalDismiss() {
+    // Netegem el focus quan es tanca el modal de data per evitar warnings d'accessibilitat
+    this.focusManager.clearFocus(this.elementRef);
   }
 }

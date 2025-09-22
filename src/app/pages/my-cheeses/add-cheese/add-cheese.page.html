@@ -22,16 +22,15 @@
         </ion-select>
       </ion-item>
 
-      <ion-item>       
-        <ion-label position="stacked">Milk Quantity: {{ addCheeseForm.get('milkQuantity')?.value }} liters</ion-label>          
-        <ion-range
-          [min]="2"
-          [max]="20"
-          formControlName="milkQuantity"
+      <ion-item>
+        <ion-label position="stacked"
+          >Milk Quantity: {{ addCheeseForm.get('milkQuantity')?.value }}
+          liters</ion-label
         >
-        <ion-label slot="start">2</ion-label>
-        <ion-label slot="end">20</ion-label>
-      </ion-range>
+        <ion-range [min]="2" [max]="20" formControlName="milkQuantity">
+          <ion-label slot="start">2</ion-label>
+          <ion-label slot="end">20</ion-label>
+        </ion-range>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Milk Origin</ion-label>
@@ -48,7 +47,10 @@
       <ion-item>
         <ion-label position="stacked">Date</ion-label>
         <ion-datetime-button datetime="datetime"></ion-datetime-button>
-        <ion-modal [keepContentsMounted]="true">
+        <ion-modal
+          [keepContentsMounted]="true"
+          (didDismiss)="onDateModalDismiss()"
+        >
           <ng-template>
             <ion-datetime
               id="datetime"
@@ -67,11 +69,9 @@
       </ion-item>
 
       <div class="flex justify-center">
-        <ion-button
-          (click)="addCheese()"
-          [disabled]="addCheeseForm.invalid"
-          > Create cheese </ion-button
-        >
+        <ion-button (click)="addCheese()" [disabled]="addCheeseForm.invalid">
+          Create cheese
+        </ion-button>
       </div>
     </form>
   </section>
