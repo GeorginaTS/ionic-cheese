@@ -49,6 +49,8 @@ export class CheeseElaborationMakingComponent implements OnInit {
 
   private fb = inject(FormBuilder);
   private cheeseService = inject(CheeseService);
+  private focusManager = inject(FocusManagerService);
+  private elementRef = inject(ElementRef);
 
   constructor() {
     addIcons({ saveOutline });
@@ -87,8 +89,12 @@ export class CheeseElaborationMakingComponent implements OnInit {
         });
       } catch (error) {
         console.error('Error loading cheese making data:', error);
-      } 
+      }
     }
+  }
+
+  private clearFocus() {
+    this.focusManager.clearFocus(this.elementRef);
   }
 
   saveMaking() {
@@ -99,6 +105,8 @@ export class CheeseElaborationMakingComponent implements OnInit {
           next: (response) => {
             console.log('Making data actualitzada:', response);
             this.loadData();
+            // Netegem el focus després de guardar
+            this.clearFocus();
           },
           error: (error) => {
             console.error('Error actualitzant la descripció:', error);

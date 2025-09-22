@@ -5,6 +5,7 @@ import { of, throwError } from 'rxjs';
 import { CheeseElaborationMakingComponent } from './cheese-elaboration-making.component';
 import { CheeseService } from '../../../services/cheese.service';
 import { CheeseMaking } from '../../../interfaces/cheese';
+import { FocusManagerService } from '../../../services/focus-manager.service';
 
 // Mock del CheeseService
 class MockCheeseService {
@@ -16,15 +17,24 @@ class MockCheeseService {
     .and.returnValue(of({ cheese: { making: null } }));
 }
 
+// Mock del FocusManagerService
+class MockFocusManagerService {
+  clearFocus = jasmine.createSpy('clearFocus');
+}
+
 describe('CheeseElaborationMakingComponent', () => {
   let component: CheeseElaborationMakingComponent;
   let fixture: ComponentFixture<CheeseElaborationMakingComponent>;
   let mockCheeseService: MockCheeseService;
+  let mockFocusManagerService: MockFocusManagerService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [CheeseElaborationMakingComponent, ReactiveFormsModule],
-      providers: [{ provide: CheeseService, useClass: MockCheeseService }],
+      providers: [
+        { provide: CheeseService, useClass: MockCheeseService },
+        { provide: FocusManagerService, useClass: MockFocusManagerService },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CheeseElaborationMakingComponent);
@@ -32,12 +42,16 @@ describe('CheeseElaborationMakingComponent', () => {
     mockCheeseService = TestBed.inject(
       CheeseService
     ) as unknown as MockCheeseService;
+    mockFocusManagerService = TestBed.inject(
+      FocusManagerService
+    ) as unknown as MockFocusManagerService;
     fixture.detectChanges();
   });
 
   beforeEach(() => {
     mockCheeseService.updateCheese.calls.reset();
     mockCheeseService.getCheeseById.calls.reset();
+    mockFocusManagerService.clearFocus.calls.reset();
   });
 
   it('should create', () => {
@@ -105,6 +119,26 @@ describe('CheeseElaborationMakingComponent', () => {
       'test-cheese-123',
       { making: testData }
     );
+  });
+
+  it('should call clearFocus after successful save', (done) => {
+    component.cheeseId = 'test-cheese-123';
+
+    const testData: CheeseMaking = {
+      milkTemperature: '32',
+      starterCultures: 'Test cultures',
+    };
+
+    component.makingForm.patchValue(testData);
+    component.saveMaking();
+
+    // Esperem que clearFocus es cridi després del subscribe
+    setTimeout(() => {
+      expect(mockFocusManagerService.clearFocus).toHaveBeenCalledWith(
+        component['elementRef']
+      );
+      done();
+    }, 0);
   });
 
   it('should not call service when form has no data', () => {

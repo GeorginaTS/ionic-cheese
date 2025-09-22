@@ -33,7 +33,7 @@ describe('CheeseElaborationRipeningComponent', () => {
       imports: [CheeseElaborationRipeningComponent, ReactiveFormsModule],
       providers: [
         { provide: CheeseService, useClass: MockCheeseService },
-        { provide: FocusManagerService, useClass: MockFocusManagerService }
+        { provide: FocusManagerService, useClass: MockFocusManagerService },
       ],
     }).compileComponents();
 
