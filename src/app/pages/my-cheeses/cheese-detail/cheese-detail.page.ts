@@ -1,21 +1,7 @@
 import { Component, ElementRef, inject, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonSpinner,
-  IonAccordion,
-  IonItem,
-  IonLabel,
-  IonAccordionGroup,
-  IonIcon,
-  IonButton,
-  IonBackButton,
-  IonModal,
-} from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonSpinner, IonAccordion, IonItem, IonLabel, IonAccordionGroup, IonIcon, IonButton, IonBackButton, IonModal, IonNote } from '@ionic/angular/standalone';
 import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Cheese } from 'src/app/interfaces/cheese';
@@ -34,7 +20,7 @@ import {
 import { CheeseDetailComponent } from 'src/app/components/my-cheeses/cheese-detail/cheese-detail.component';
 import { AddNoteModalComponent } from 'src/app/components/add-note-modal/add-note-modal.component';
 import { CheesePhotoCaptureComponent } from 'src/app/components/my-cheeses/cheese-photo-capture/cheese-photo-capture.component';
-import { CheeseElaborationModalComponent } from 'src/app/components/my-cheeses/cheese-elaboration-modal/cheese-elaboration-modal.component';
+
 import { CheeseElaborationComponent } from 'src/app/components/my-cheeses/cheese-elaboration/cheese-elaboration.component';
 import { FocusManagerService } from 'src/app/services/focus-manager.service';
 import { Share } from '@capacitor/share';
@@ -64,7 +50,8 @@ import { environment } from 'src/environments/environment';
     CheesePhotoCaptureComponent,
     CheeseDetailComponent,
     CheeseElaborationComponent,
-  ],
+    IonNote
+],
 })
 export class CheeseDetailPage implements OnInit {
   cheeseId: string = '';
@@ -72,7 +59,6 @@ export class CheeseDetailPage implements OnInit {
   isLoading: boolean = true;
   addNoteModalOpen = false;
   photoModalOpen = false;
-  makingModalOpen = false;
   photo1: string | null = null;
 
   private route = inject(ActivatedRoute);

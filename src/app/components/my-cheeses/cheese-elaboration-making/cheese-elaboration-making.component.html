@@ -1,0 +1,102 @@
+<form [formGroup]="makingForm" (ngSubmit)="saveMaking()">
+  <ion-item>
+    <ion-label position="stacked">Milk Temperature (°C)</ion-label>
+    <ion-input
+      type="text"
+      formControlName="milkTemperature"
+      placeholder="Enter temperature"
+      [clearInput]="true"
+    >
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Starter Cultures</ion-label>
+    <ion-textarea
+      formControlName="starterCultures"
+      placeholder="Enter starter cultures used"
+      rows="2"
+    >
+    </ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Milk pH</ion-label>
+    <ion-input
+      type="text"
+      formControlName="milkPH"
+      placeholder="Enter pH"
+      [clearInput]="true"
+    >
+    </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Coagulant</ion-label>
+    <ion-input
+      formControlName="coagulant"
+      placeholder="Enter coagulant type (rennet, etc.)"
+      [clearInput]="true"
+    >
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Coagulation Time (minutes)</ion-label>
+    <ion-input
+      type="text"
+      formControlName="coagulationTime"
+      placeholder="Enter time in minutes"
+      [clearInput]="true"
+    >
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Curd Cutting</ion-label>
+    <ion-textarea
+      formControlName="curdCutting"
+      placeholder="Describe curd cutting method and size"
+      rows="2"
+      [clearOnEdit]="true"
+    >
+    </ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Molding</ion-label>
+    <ion-textarea
+      formControlName="molding"
+      placeholder="Describe molding process and mold type"
+      rows="2"
+      [clearOnEdit]="true"
+    >
+    </ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Applied Pressure (kg)</ion-label>
+    <ion-input
+      type="text"
+      formControlName="appliedPressure"
+      placeholder="Enter pressure in kg"
+      [clearInput]="true"
+    >
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Salting Method</ion-label>
+    <ion-textarea
+      formControlName="salting"
+      placeholder="Describe salting method (dry salt, brine, etc.)"
+      rows="2"
+      [clearOnEdit]="true"
+    >
+    </ion-textarea>
+  </ion-item>
+
+  <ion-button expand="block" type="submit" class="mt-4">
+    <ion-icon name="save-outline" slot="start"></ion-icon>
+    Save Making Process
+  </ion-button>
+</form>

@@ -1,0 +1,94 @@
+<form [formGroup]="ripeningForm" (ngSubmit)="saveRipening()">
+  <ion-item>
+    <ion-label position="stacked">Ripening Start Date</ion-label>
+    <ion-datetime-button datetime="ripeningStartDate"></ion-datetime-button>
+  </ion-item>
+
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime
+        id="ripeningStartDate"
+        presentation="date"
+        [showDefaultTitle]="true"
+        [showDefaultButtons]="true"
+        (ionChange)="onDateChange($event)"
+      ></ion-datetime>
+    </ng-template>
+  </ion-modal>
+
+  <ion-item>
+    <ion-label position="stacked">Estimated Duration</ion-label>
+    <ion-input
+      type="text"
+      formControlName="estimatedDuration"
+      placeholder="Enter estimated duration (e.g., 2 weeks, 3 months)"
+      [clearInput]="true"
+    >
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Temperature (°C)</ion-label>
+    <ion-input
+      type="text"
+      formControlName="temperature"
+      placeholder="Enter temperature range"
+      [clearInput]="true"
+    >
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Humidity (%)</ion-label>
+    <ion-input
+      type="text"
+      formControlName="humidity"
+      placeholder="Enter humidity percentage"
+      [clearInput]="true"
+    >
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Turning/Flips</ion-label>
+    <ion-textarea
+      formControlName="turningFlips"
+      placeholder="Describe turning schedule and method"
+      rows="2"
+      [clearOnEdit]="true"
+    >
+    </ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Washing</ion-label>
+    <ion-textarea
+      formControlName="washing"
+      placeholder="Describe washing process and frequency"
+      rows="2"
+      [clearOnEdit]="true"
+    >
+    </ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Brushing</ion-label>
+    <ion-textarea
+      formControlName="brushing"
+      placeholder="Describe brushing process and frequency"
+      rows="2"
+      [clearOnEdit]="true"
+    >
+    </ion-textarea>
+  </ion-item>
+
+  <ion-button
+    type="submit"
+    expand="block"
+    [disabled]="!hasData() || !ripeningForm.valid"
+    class="mt-4"
+  >
+    <ion-icon name="save-outline" slot="start"></ion-icon>
+    Save Ripening Data
+  </ion-button>
+</form>

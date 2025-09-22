@@ -9,9 +9,13 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" class="ion-padding">
-  <section>
+  <section class="ion-text-center">
     @if (isLoading) {
-    <ion-spinner></ion-spinner>
+    <ion-spinner>Loading cheese</ion-spinner>
+    <ion-note> API is hosted on Render’s free tier.</ion-note><br /><ion-note
+      >That means the first visit after some idle time can take a bit longer to
+      load. </ion-note
+    ><br /><ion-note> Thanks for your patience!</ion-note>
     } @if (cheese) {
     <!-- Detail component. Basic information about cheese-->
     <app-cheese-detail-component
@@ -53,7 +57,7 @@
       </ion-modal>
     </div>
     <br />
-    <app-cheese-elaboration></app-cheese-elaboration>
+    <app-cheese-elaboration [cheeseId]="cheeseId"></app-cheese-elaboration>
 
     } @if (!isLoading && !cheese) { this.router.navigate(['my-cheeses']); }
   </section>

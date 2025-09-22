@@ -72,7 +72,10 @@ ion-button:hover, ion-button:active, ion-button:focus {
   --background: var(--secondary-color);
   --ripple-color: transparent;
 } 
-
+ion-button[disabled] {
+  --opacity: 0.6;
+  cursor: not-allowed;
+}
 ion-toolbar {
   --background: var(--ion-color-light);
   --box-shadow: none;
@@ -83,6 +86,7 @@ ion-content {
   --background: var(--bg-color);
 }
 ion-item {
+  --background: transparent !important;
   --border-color: transparent;
   --highlight-height: 0;
   margin: 0.4rem 0;
@@ -92,7 +96,7 @@ ion-label {
   font-size: 1rem;
   font-weight: bold;
   margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem !important;
 }
 ion-text {
   text-align: center;

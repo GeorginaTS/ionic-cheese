@@ -2,7 +2,7 @@
   <ion-segment-button value="making" content-id="making">
     <ion-label>Making</ion-label>
   </ion-segment-button>
-  <ion-segment-button value="ripening" content-id="ripening" >
+  <ion-segment-button value="ripening" content-id="ripening">
     <ion-label>Ripening</ion-label>
   </ion-segment-button>
   <ion-segment-button value="taste" content-id="taste">
@@ -11,27 +11,12 @@
 </ion-segment>
 <ion-segment-view>
   <ion-segment-content id="making" class="bg-amber-100">
-    <ul>
-      <li>Milk Temperature</li>
-      <li>Starter Cultures</li>
-      <li>Coagulant</li>
-      <li>Coagulation Time</li>
-      <li>Curd Cutting</li>
-      <li>Molding</li>
-      <li>Applied Pressure</li>
-      <li>Salting</li>
-    </ul>
+    <app-cheese-elaboration-making [cheeseId]="cheeseId">
+    </app-cheese-elaboration-making>
   </ion-segment-content>
   <ion-segment-content id="ripening" class="bg-amber-200">
-    <ul>
-      <li>Ripening Start Date</li>
-      <li>Estimated Duration</li>
-      <li>Temperature</li>
-      <li>Humidity</li>
-      <li>Turning /Flips</li>
-      <li>Washing</li>
-      <li>Brushing</li>
-    </ul>
+    <app-cheese-elaboration-ripening [cheeseId]="cheeseId">
+    </app-cheese-elaboration-ripening>
   </ion-segment-content>
   <ion-segment-content id="taste" class="bg-amber-300">
     <ul>

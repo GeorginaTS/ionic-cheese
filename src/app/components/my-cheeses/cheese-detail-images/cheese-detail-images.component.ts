@@ -1,9 +1,10 @@
-import { Component, inject, Input, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, inject, Input, OnInit, CUSTOM_ELEMENTS_SCHEMA, ElementRef } from '@angular/core';
 import { FirebaseStorageService } from 'src/app/services/firebase-storage.service';
 import { LoadingController } from '@ionic/angular/standalone';
 
 // Importacions per Swiper v12
 import { register } from 'swiper/element/bundle';
+import { FocusManagerService } from 'src/app/services/focus-manager.service';
 
 // Registrem els components de Swiper
 register();
@@ -22,11 +23,16 @@ export class CheeseDetailImagesComponent implements OnInit {
   photoPaths: string[] = [];
   private loadingController = inject(LoadingController);
   private firebaseStorage = inject(FirebaseStorageService);
+  private focusManager = inject(FocusManagerService);
+  private elementRef = inject(ElementRef);
 
   constructor() {}
 
   ngOnInit() {
     this.loadPhotos();
+  }
+    ionViewWillLeave() {
+    this.focusManager.clearFocus(this.elementRef);
   }
 
   async loadPhotos() {

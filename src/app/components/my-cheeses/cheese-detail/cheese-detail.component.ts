@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import {
   IonButton,
   IonItem,
@@ -27,6 +27,7 @@ import { FirebaseStorageService } from 'src/app/services/firebase-storage.servic
 import { Share } from '@capacitor/share';
 import { environment } from 'src/environments/environment.template';
 import { CheeseDetailImagesComponent } from "../cheese-detail-images/cheese-detail-images.component";
+import { FocusManagerService } from 'src/app/services/focus-manager.service';
 
 
 @Component({
@@ -58,14 +59,18 @@ export class CheeseDetailComponent implements OnInit {
 
   constructor(
     private cheeseService: CheeseService,
-    private router: Router,
-    private firebaseStorage: FirebaseStorageService
+    private firebaseStorage: FirebaseStorageService,
+    private focusManager: FocusManagerService,
+    private elementRef: ElementRef
   ) {
     addIcons({ createOutline, trashOutline, shareOutline });
   }
 
   ngOnInit() {
     this.loadPhoto();
+  }
+    ionViewWillLeave() {
+    this.focusManager.clearFocus(this.elementRef);
   }
 
   async loadPhoto() {
@@ -149,5 +154,4 @@ export class CheeseDetailComponent implements OnInit {
       });
     this.descriptionModalOpen = false;
   }
-
 }

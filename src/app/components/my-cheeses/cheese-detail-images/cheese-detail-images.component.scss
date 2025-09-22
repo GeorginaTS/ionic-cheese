@@ -21,21 +21,19 @@ swiper-container {
 .cheese-image {
   width: 100%;
   max-width: 480px;
-  height: 300px;
+  height: 30vh;
   object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
 }
 
 // Estils per als bullets amb selectors més específics
 swiper-container::part(pagination) .swiper-pagination-bullet {
-  background-color: rgba(199, 24, 24, 0.4) !important;
+  background-color: rgba(255, 229, 143, 0.4) !important;
 }
 
 swiper-container::part(pagination) .swiper-pagination-bullet-active {
   background-color: orange !important;
 }
-
 // Alternativa amb més especificitat
 swiper-container .swiper-pagination .swiper-pagination-bullet {
   background: orange !important;
@@ -57,6 +55,12 @@ swiper-container .swiper-pagination {
   position: relative !important;
   margin-top: 16px !important;
   bottom: 0 !important;
+  background-color: yellow !important;
+  padding: 8px 16px !important;
+  border-radius: 20px !important;
+  display: inline-block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 // CSS Variables per forçar els colors
