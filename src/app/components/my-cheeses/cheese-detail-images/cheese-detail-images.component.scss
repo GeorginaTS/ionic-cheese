@@ -1,0 +1,38 @@
+// Minimal Swiper styles - only essential ones
+swiper-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+
+  swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+// Custom image styles
+.cheese-image {
+  width: 100%;
+  max-width: 480px;
+  height: 30vh;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+// Minimal pagination styling using CSS variables
+swiper-container {
+  --swiper-pagination-color: #ff6b35;
+  --swiper-pagination-bullet-inactive-color: rgba(255, 229, 143, 0.6);
+  --swiper-pagination-bullet-inactive-opacity: 1;
+  --swiper-pagination-bullet-size: 12px;
+  --swiper-pagination-bullet-horizontal-gap: 4px;
+}
+
+// Essential pagination positioning
+swiper-container .swiper-pagination {
+  position: relative;
+  margin-top: 16px;
+  bottom: 0;
+}

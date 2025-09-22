@@ -1,8 +1,22 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
-import { IonItem, IonSelectOption, IonLabel, IonButton, IonSelect, IonTextarea } from "@ionic/angular/standalone";
-import { ToastController } from "@ionic/angular";
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  IonItem,
+  IonSelectOption,
+  IonLabel,
+  IonButton,
+  IonSelect,
+  IonTextarea,
+} from '@ionic/angular/standalone';
+import { ToastController } from '@ionic/angular';
+import { FocusManagerService } from '../../services/focus-manager.service';
 
 @Component({
   selector: 'app-add-note-modal',
@@ -18,7 +32,7 @@ import { ToastController } from "@ionic/angular";
     IonLabel,
     IonButton,
     IonSelect,
-    IonTextarea
+    IonTextarea,
   ],
 })
 export class AddNoteModalComponent {
@@ -28,21 +42,27 @@ export class AddNoteModalComponent {
     noteDate: new FormControl(new Date().toISOString()),
     noteAbout: new FormControl('Others'),
   });
-  constructor(private toastController: ToastController) {}
+  constructor(
+    private toastController: ToastController,
+    private focusManager: FocusManagerService,
+    private elementRef: ElementRef
+  ) {}
 
-async saveNote() {
-  console.log('Note saved:', this.noteForm.value);
+  async saveNote() {
+    console.log('Note saved:', this.noteForm.value);
 
-  const toast = await this.toastController.create({
+    const toast = await this.toastController.create({
       message: 'Note added successfully ✅',
       duration: 1000, // 1 segon
       position: 'middle', // o 'top' o 'middle'
-      color: 'success' // opcional: 'primary', 'warning', 'danger', etc.
+      color: 'success', // opcional: 'primary', 'warning', 'danger', etc.
     });
 
     await toast.present();
     this.close.emit(true);
-}
+  }
 
-
+  ionViewWillLeave() {
+    this.focusManager.clearFocus(this.elementRef);
+  }
 }

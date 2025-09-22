@@ -2,4 +2,10 @@ ion-chip[outline] {
   border: 1px solid var(--ion-color-success);
   background: white;
   color: var(--ion-color-success);
+  min-width: fit-content;
+
+  // Evitar salt de línia mantenint tot el text visible
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: inline-flex;
 }

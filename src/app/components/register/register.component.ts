@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ElementRef } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -17,6 +17,7 @@ import {
 } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { FocusManagerService } from '../../services/focus-manager.service';
 import { AppUser } from 'src/app/interfaces/user';
 
 @Component({
@@ -39,6 +40,8 @@ import { AppUser } from 'src/app/interfaces/user';
 export class RegisterComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
+  private focusManager = inject(FocusManagerService);
+  private elementRef = inject(ElementRef);
   registerForm: FormGroup;
   constructor() {
     this.registerForm = this.initForm();
@@ -62,7 +65,11 @@ export class RegisterComponent {
 
   maxBirthDate(): string {
     const today = new Date();
-    const maxDate = new Date(today.getFullYear() - 16, today.getMonth(), today.getDate());
+    const maxDate = new Date(
+      today.getFullYear() - 16,
+      today.getMonth(),
+      today.getDate()
+    );
     return maxDate.toISOString();
   }
 
@@ -92,5 +99,14 @@ export class RegisterComponent {
     } catch (error) {
       console.error('Error en el registre:', error);
     }
+  }
+
+  ionViewWillLeave() {
+    this.focusManager.clearFocus(this.elementRef);
+  }
+
+  onDateModalDismiss() {
+    // Netegem el focus quan es tanca el modal de data per evitar warnings d'accessibilitat
+    this.focusManager.clearFocus(this.elementRef);
   }
 }

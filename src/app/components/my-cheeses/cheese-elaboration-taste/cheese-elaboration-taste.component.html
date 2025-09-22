@@ -1,0 +1,69 @@
+<form [formGroup]="tasteForm" (ngSubmit)="saveTaste()">
+  <ion-grid>
+    @for (aspect of tasteAspects; track aspect.key) {
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon [name]="aspect.icon" class="mr-2"></ion-icon>
+          {{ aspect.label }}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <!-- Star Rating -->
+        <div [formGroupName]="aspect.key">
+          <div class="star-rating">
+            @for (star of [1, 2, 3, 4, 5]; track star) {
+            <ion-icon
+              [name]="
+                getStarIcon(tasteForm.get(aspect.key + '.rate')?.value, star)
+              "
+              class="star-icon"
+              [class.star-filled]="
+                star <= tasteForm.get(aspect.key + '.rate')?.value
+              "
+              [class.star-empty]="
+                star > tasteForm.get(aspect.key + '.rate')?.value
+              "
+              (click)="setRating(aspect.key, star)"
+            ></ion-icon>
+            }
+            <ion-note class="text-sm text-primary" style="margin-left: 8px">
+              {{ getRatingText(tasteForm.get(aspect.key + ".rate")?.value) }}
+            </ion-note>
+          </div>
+
+          <!-- Notes Textarea -->
+          <div class="notes-section">
+            <ion-textarea
+              formControlName="text"
+              [placeholder]="
+                'Describe the ' +
+                aspect.label.toLowerCase() +
+                ' characteristics...'
+              "
+              [rows]="3"
+              [autoGrow]="true"
+              [clearOnEdit]="false"
+              class="notes-textarea"
+            ></ion-textarea>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+    }
+  </ion-grid>
+
+  <!-- Save Button -->
+  <div class="p-4">
+    <ion-button
+      type="submit"
+      expand="block"
+      fill="solid"
+      color="primary"
+      [disabled]="!hasData()"
+    >
+      <ion-icon name="save-outline" slot="start"></ion-icon>
+      Save Taste Evaluation
+    </ion-button>
+  </div>
+</form>

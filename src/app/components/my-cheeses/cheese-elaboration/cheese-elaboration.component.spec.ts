@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
 
 import { CheeseElaborationComponent } from './cheese-elaboration.component';
 
@@ -9,8 +8,7 @@ describe('CheeseElaborationComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CheeseElaborationComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [CheeseElaborationComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CheeseElaborationComponent);
@@ -21,4 +19,12 @@ describe('CheeseElaborationComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have cheeseId input property', () => {
+    const testCheeseId = 'test-cheese-123';
+    component.cheeseId = testCheeseId;
+    expect(component.cheeseId).toBe(testCheeseId);
+  });
+
+ 
 });

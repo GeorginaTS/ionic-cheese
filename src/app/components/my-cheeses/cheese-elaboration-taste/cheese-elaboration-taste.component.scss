@@ -1,0 +1,64 @@
+:host {
+  display: block;
+}
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 0;
+
+  .star-icon {
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &.star-filled {
+      color: #ffd700; // Golden yellow
+    }
+
+    &.star-empty {
+      color: #d1d5db; // Gray-300
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.notes-section {
+  margin-top: 12px;
+
+  .notes-textarea {
+    width: 100%;
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+  }
+}
+
+ion-grid {
+  --ion-grid-padding: 0;
+  --ion-grid-column-padding: 0;
+  --ion-grid-row-padding: 0;
+}
+ion-card {
+  padding: 0;
+  ion-card-title {
+    display: flex;
+    align-items: center;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+}
+ion-content {
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+}
+ion-textarea {
+  --padding-start: 0;
+  --padding-end: 0;
+}

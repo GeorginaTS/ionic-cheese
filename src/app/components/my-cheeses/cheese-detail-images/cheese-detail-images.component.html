@@ -1,0 +1,19 @@
+<swiper-container
+  slides-per-view="1"
+  loop="false"
+  autoplay-delay="0"
+  autoplay-disable-on-interaction="true"
+  pagination="true"
+  pagination-clickable="true"
+  pagination-dynamic-bullets="true"
+  navigation="false"
+  class="w-full"
+>
+  @for(url of photos; track url){
+  <swiper-slide>
+    <div class="flex justify-center">
+      <img [src]="url" class="cheese-image" />
+    </div>
+  </swiper-slide>
+  }
+</swiper-container>

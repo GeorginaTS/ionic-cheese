@@ -15,6 +15,7 @@ import {
   IonButton,
   IonBackButton,
   IonModal,
+  IonNote,
 } from '@ionic/angular/standalone';
 import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -27,6 +28,7 @@ import {
   arrowBackCircleOutline,
   caretDownCircle,
   caretDownCircleOutline,
+  cameraOutline,
   createOutline,
   shareOutline,
   trashOutline,
@@ -34,7 +36,7 @@ import {
 import { CheeseDetailComponent } from 'src/app/components/my-cheeses/cheese-detail/cheese-detail.component';
 import { AddNoteModalComponent } from 'src/app/components/add-note-modal/add-note-modal.component';
 import { CheesePhotoCaptureComponent } from 'src/app/components/my-cheeses/cheese-photo-capture/cheese-photo-capture.component';
-import { CheeseElaborationModalComponent } from 'src/app/components/my-cheeses/cheese-elaboration-modal/cheese-elaboration-modal.component';
+
 import { CheeseElaborationComponent } from 'src/app/components/my-cheeses/cheese-elaboration/cheese-elaboration.component';
 import { FocusManagerService } from 'src/app/services/focus-manager.service';
 import { Share } from '@capacitor/share';
@@ -64,6 +66,7 @@ import { environment } from 'src/environments/environment';
     CheesePhotoCaptureComponent,
     CheeseDetailComponent,
     CheeseElaborationComponent,
+    IonNote,
   ],
 })
 export class CheeseDetailPage implements OnInit {
@@ -72,7 +75,6 @@ export class CheeseDetailPage implements OnInit {
   isLoading: boolean = true;
   addNoteModalOpen = false;
   photoModalOpen = false;
-  makingModalOpen = false;
   photo1: string | null = null;
 
   private route = inject(ActivatedRoute);
@@ -87,6 +89,7 @@ export class CheeseDetailPage implements OnInit {
     addIcons({
       arrowBackCircleOutline: arrowBackCircleOutline,
       caretDownCircle,
+      cameraOutline,
       createOutline,
       trashOutline,
       shareOutline,
@@ -145,9 +148,21 @@ export class CheeseDetailPage implements OnInit {
     // Logic to add a note can be implemented here
     this.addNoteModalOpen = true;
   }
+
   openPhotoModal() {
     this.photoModalOpen = true;
   }
+
+  onPhotoModalDismiss() {
+    this.photoModalOpen = false;
+    this.focusManager.clearFocus(this.elementRef);
+  }
+
+  onAddNoteModalDismiss() {
+    this.addNoteModalOpen = false;
+    this.focusManager.clearFocus(this.elementRef);
+  }
+
   async shareCheese(cheese: any) {
     await Share.share({
       title: cheese.name,

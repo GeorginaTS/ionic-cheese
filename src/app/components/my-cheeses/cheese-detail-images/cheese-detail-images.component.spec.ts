@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CheeseElaborationModalComponent } from './cheese-elaboration-modal.component';
+import { CheeseDetailImagesComponent } from './cheese-detail-images.component';
 
-describe('CheeseElaborationModalComponent', () => {
-  let component: CheeseElaborationModalComponent;
-  let fixture: ComponentFixture<CheeseElaborationModalComponent>;
+describe('CheeseDetailImagesComponent', () => {
+  let component: CheeseDetailImagesComponent;
+  let fixture: ComponentFixture<CheeseDetailImagesComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CheeseElaborationModalComponent ],
+      declarations: [ CheeseDetailImagesComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CheeseElaborationModalComponent);
+    fixture = TestBed.createComponent(CheeseDetailImagesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

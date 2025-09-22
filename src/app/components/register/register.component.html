@@ -29,7 +29,10 @@
     <ion-item>
       <ion-label>Birth Date</ion-label>
       <ion-datetime-button datetime="datetime"></ion-datetime-button>
-      <ion-modal [keepContentsMounted]="true">
+      <ion-modal
+        [keepContentsMounted]="true"
+        (didDismiss)="onDateModalDismiss()"
+      >
         <ng-template>
           <ion-datetime
             id="datetime"

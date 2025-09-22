@@ -15,6 +15,7 @@ import { IonIcon } from '@ionic/angular/standalone';
 import { calendarOutline, createOutline, trashOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { FirebaseStorageService } from 'src/app/services/firebase-storage.service';
+import { IcoCheeseStatusComponent } from "../ico-cheese-status/ico-cheese-status.component";
 
 @Component({
   selector: 'app-cheese-card',
@@ -29,7 +30,8 @@ import { FirebaseStorageService } from 'src/app/services/firebase-storage.servic
     IcoMilkTypeComponent,
     IonIcon,
     IonSpinner,
-  ],
+    IcoCheeseStatusComponent
+],
 })
 export class CheeseCardComponent implements OnInit {
   @Input() cheese!: Cheese;

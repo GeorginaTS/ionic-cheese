@@ -1,0 +1,19 @@
+// Utilitza els estils globals per coherència
+// Només afegim estils específics necessaris pel component de ripening
+
+ion-input[type="text"] {
+  text-align: left;
+}
+
+ion-button[disabled] {
+  opacity: 0.5;
+}
+
+ion-datetime {
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
