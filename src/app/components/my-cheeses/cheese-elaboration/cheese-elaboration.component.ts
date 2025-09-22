@@ -8,7 +8,12 @@ import {
 } from '@ionic/angular/standalone';
 import { CheeseElaborationMakingComponent } from '../cheese-elaboration-making/cheese-elaboration-making.component';
 import { CheeseElaborationRipeningComponent } from '../cheese-elaboration-ripening/cheese-elaboration-ripening.component';
-import { CheeseMaking, CheeseRipening } from '../../../interfaces/cheese';
+import { CheeseElaborationTasteComponent } from '../cheese-elaboration-taste/cheese-elaboration-taste.component';
+import {
+  CheeseMaking,
+  CheeseRipening,
+  CheeseTaste,
+} from '../../../interfaces/cheese';
 
 @Component({
   selector: 'app-cheese-elaboration',
@@ -23,6 +28,7 @@ import { CheeseMaking, CheeseRipening } from '../../../interfaces/cheese';
     IonSegment,
     CheeseElaborationMakingComponent,
     CheeseElaborationRipeningComponent,
+    CheeseElaborationTasteComponent,
   ],
 })
 export class CheeseElaborationComponent implements OnInit {
@@ -42,6 +48,12 @@ export class CheeseElaborationComponent implements OnInit {
     console.log('Ripening data received in parent:', ripeningData);
     // TODO: Save to service or emit to parent component
     this.showSaveMessage('Ripening process data saved successfully!');
+  }
+
+  onTasteDataSaved(tasteData: CheeseTaste) {
+    console.log('Taste data received in parent:', tasteData);
+    // TODO: Save to service or emit to parent component
+    this.showSaveMessage('Taste evaluation data saved successfully!');
   }
 
   private showSaveMessage(message: string) {

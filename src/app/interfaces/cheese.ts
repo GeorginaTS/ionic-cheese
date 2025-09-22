@@ -34,7 +34,17 @@ export interface CheeseRipening {
   washing?: string;
   brushing?: string;
 }
-export interface CheeseTaste {}
+export interface CheeseTaste {
+  visual?: Opinion;
+  flavor?: Opinion;
+  aroma?: Opinion;
+  texture?: Opinion;
+  taste?: Opinion;
+}
+export interface Opinion {
+  rate?: number;
+  text?: string;
+}
 export interface CheeseNotes {
   date: Date;
   about: string;

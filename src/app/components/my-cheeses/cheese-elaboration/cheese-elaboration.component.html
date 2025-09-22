@@ -19,11 +19,7 @@
     </app-cheese-elaboration-ripening>
   </ion-segment-content>
   <ion-segment-content id="taste" class="bg-amber-300">
-    <ul>
-      <li>Visual</li>
-      <li>Aroma</li>
-      <li>Texture</li>
-      <li>Flavor</li>
-    </ul>
+    <app-cheese-elaboration-taste [cheeseId]="cheeseId">
+    </app-cheese-elaboration-taste>
   </ion-segment-content>
 </ion-segment-view>

@@ -1,0 +1,87 @@
+:host {
+  display: block;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.text-gray-600 {
+  color: rgb(75, 85, 99);
+}
+
+.star-rating {
+  display: flex;
+  gap: 4px;
+  padding: 8px 0;
+
+  .star-icon {
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &.star-filled {
+      color: #ffd700; // Golden yellow
+    }
+
+    &.star-empty {
+      color: #d1d5db; // Gray-300
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.text-primary {
+  color: var(--ion-color-primary);
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+ion-card {
+  margin-bottom: 1rem;
+
+  ion-card-title {
+    display: flex;
+    align-items: center;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+}
+
+ion-range {
+  --knob-size: 24px;
+  --bar-height: 8px;
+  --bar-background: rgba(var(--ion-color-primary-rgb), 0.1);
+  --bar-background-active: var(--ion-color-primary);
+  --knob-background: var(--ion-color-primary);
+  --pin-background: var(--ion-color-primary);
+  --pin-color: white;
+
+  padding: 16px 0;
+}
+
+ion-textarea {
+  --padding-start: 0;
+  --padding-end: 0;
+}
