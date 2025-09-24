@@ -26,7 +26,7 @@
 @import "@ionic/angular/css/flex-utils.css";
 
 /*swiper styles for ion-slides*/
-@import 'swiper/swiper-bundle.css';
+@import "swiper/swiper-bundle.css";
 /**
  * Ionic Dark Mode
  * -----------------------------------------------------
@@ -68,14 +68,34 @@ ion-button {
   margin: 1rem 0.4rem;
 }
 
-ion-button:hover, ion-button:active, ion-button:focus {
+ion-button:hover,
+ion-button:active,
+ion-button:focus {
   --background: var(--secondary-color);
   --ripple-color: transparent;
-} 
+}
 ion-button[disabled] {
   --opacity: 0.6;
   cursor: not-allowed;
 }
+/* Responsive ion-title font size */
+ion-title {
+  font-size: clamp(1.2rem, 3vw, 1.5rem) !important;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+/* Hover effect for ion-button */
+ion-button {
+  transition: all 0.2s ease-in-out;
+}
+
+ion-button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
 ion-toolbar {
   --background: var(--ion-color-light);
   --box-shadow: none;

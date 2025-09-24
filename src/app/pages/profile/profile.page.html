@@ -6,53 +6,121 @@
 <ion-content [fullscreen]="true" class="ion-padding">
   <!-- Loading Spinner -->
   @if (isLoading) {
-  <div class="ion-text-center ion-margin-top">
+  <div class="loading-container">
     <ion-spinner name="bubbles"></ion-spinner>
     <p>Loading profile...</p>
   </div>
   }
 
-  <!-- User Profile Card -->
+  <!-- Profile Header -->
   @if (!isLoading) {
-  <ion-card>
-    <div class="profile-header">
-      <ion-avatar class="profile-avatar">
-        <img
-          [src]="currentUser?.photoURL || '../assets/icon/cheese.png'"
-          [alt]="currentUser?.displayName || 'User'"
-        />
-      </ion-avatar>
-      <h2 class="user-name">{{currentUser?.displayName || 'User'}}</h2>
-      <p>{{currentUser?.uid || ''}}</p>
-      <p class="user-email">{{ currentUser?.email || '' }}</p>
-      <p class="user-birthdate">{{ currentUser?.birthDate || '' }}</p>
-      <p class="user-location">
-        {{ currentUser?.city || '' }}, {{ currentUser?.province || '' }},
-        {{ currentUser?.country || '' }}
-      </p>
-    </div>
-  </ion-card>
-  }
-
-  <!-- Actions -->
-  <div class="menu-profile">
-    <ion-button expand="block">
-      <ion-icon slot="start" name="person-outline"></ion-icon>
+  <div class="profile-header-section">
+    <ion-avatar class="profile-avatar-large">
+      <img
+        [src]="currentUser?.photoURL || '../assets/icon/cheese.png'"
+        [alt]="currentUser?.displayName || 'User'"
+      />
+    </ion-avatar>
+    <h1 class="profile-name">{{currentUser?.displayName || 'User'}}</h1>
+    <p class="profile-email">{{ currentUser?.email || '' }}</p>
+    <ion-button fill="outline" (click)="openEditProfileModal()">
+      <ion-icon name="key-outline" slot="start"></ion-icon>
       Edit Profile
     </ion-button>
-    <ion-button expand="block">
+  </div>
+
+  <!-- Stats Section -->
+  <div class="stats-section">
+    <div class="stat-item">
+      <ion-icon name="restaurant-outline" color="primary"></ion-icon>
+      <div class="stat-content">
+        <span class="stat-number">{{ userCheesesCount }}</span>
+        <span class="stat-label">Cheeses</span>
+      </div>
+    </div>
+    <div class="stat-item">
+      <ion-icon name="people-outline" color="primary"></ion-icon>
+      <div class="stat-content">
+        <span class="stat-number">48</span>
+        <span class="stat-label">Followers</span>
+      </div>
+    </div>
+    <div class="stat-item">
+      <ion-icon name="add-circle-outline" color="primary"></ion-icon>
+      <div class="stat-content">
+        <span class="stat-number">32</span>
+        <span class="stat-label">Following</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Personal Info Section -->
+  <ion-card class="info-card">
+    <ion-card-header>
+      <ion-card-title>Personal Information</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="info-grid">
+        <div class="info-item">
+          <ion-icon name="calendar-outline" slot="start"></ion-icon>
+          <div class="info-content">
+            <span class="info-label">Birth Date</span>
+            <span class="info-value"
+              >{{ currentUser?.birthDate || 'Not set' }}</span
+            >
+          </div>
+        </div>
+        <div class="info-item">
+          <ion-icon name="location-outline" slot="start"></ion-icon>
+          <div class="info-content">
+            <span class="info-label">Location</span>
+            <span class="info-value">
+              {{ currentUser?.city || '' }} {{ currentUser?.province ? ', ' +
+              currentUser?.province : '' }} {{ currentUser?.country ? ', ' +
+              currentUser?.country : '' }}
+            </span>
+          </div>
+        </div>
+        <div class="info-item">
+          <ion-icon name="key-outline" slot="start"></ion-icon>
+          <div class="info-content">
+            <span class="info-label">User ID</span>
+            <span class="info-value"
+              >{{ currentUser?.uid?.substring(0, 8) + '...' || '' }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Actions Section -->
+  <div class="actions-section">
+    <ion-button fill="outline" expand="block" class="action-button">
       <ion-icon slot="start" name="people-outline"></ion-icon>
       Followers / Following
     </ion-button>
-    <ion-button expand="block" routerLink="/my-cheeses">
+    <ion-button
+      fill="outline"
+      expand="block"
+      routerLink="/my-cheeses"
+      class="action-button"
+    >
       <ion-icon slot="start" name="restaurant-outline"></ion-icon>
       My Cheeses
     </ion-button>
-    <ion-button color="danger" (click)="logout()" expand="block">
+    <ion-button
+      color="danger"
+      fill="solid"
+      (click)="logout()"
+      expand="block"
+      class="logout-button"
+    >
       <ion-icon slot="start" name="log-out-outline"></ion-icon>
       Logout
     </ion-button>
   </div>
+  }
 </ion-content>
 
 <app-menu></app-menu>

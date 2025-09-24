@@ -8,11 +8,11 @@
     <app-cheese-detail-images [cheeseId]="item._id"></app-cheese-detail-images>
   </div>
   } @else {
-  <div class="">
+  <div class="flex justify-center w-full md:w-1/2 lg:w-2/5">
     <img
       src="../../../assets/img/my-cheese-default.jpg"
       alt="{{ item.name }}"
-      class="h-20 object-cover rounded-lg"
+      class="w-screen max-w-[320px] h-full min-h-20 object-cover rounded-lg"
     />
   </div>
   }

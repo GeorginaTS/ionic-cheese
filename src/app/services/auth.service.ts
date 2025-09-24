@@ -228,7 +228,48 @@ export class AuthService {
     await toast.present();
   }
 
-   private mapAuthError(
+  async updateUserProfile(userData: Partial<AppUser>) {
+    try {
+      const currentUser = this.auth.currentUser;
+      if (!currentUser) throw new Error('No user logged in');
+
+      // Update Firebase Auth profile if displayName is provided
+      if (userData.displayName !== undefined) {
+        await updateProfile(currentUser, { displayName: userData.displayName });
+      }
+
+      // Update Firestore user document
+      const updateData = {
+        ...userData,
+        updatedAt: serverTimestamp(),
+      };
+      await this.firestoreService.updateDocument(
+        'users',
+        currentUser.uid,
+        updateData
+      );
+
+      return true;
+    } catch (error) {
+      console.error('Error updating user profile:', error);
+      throw error;
+    }
+  }
+
+  async updateDisplayName(displayName: string) {
+    try {
+      const currentUser = this.auth.currentUser;
+      if (!currentUser) throw new Error('No user logged in');
+
+      await updateProfile(currentUser, { displayName });
+      return true;
+    } catch (error) {
+      console.error('Error updating display name:', error);
+      throw error;
+    }
+  }
+
+  private mapAuthError(
     error: any,
     context: 'register' | 'login' = 'register'
   ): string {
@@ -244,4 +285,3 @@ export class AuthService {
     return codes[error.code] || `Unexpected ${context} error`;
   }
 }
-

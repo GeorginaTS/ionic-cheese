@@ -49,180 +49,103 @@ export class WorldCheesesMapComponent implements AfterViewInit {
       this.map.addLayer(this.markers);
     }
 
-    // 2. Geolocalització òptima per mòbils i ordinadors
+    // 2. OBTENIR UBICACIÓ USUARI (SIMPLIFICAT)
+    let finalCoords: any = null;
+    let locationAccuracy = '';
+    let locationName = '';
+
     try {
       console.log('📍 Iniciant geolocalització òptima...');
 
-      // DETECTAR SI ÉS DISPOSITIU MÒBIL
+      // DETECTAR DISPOSITIU
       this.isMobile =
         /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
           navigator.userAgent
         );
-      console.log('📱 Dispositiu mòbil detectat:', this.isMobile);
 
-      // COMPROVAR PERMISOS PRIMER (important per mòbils)
-      try {
-        console.log('🔐 Comprovant permisos de geolocalització...');
-        const permissions = await Geolocation.checkPermissions();
-        console.log('✅ Permisos actuals:', permissions);
-
-        if (permissions.location === 'denied') {
-          throw new Error('Permisos de geolocalització denegats');
-        }
-      } catch (permError) {
-        console.warn('⚠️ Error comprovant permisos:', permError);
+      // COMPROVAR PERMISOS
+      const permissions = await Geolocation.checkPermissions();
+      if (permissions.location === 'denied') {
+        throw new Error('Permisos denegats');
       }
 
-      // CONFIGURACIÓ ÒPTIMA PER MÒBILS
+      // CONFIGURACIÓ GPS
       const gpsOptions = this.isMobile
-        ? {
-            enableHighAccuracy: true, // Força GPS en mòbils
-            timeout: 20000, // 20s per obtenir senyal GPS
-            maximumAge: 60000, // Accepta ubicacions d'1 minut
-          }
-        : {
-            enableHighAccuracy: true, // Intenta WiFi positioning
-            timeout: 10000, // 10s per ordinadors
-            maximumAge: 300000, // 5 minuts per ordinadors
-          };
-
-      console.log('🎯 Intentant GPS amb configuració òptima:', gpsOptions);
+        ? { enableHighAccuracy: true, timeout: 20000, maximumAge: 60000 }
+        : { enableHighAccuracy: true, timeout: 10000, maximumAge: 300000 };
 
       const coords = await Geolocation.getCurrentPosition(gpsOptions);
 
-      console.log('✅ Coordenades obtingudes:', coords.coords);
-      console.log('📏 Precisió:', coords.coords.accuracy, 'metres');
-      console.log('📊 Font:', this.isMobile ? 'GPS/Xarxa mòbil' : 'WiFi/IP');
-
-      // VALIDAR PRECISIÓ SEGONS DISPOSITIU
-      const maxAccuracy = this.isMobile ? 1000 : 50000; // 1km per mòbil, 50km per ordinador
-      const acceptableAccuracy = coords.coords.accuracy <= maxAccuracy;
-
-      if (acceptableAccuracy) {
-        this.userLatLng = new L.LatLng(
-          coords.coords.latitude,
-          coords.coords.longitude
-        );
-
-        // Zoom diferent segons precisió
-        const zoom =
-          coords.coords.accuracy < 100
-            ? 13 // GPS precisa
-            : coords.coords.accuracy < 1000
-            ? 10 // Xarxa mòbil
-            : coords.coords.accuracy < 5000
-            ? 8 // WiFi
-            : 6; // IP aproximada
-
-        // Forçar que Leaflet recalculi mida abans de centrar
-        this.map.invalidateSize();
-
-        this.map.setView(this.userLatLng, zoom);
-
-        // MARCADOR AMB INFO DETALLADA
-        const sourceText = this.isMobile
-          ? 'GPS mòbil'
-          : coords.coords.accuracy < 1000
-          ? 'xarxa'
-          : 'IP';
-        const accuracyText =
+      // VALIDAR PRECISIÓ
+      const maxAccuracy = this.isMobile ? 1000 : 50000;
+      if (coords.coords.accuracy <= maxAccuracy) {
+        finalCoords = coords.coords;
+        locationAccuracy =
           coords.coords.accuracy < 1000
             ? `${Math.round(coords.coords.accuracy)}m`
             : `~${Math.round(coords.coords.accuracy / 1000)}km`;
-
-        const userMarker = L.marker(this.userLatLng)
-          .addTo(this.map)
-          .bindPopup(
-            `📍 Ubicació per ${sourceText} (precisió: ${accuracyText})`
-          );
-
-        // Obrir popup després d'un petit delay per assegurar que el mapa estigui centrat
-        setTimeout(() => {
-          userMarker.openPopup();
-        }, 100);
-
-        console.log(`✅ Geolocalització exitosa via ${sourceText}`);
-
-        // GUARDAR ÚLTIMA UBICACIÓ CONEGUDA
-        this.saveLastLocation(coords.coords);
-      } else {
-        console.warn(
-          `⚠️ Precisió insuficient: ${coords.coords.accuracy}m - Utilitzant Barcelona com a ubicació per defecte`
+        locationName = await this.getLocationName(
+          coords.coords.latitude,
+          coords.coords.longitude
         );
-        // Quan la precisió no és acceptable, utilitzar Barcelona com a ubicació per defecte
-        this.userLatLng = new L.LatLng(41.3851, 2.1734); // Barcelona
-
-        // Forçar que Leaflet recalculi mida abans de centrar
-        this.map.invalidateSize();
-
-        this.map.setView(this.userLatLng, 8);
-
-        // MARCADOR PER DEFECTE A BARCELONA
-        const defaultMarker = L.marker(this.userLatLng)
-          .addTo(this.map)
-          .bindPopup(
-            '📍 Ubicació per defecte (Barcelona) - Precisió insuficient'
-          );
-
-        // Obrir popup després d'un petit delay per assegurar que el mapa estigui centrat
-        setTimeout(() => {
-          defaultMarker.openPopup();
-        }, 100);
-
-        console.log('✅ Utilitzant ubicació per defecte: Barcelona');
+        this.saveLastLocation(coords.coords);
+        console.log('✅ GPS exitós:', locationName);
+      } else {
+        throw new Error('Precisió insuficient');
       }
     } catch (err) {
-      console.error('❌ Geolocalització fallida:', err);
+      console.warn('❌ GPS fallat:', err);
 
-      // INTENTAR RECUPERAR ÚLTIMA UBICACIÓ CONEGUDA
+      // INTENTAR ÚLTIMA UBICACIÓ CONEGUDA
       const lastLocation = this.getLastLocation();
       if (lastLocation) {
-        console.log('� Utilitzant última ubicació coneguda');
-        this.userLatLng = new L.LatLng(
+        finalCoords = lastLocation;
+        locationAccuracy =
+          lastLocation.accuracy < 1000
+            ? `${Math.round(lastLocation.accuracy)}m`
+            : `~${Math.round(lastLocation.accuracy / 1000)}km`;
+        locationName = await this.getLocationName(
           lastLocation.latitude,
           lastLocation.longitude
         );
-
-        // Forçar que Leaflet recalculi mida abans de centrar
-        this.map.invalidateSize();
-
-        this.map.setView(this.userLatLng, 8);
-
-        const lastLocationMarker = L.marker(this.userLatLng)
-          .addTo(this.map)
-          .bindPopup('📍 Última ubicació coneguda (offline)');
-
-        // Obrir popup després d'un petit delay per assegurar que el mapa estigui centrat
-        setTimeout(() => {
-          lastLocationMarker.openPopup();
-        }, 100);
+        console.log('✅ Última ubicació:', locationName);
       } else {
-        // CUSTOM ERROR MESSAGE
-        const errorMsg = this.isMobile
-          ? 'Could not get your GPS location.\n\nMake sure that:\n• GPS is enabled\n• You have good coverage\n• You have granted permissions to the app'
-          : 'Could not get your location.\n\nOn computers, accuracy is limited.\nTry enabling geolocation in the browser.';
-
-        alert(errorMsg);
-        this.userLatLng = new L.LatLng(41.3851, 2.1734); // Barcelona per defecte
-
-        // Forçar que Leaflet recalculi mida abans de centrar
-        this.map.invalidateSize();
-
-        this.map.setView(this.userLatLng, 8);
-
-        // MARCADOR PER DEFECTE QUAN FALLA TOT
-        const fallbackMarker = L.marker(this.userLatLng)
-          .addTo(this.map)
-          .bindPopup('📍 Ubicació per defecte (Barcelona)');
-
-        // Obrir popup després d'un petit delay per assegurar que el mapa estigui centrat
-        setTimeout(() => {
-          fallbackMarker.openPopup();
-        }, 100);
+        // BARCELONA PER DEFECTE
+        finalCoords = { latitude: 41.3851, longitude: 2.1734 };
+        locationAccuracy = 'default';
+        locationName = 'Barcelona';
+        console.log('✅ Ubicació per defecte: Barcelona');
       }
     }
 
-    // 3. Carregar formatges
+    // 3. CREAR MARCADOR USUARI FINAL
+    this.userLatLng = new L.LatLng(finalCoords.latitude, finalCoords.longitude);
+
+    // DETERMINAR ZOOM SEGONS ACCURACY
+    const zoom =
+      locationAccuracy === 'default'
+        ? 8
+        : finalCoords.accuracy < 100
+        ? 13
+        : finalCoords.accuracy < 1000
+        ? 10
+        : finalCoords.accuracy < 5000
+        ? 8
+        : 6;
+
+    this.map.invalidateSize();
+    this.map.setView(this.userLatLng, zoom);
+
+    // MARCADOR ÚNIC AMB INFO SIMPLIFICADA
+    const userMarker = L.marker(this.userLatLng)
+      .addTo(this.map)
+      .bindPopup(`${locationName}<br><small>(${locationAccuracy})</small>`);
+
+    setTimeout(() => {
+      userMarker.openPopup();
+    }, 100);
+
+    // 4. Carregar formatges
     this.worldCheesesService.getAllCheeses().subscribe((cheeses) => {
       this.cheeses = cheeses;
 
@@ -277,6 +200,37 @@ export class WorldCheesesMapComponent implements AfterViewInit {
       return locationData;
     } catch {
       return null;
+    }
+  }
+
+  // MÈTODE PER OBTENIR EL NOM DE LA POBLACIÓ DES DE COORDENADES
+  private async getLocationName(lat: number, lng: number): Promise<string> {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=10&addressdetails=1`
+      );
+
+      if (!response.ok) {
+        throw new Error('Geocoding request failed');
+      }
+
+      const data = await response.json();
+
+      // Intentar obtenir el nom de la ciutat/població
+      const address = data.address;
+      const cityName =
+        address?.city ||
+        address?.town ||
+        address?.village ||
+        address?.municipality ||
+        address?.county ||
+        address?.state ||
+        'Unknown location';
+
+      return cityName;
+    } catch (error) {
+      console.warn('Error getting location name:', error);
+      return 'Unknown location';
     }
   }
 }
