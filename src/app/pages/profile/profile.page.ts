@@ -1,7 +1,7 @@
 import { Component, ElementRef, inject, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {
   IonContent,
   IonHeader,
@@ -83,6 +83,7 @@ export class ProfilePage implements OnInit {
   private cheeseService = inject(CheeseService);
   private focusManager = inject(FocusManagerService);
   private modalCtrl = inject(ModalController);
+  private router = inject(Router);
   private elementRef = inject(ElementRef);
 
   constructor() {
@@ -212,5 +213,9 @@ export class ProfilePage implements OnInit {
     });
 
     await modal.present();
+  }
+
+  goToMyCheeses() {
+    this.router.navigate(['/my-cheeses']);
   }
 }

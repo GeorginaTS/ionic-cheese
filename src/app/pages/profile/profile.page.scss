@@ -32,13 +32,10 @@
 // Stats Section
 .stats-section {
   display: flex;
+  gap: 0.4rem;
   justify-content: space-around;
   align-items: center;
   margin-bottom: 2rem;
-  padding: 1rem;
-  @apply bg-stone-200;
-  border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   .stat-item {
     display: flex;
@@ -46,6 +43,10 @@
     align-items: center;
     text-align: center;
     flex: 1;
+    @apply bg-stone-200;
+    padding: 0.8rem;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
     ion-icon {
       font-size: 1.8rem;

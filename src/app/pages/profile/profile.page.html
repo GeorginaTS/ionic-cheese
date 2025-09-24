@@ -31,7 +31,7 @@
 
   <!-- Stats Section -->
   <div class="stats-section">
-    <div class="stat-item">
+    <div class="stat-item" (click)="goToMyCheeses()">
       <ion-icon name="restaurant-outline" color="primary"></ion-icon>
       <div class="stat-content">
         <span class="stat-number">{{ userCheesesCount }}</span>
@@ -99,15 +99,6 @@
     <ion-button fill="outline" expand="block" class="action-button">
       <ion-icon slot="start" name="people-outline"></ion-icon>
       Followers / Following
-    </ion-button>
-    <ion-button
-      fill="outline"
-      expand="block"
-      routerLink="/my-cheeses"
-      class="action-button"
-    >
-      <ion-icon slot="start" name="restaurant-outline"></ion-icon>
-      My Cheeses
     </ion-button>
     <ion-button
       color="danger"
