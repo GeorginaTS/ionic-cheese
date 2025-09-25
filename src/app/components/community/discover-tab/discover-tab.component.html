@@ -1,0 +1,78 @@
+<div class="container">
+  <ion-card>
+    <ion-card-header>
+      <img src="assets/img/my-cheese-default.jpg" alt="Manchego Cheese" />
+    </ion-card-header>
+    <ion-card-content>
+      <ion-card-title>Manchego Curado</ion-card-title>
+      <div class="user-info">
+        <p>Shared by Ana Rodriguez</p>
+      </div>
+      <div class="actions">
+        <ion-button fill="clear" size="small">
+          <ion-icon name="heart-outline"></ion-icon>
+          24
+        </ion-button>
+        <ion-button
+          fill="clear"
+          size="small"
+          (click)="onShareCheese('Manchego Curado', 'Check out this cheese!')"
+        >
+          <ion-icon name="share-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <img src="assets/img/my-cheese-default.jpg" alt="Blue Cheese" />
+    </ion-card-header>
+    <ion-card-content>
+      <ion-card-title>Blue Cheese Experiment</ion-card-title>
+      <div class="user-info">
+        <p>Shared by Carlos Mendoza</p>
+      </div>
+      <div class="actions">
+        <ion-button fill="clear" size="small">
+          <ion-icon name="heart-outline"></ion-icon>
+          12
+        </ion-button>
+        <ion-button
+          fill="clear"
+          size="small"
+          (click)="
+            onShareCheese('Blue Cheese Experiment', 'Check out this cheese!')
+          "
+        >
+          <ion-icon name="share-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <img src="assets/img/my-cheese-default.jpg" alt="Mozzarella" />
+    </ion-card-header>
+    <ion-card-content>
+      <ion-card-title>Fresh Mozzarella</ion-card-title>
+      <div class="user-info">
+        <p>Shared by Laura García</p>
+      </div>
+      <div class="actions">
+        <ion-button fill="clear" size="small">
+          <ion-icon name="heart-outline"></ion-icon>
+          8
+        </ion-button>
+        <ion-button
+          fill="clear"
+          size="small"
+          (click)="onShareCheese('Fresh Mozzarella', 'Check out this cheese!')"
+        >
+          <ion-icon name="share-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</div>

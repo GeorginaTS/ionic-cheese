@@ -1,19 +1,29 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>community</ion-title>
+    <ion-title>Community</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title>community</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <section class="flex flex-wrap gap-4 p-4 justify-center bg-amber-200">
-    <div class="w-24 h-24 bg-amber-400 p-2 flex justify-center items-center font-bold text-center">Discover artesans</div> 
-    <div class="w-24 h-24 bg-amber-400 p-2 flex justify-center items-center font-bold text-center">Meetings</div>
-    <div class="w-24 h-24 bg-amber-400 p-2 flex justify-center items-center font-bold text-center">Games</div>
-  </section>
+<ion-content>
+  <!-- Community Segments -->
+  <ion-segment [(ngModel)]="selectedSegment">
+    <ion-segment-button value="discover">
+      <ion-label>Discover</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="meetings">
+      <ion-label>Meetings</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- Discover Section -->
+  @if (selectedSegment === 'discover') {
+  <app-discover-tab (shareEvent)="onShare($event)"></app-discover-tab>
+  }
+
+  <!-- Meetings Section -->
+  @if (selectedSegment === 'meetings') {
+  <app-meetings-tab></app-meetings-tab>
+  }
 </ion-content>
+
 <app-menu></app-menu>
