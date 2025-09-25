@@ -74,9 +74,11 @@
   <br />
   <div class="flex flex-col items-center mb-4">
     <br />
-    <ion-button (click)="deleteCheese(cheese?._id ?? '')" class="delete-btn"
-      ><ion-icon name="trash-outline"></ion-icon
-    ></ion-button>
+    <ion-button (click)="deleteCheese(cheese?._id ?? '')" color="danger"
+      fill="solid"  expand="block" class="delete-button">
+      <ion-icon name="trash-outline"></ion-icon>
+      Delete Cheese
+    </ion-button>
   </div>
 </ion-content>
 <app-menu></app-menu>

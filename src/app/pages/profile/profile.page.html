@@ -86,7 +86,7 @@
           <div class="info-content">
             <span class="info-label">User ID</span>
             <span class="info-value"
-              >{{ currentUser?.uid?.substring(0, 8) + '...' || '' }}</span
+              >{{ currentUser?.uid?.substring(0, 20) + '...' || '' }}</span
             >
           </div>
         </div>
@@ -96,10 +96,6 @@
 
   <!-- Actions Section -->
   <div class="actions-section">
-    <ion-button fill="outline" expand="block" class="action-button">
-      <ion-icon slot="start" name="people-outline"></ion-icon>
-      Followers / Following
-    </ion-button>
     <ion-button
       color="danger"
       fill="solid"
