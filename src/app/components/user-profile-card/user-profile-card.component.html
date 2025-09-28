@@ -1,0 +1,80 @@
+<ion-card class="user-profile-card">
+  @if (isLoading) {
+  <ion-card-content class="flex justify-center items-center p-8">
+    <ion-spinner color="primary"></ion-spinner>
+  </ion-card-content>
+  } @if (hasError && !isLoading) {
+  <ion-card-content class="text-center p-8">
+    <ion-icon
+      name="person-outline"
+      class="text-4xl text-gray-400 mb-4"
+    ></ion-icon>
+    <p class="text-gray-500">Error loading user profile</p>
+    <ion-button fill="outline" size="small" (click)="loadUser()">
+      Try Again
+    </ion-button>
+  </ion-card-content>
+  } @if (user && !isLoading && !hasError) {
+  <ion-card-header class="text-center bg-gray-50">
+    <ion-avatar class="mx-auto mb-4 w-20 h-20">
+      <img
+        [src]="user.photoURL || '../../../assets/icon/user.png'"
+        [alt]="user.displayName || 'User'"
+      />
+    </ion-avatar>
+    <ion-card-title class="text-xl font-bold text-primary">
+      {{ user.displayName || "Anonymous User" }}
+    </ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content class="p-4">
+    <div class="space-y-3">
+      @if (user.email) {
+      <div class="flex items-center gap-3">
+        <ion-icon
+          name="mail-outline"
+          class="text-xl text-primary flex-shrink-0"
+        >
+        </ion-icon>
+        <div class="flex-1">
+          <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
+            Email
+          </p>
+          <p class="text-sm text-gray-800">{{ user.email }}</p>
+        </div>
+      </div>
+      } @if (user.birthDate) {
+      <div class="flex items-center gap-3">
+        <ion-icon
+          name="calendar-outline"
+          class="text-xl text-primary flex-shrink-0"
+        >
+        </ion-icon>
+        <div class="flex-1">
+          <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
+            Birth Date
+          </p>
+          <p class="text-sm text-gray-800">
+            {{ user.birthDate | date : "MMM yyyy" }}
+          </p>
+        </div>
+      </div>
+      } @if (getFullLocation()) {
+      <div class="flex items-center gap-3">
+        <ion-icon
+          name="location-outline"
+          class="text-xl text-primary flex-shrink-0"
+        >
+        </ion-icon>
+        <div class="flex-1">
+          <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
+            Location
+          </p>
+          <p class="text-sm text-gray-800">{{ getFullLocation() }}</p>
+        </div>
+      </div>
+      }
+    </div>
+  </ion-card-content>
+  }
+</ion-card>

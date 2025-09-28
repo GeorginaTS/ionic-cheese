@@ -12,13 +12,23 @@ import { heartOutline, shareOutline } from 'ionicons/icons';
 import { Cheese } from '../../../interfaces/cheese';
 import { CheeseService } from '../../../services/cheese.service';
 import { Share } from '@capacitor/share';
+import { UserProfileCardComponent } from '../../user-profile-card/user-profile-card.component';
+import { UserDisplaynameComponent } from '../../user-displayname/user-displayname.component';
 
 @Component({
   selector: 'app-community-cheese-card',
   templateUrl: './community-cheese-card.component.html',
   styleUrls: ['./community-cheese-card.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonCard, IonCardTitle, IonButton, IonIcon],
+  imports: [
+    CommonModule,
+    IonCard,
+    IonCardTitle,
+    IonButton,
+    IonIcon,
+    UserProfileCardComponent,
+    UserDisplaynameComponent,
+  ],
 })
 export class CommunityCheeseCardComponent implements OnInit {
   @Input() cheese!: Cheese;
@@ -79,5 +89,11 @@ export class CommunityCheeseCardComponent implements OnInit {
   onImageError(event: Event) {
     const target = event.target as HTMLImageElement;
     target.src = 'assets/img/my-cheese-default.jpg';
+  }
+
+  onLikeCheese(event: Event, cheeseId: string) {
+    event.stopPropagation(); // Prevent card click event
+    // TODO: Implement like functionality
+    console.log('Like cheese:', cheeseId);
   }
 }

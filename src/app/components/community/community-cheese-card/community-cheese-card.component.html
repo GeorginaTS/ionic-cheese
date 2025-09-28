@@ -1,42 +1,49 @@
 <ion-card
-  class="cheese-post-compact"
+  class="mb-4 p-4 rounded-xl shadow-md bg-white cursor-pointer"
   (click)="onCheeseCardClick()"
-  style="cursor: pointer"
 >
-  <div class="card-content">
+  <div class="flex gap-4 items-start">
     <!-- Columna Izquierda: Información -->
-    <div class="info-column">
+    <div class="flex-1 flex flex-col gap-2">
       <!-- Línea 1: Título del formatge -->
-      <ion-card-title class="cheese-title">{{ cheese.name }}</ion-card-title>
+      <ion-card-title
+        class="text-xl font-bold text-primary m-0 leading-tight"
+        >{{ cheese.name }}</ion-card-title
+      >
 
       <!-- Línea 2: Usuario y fecha -->
-      <div class="user-date">
-        <span class="user">{{
-          cheese.userId ? cheese.userId.substring(0, 10) : "Anonymous"
-        }}</span>
-        <span class="date">{{ cheese.date | date : "MMM yyyy" }}</span>
+      <div class="flex items-center gap-2 text-sm">
+        <app-user-displayname [userId]="cheese.userId"></app-user-displayname>
+        <span class="text-gray-500">•</span>
+        <span class="text-gray-500">{{ cheese.date | date : "MMM yyyy" }}</span>
       </div>
 
       <!-- Línea 3: Información de la leche -->
-      <div class="milk-info">
+      <div class="text-sm text-gray-500 leading-tight">
         Made from {{ cheese.milkQuantity }}L of {{ cheese.milkOrigin }}
         {{ cheese.milkType }} milk
       </div>
     </div>
 
     <!-- Columna Derecha: Foto -->
-    <div class="photo-column">
+    <div class="w-20 h-20 flex-shrink-0">
       <img
         [src]="imageUrl"
         [alt]="cheese.name"
         (error)="onImageError($event)"
+        class="w-full h-full object-cover rounded-lg"
       />
     </div>
   </div>
 
-  <!-- Acciones en la parte inferior -->
-  <div class="post-actions">
-    <ion-button fill="clear" size="small">
+  <!-- Actions -->
+  <div class="post-actions-container">
+    <ion-button
+      fill="clear"
+      size="small"
+      (click)="onLikeCheese($event, cheese._id)"
+      class="post-action-button"
+    >
       <ion-icon name="heart-outline"></ion-icon>
       Like
     </ion-button>
@@ -46,6 +53,7 @@
       (click)="
         onShareCheese($event, cheese.name, 'Check out this amazing cheese!')
       "
+      class="post-action-button"
     >
       <ion-icon name="share-outline"></ion-icon>
       Share

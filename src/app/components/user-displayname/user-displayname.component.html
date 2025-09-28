@@ -1,0 +1,9 @@
+<div class="flex items-center gap-2">
+  @if (isLoading) {
+  <ion-spinner color="primary" class="w-4 h-4"></ion-spinner>
+  <span class="text-gray-500 text-sm">Loading...</span>
+  } @else {
+  <ion-icon name="person-outline" class="text-primary text-lg"></ion-icon>
+  <span class="text-gray-800 font-medium">{{ displayName.substring(0, 12) }}</span>
+  }
+</div>

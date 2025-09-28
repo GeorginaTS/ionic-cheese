@@ -93,7 +93,6 @@ ion-button {
 ion-button:hover {
   transform: scale(1.05);
   opacity: 0.9;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 ion-toolbar {
@@ -261,4 +260,46 @@ ion-card {
   ion-button {
     font-family: var(--font-family-primary);
   }
+}
+
+/* Botons globals per actions de posts (like, share, etc.) */
+.post-action-button {
+  --background: transparent;
+  --color: var(--ion-color-medium);
+  --padding-start: var(--spacing-sm);
+  --padding-end: var(--spacing-sm);
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-medium);
+  text-transform: none;
+  flex: 1;
+  transition: all 0.2s ease;
+
+  ion-icon {
+    font-size: var(--icon-size-sm);
+    margin-right: var(--spacing-xs);
+  }
+
+  &:hover {
+    --color: var(--ion-color-primary);
+    --background: white;
+    transform: translateY(-1px);
+  }
+
+  &.liked {
+    --color: var(--ion-color-danger);
+
+    ion-icon {
+      color: var(--ion-color-danger);
+    }
+  }
+}
+
+.post-actions-container {
+  display: flex;
+  padding-top: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+  border-top: 1px solid var(--ion-color-light);
+  gap: var(--spacing-md);
 }
