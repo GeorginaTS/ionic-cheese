@@ -1,0 +1,105 @@
+.cheese-post-compact {
+  --background: white;
+  --border-radius: var(--border-radius-lg);
+  --box-shadow: var(--shadow-md);
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md);
+  overflow: hidden;
+}
+
+// Layout de 2 columnas
+.card-content {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: flex-start;
+}
+
+.info-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.photo-column {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--border-radius-md);
+  }
+}
+
+// Estilos para las líneas de información
+.cheese-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--ion-color-tertiary);
+  margin: 0;
+  font-family: var(--font-family-primary);
+  line-height: var(--line-height-tight);
+}
+
+.user-date {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family-primary);
+
+  .user {
+    color: var(--ion-color-dark);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .date {
+    color: var(--ion-color-medium);
+    font-weight: var(--font-weight-normal);
+  }
+
+  .user::after {
+    content: "•";
+    margin-left: var(--spacing-xs);
+    color: var(--ion-color-medium);
+  }
+}
+
+.milk-info {
+  font-size: var(--font-size-sm);
+  color: var(--ion-color-medium);
+  font-family: var(--font-family-primary);
+  line-height: var(--line-height-tight);
+}
+
+.post-actions {
+  display: flex;
+  padding-top: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+  border-top: 1px solid var(--ion-color-light);
+  gap: var(--spacing-md);
+
+  ion-button {
+    --background: transparent;
+    --color: var(--ion-color-medium);
+    --padding-start: var(--spacing-sm);
+    --padding-end: var(--spacing-sm);
+    margin: 0;
+    font-size: var(--font-size-sm);
+    font-family: var(--font-family-primary);
+    font-weight: var(--font-weight-medium);
+    flex: 1;
+
+    ion-icon {
+      font-size: var(--icon-size-sm);
+      margin-right: var(--spacing-xs);
+    }
+
+    &:hover {
+      --color: var(--ion-color-primary);
+    }
+  }
+}

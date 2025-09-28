@@ -1,0 +1,54 @@
+<ion-card
+  class="cheese-post-compact"
+  (click)="onCheeseCardClick()"
+  style="cursor: pointer"
+>
+  <div class="card-content">
+    <!-- Columna Izquierda: Información -->
+    <div class="info-column">
+      <!-- Línea 1: Título del formatge -->
+      <ion-card-title class="cheese-title">{{ cheese.name }}</ion-card-title>
+
+      <!-- Línea 2: Usuario y fecha -->
+      <div class="user-date">
+        <span class="user">{{
+          cheese.userId ? cheese.userId.substring(0, 10) : "Anonymous"
+        }}</span>
+        <span class="date">{{ cheese.date | date : "MMM yyyy" }}</span>
+      </div>
+
+      <!-- Línea 3: Información de la leche -->
+      <div class="milk-info">
+        Made from {{ cheese.milkQuantity }}L of {{ cheese.milkOrigin }}
+        {{ cheese.milkType }} milk
+      </div>
+    </div>
+
+    <!-- Columna Derecha: Foto -->
+    <div class="photo-column">
+      <img
+        [src]="imageUrl"
+        [alt]="cheese.name"
+        (error)="onImageError($event)"
+      />
+    </div>
+  </div>
+
+  <!-- Acciones en la parte inferior -->
+  <div class="post-actions">
+    <ion-button fill="clear" size="small">
+      <ion-icon name="heart-outline"></ion-icon>
+      Like
+    </ion-button>
+    <ion-button
+      fill="clear"
+      size="small"
+      (click)="
+        onShareCheese($event, cheese.name, 'Check out this amazing cheese!')
+      "
+    >
+      <ion-icon name="share-outline"></ion-icon>
+      Share
+    </ion-button>
+  </div>
+</ion-card>

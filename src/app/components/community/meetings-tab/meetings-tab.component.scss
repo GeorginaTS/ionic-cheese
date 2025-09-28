@@ -1,17 +1,3 @@
-.meetings-container {
-  padding: 1rem;
-}
-
-.actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-ion-button {
-  --background: transparent;
-}
-
-ion-card-title {
-  color: var(--ion-color-tertiary);
-}
+// Este componente utiliza clases globales definidas en global.scss
+// Clases utilizadas: .container, .location-info, .actions-row
+// Los estilos de ion-card están definidos globalmente

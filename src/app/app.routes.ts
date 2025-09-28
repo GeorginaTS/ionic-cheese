@@ -18,6 +18,13 @@ export const routes: Routes = [
       import('./pages/community/community.page').then((m) => m.CommunityPage),
   },
   {
+    path: 'community/cheese/:id',
+    loadComponent: () =>
+      import(
+        './pages/community/community-cheese-detail/community-cheese-detail.page'
+      ).then((m) => m.CommunityCheeseDetailPage),
+  },
+  {
     path: 'profile',
     loadComponent: () =>
       import('./pages/profile/profile.page').then((m) => m.ProfilePage),

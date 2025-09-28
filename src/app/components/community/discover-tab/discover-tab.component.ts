@@ -1,15 +1,15 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  IonCard,
-  IonCardHeader,
-  IonCardContent,
-  IonCardTitle,
-  IonButton,
-  IonIcon,
+  IonSpinner,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
 } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { heartOutline, shareOutline } from 'ionicons/icons';
+
+import { CheeseService } from '../../../services/cheese.service';
+import { Cheese } from '../../../interfaces/cheese';
+import { CommunityCheeseCardComponent } from '../community-cheese-card/community-cheese-card.component';
+import { InfiniteScrollCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-discover-tab',
@@ -18,25 +18,58 @@ import { heartOutline, shareOutline } from 'ionicons/icons';
   standalone: true,
   imports: [
     CommonModule,
-    IonCard,
-    IonCardHeader,
-    IonCardContent,
-    IonCardTitle,
-    IonButton,
-    IonIcon,
+    IonSpinner,
+    CommunityCheeseCardComponent,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent,
   ],
 })
-export class DiscoverTabComponent {
-  @Output() shareCheeseEvent = new EventEmitter<{
-    name: string;
-    description: string;
-  }>();
+export class DiscoverTabComponent implements OnInit {
+  publicCheeses: Cheese[] = [];
+  visibleCheeses: Cheese[] = [];
+  batchSize = 5;
+  isLoading = true;
+  errorMessage = '';
+  private cheeseService = inject(CheeseService);
 
-  constructor() {
-    addIcons({ heartOutline, shareOutline });
+  constructor() {}
+
+  ngOnInit() {
+    this.loadPublicCheeses();
   }
 
-  onShareCheese(name: string, description: string) {
-    this.shareCheeseEvent.emit({ name, description });
+  loadPublicCheeses() {
+    this.cheeseService.getAllPublicCheeses().subscribe({
+      next: (response) => {
+        this.publicCheeses = response?.cheeses || [];
+        if (this.publicCheeses.length > 0) {
+          this.visibleCheeses = this.publicCheeses.slice(0, this.batchSize);
+          console.log('Initial visible cheeses:', this.visibleCheeses);
+        }
+        this.isLoading = false;
+      },
+      error: (error) => {
+        this.errorMessage = 'Error loading community cheeses.';
+        this.isLoading = false;
+        console.error(error);
+      },
+    });
+  }
+  loadMore(event: Event) {
+    const infiniteEvent = event as InfiniteScrollCustomEvent;
+    const currentLength = this.visibleCheeses.length;
+
+    const next = this.publicCheeses.slice(
+      currentLength,
+      currentLength + this.batchSize
+    );
+    this.visibleCheeses = [...this.visibleCheeses, ...next];
+
+    setTimeout(() => {
+      infiniteEvent.target.complete();
+      if (this.visibleCheeses.length >= this.publicCheeses.length) {
+        infiniteEvent.target.disabled = true;
+      }
+    }, 500);
   }
 }

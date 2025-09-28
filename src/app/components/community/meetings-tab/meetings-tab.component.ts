@@ -7,7 +7,10 @@ import {
   IonCardSubtitle,
   IonCardContent,
   IonButton,
+  IonIcon,
 } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { locationOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-meetings-tab',
@@ -22,8 +25,11 @@ import {
     IonCardSubtitle,
     IonCardContent,
     IonButton,
+    IonIcon,
   ],
 })
 export class MeetingsTabComponent {
-  constructor() {}
+  constructor() {
+    addIcons({ locationOutline });
+  }
 }

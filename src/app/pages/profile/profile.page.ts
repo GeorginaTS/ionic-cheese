@@ -2,22 +2,7 @@ import { Component, ElementRef, inject, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonButton,
-  IonIcon,
-  IonCard,
-  IonAvatar,
-  IonText,
-  IonSpinner,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
-  ModalController,
-} from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonCard, IonAvatar, IonText, IonSpinner, IonCardHeader, IonCardTitle, IonCardContent, ModalController, IonNote } from '@ionic/angular/standalone';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { EditProfileModalComponent } from 'src/app/components/edit-profile-modal/edit-profile-modal.component';
 import { AuthService } from 'src/app/services/auth.service';
@@ -51,17 +36,16 @@ import { FocusManagerService } from 'src/app/services/focus-manager.service';
     CommonModule,
     FormsModule,
     MenuComponent,
-    EditProfileModalComponent,
     IonButton,
     IonIcon,
     IonCard,
-    RouterLink,
     IonAvatar,
     IonSpinner,
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-  ],
+    IonNote
+],
 })
 export class ProfilePage implements OnInit {
   user: User | null = null;

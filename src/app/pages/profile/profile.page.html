@@ -6,10 +6,8 @@
 <ion-content [fullscreen]="true" class="ion-padding">
   <!-- Loading Spinner -->
   @if (isLoading) {
-  <div class="loading-container">
-    <ion-spinner name="bubbles"></ion-spinner>
-    <p>Loading profile...</p>
-  </div>
+    <ion-spinner>Loading cheeses</ion-spinner>
+    <ion-note> API is hosted on Render’s free tier.</ion-note><br><ion-note>That means the first visit after some idle time can take a bit longer to load. </ion-note><br><ion-note> Thanks for your patience!</ion-note>
   }
 
   <!-- Profile Header -->
@@ -65,9 +63,8 @@
           <ion-icon name="calendar-outline" slot="start"></ion-icon>
           <div class="info-content">
             <span class="info-label">Birth Date</span>
-            <span class="info-value"
-              >{{ currentUser?.birthDate || 'Not set' }}</span
-            >
+            <span class="info-value">{{ currentUser?.birthDate ? (currentUser.birthDate | date : 'MMM yyyy') : 'Not set' }}
+              </span>
           </div>
         </div>
         <div class="info-item">
