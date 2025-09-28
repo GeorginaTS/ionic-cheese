@@ -30,6 +30,7 @@ import { Cheese } from '../../../interfaces/cheese';
 import { CheeseService } from '../../../services/cheese.service';
 import { CheeseDetailImagesComponent } from 'src/app/components/my-cheeses/cheese-detail-images/cheese-detail-images.component';
 import { Share } from '@capacitor/share';
+import { UserDisplaynameComponent } from "src/app/components/user-displayname/user-displayname.component";
 
 @Component({
   selector: 'app-community-cheese-detail',
@@ -53,7 +54,8 @@ import { Share } from '@capacitor/share';
     IonCardContent,
     IonSpinner,
     CheeseDetailImagesComponent,
-  ],
+    UserDisplaynameComponent
+],
 })
 export class CommunityCheeseDetailPage implements OnInit {
   private route = inject(ActivatedRoute);

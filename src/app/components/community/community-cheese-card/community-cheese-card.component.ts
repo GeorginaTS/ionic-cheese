@@ -26,9 +26,8 @@ import { UserDisplaynameComponent } from '../../user-displayname/user-displaynam
     IonCardTitle,
     IonButton,
     IonIcon,
-    UserProfileCardComponent,
-    UserDisplaynameComponent,
-  ],
+    UserDisplaynameComponent
+],
 })
 export class CommunityCheeseCardComponent implements OnInit {
   @Input() cheese!: Cheese;
