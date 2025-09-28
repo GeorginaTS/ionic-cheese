@@ -37,28 +37,3 @@
     --padding-bottom: 8px;
   }
 }
-
-ion-grid {
-  --ion-grid-padding: 0;
-  --ion-grid-column-padding: 0;
-  --ion-grid-row-padding: 0;
-}
-ion-card {
-  padding: 0;
-  ion-card-title {
-    display: flex;
-    align-items: center;
-    font-size: 1.125rem;
-    font-weight: 600;
-  }
-}
-ion-content {
-  --padding-top: 0;
-  --padding-bottom: 0;
-  --padding-start: 0;
-  --padding-end: 0;
-}
-ion-textarea {
-  --padding-start: 0;
-  --padding-end: 0;
-}

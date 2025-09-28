@@ -1,0 +1,26 @@
+@if (isLoading) {
+<div class="loading-container">
+  <ion-spinner></ion-spinner>
+  <p>Loading community cheeses...</p>
+</div>
+} @else if (!publicCheeses || publicCheeses.length === 0) {
+<div class="empty-container">
+  <p>No cheeses shared by the community yet.</p>
+</div>
+} @else {
+<div class="container">
+  <p class="status-text">Here are some cheeses shared by the community:</p>
+
+  @for (cheese of visibleCheeses; track cheese._id) {
+  <app-community-cheese-card [cheese]="cheese"> </app-community-cheese-card>
+  }
+</div>
+
+<ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Carregant més formatges..."
+  >
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+}

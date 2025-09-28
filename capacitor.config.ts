@@ -9,9 +9,6 @@ const config: CapacitorConfig = {
       includeImages: true,
       includeVideos: false,
     },
-    Geolocation: {
-      requirePermissions: true,
-    },
     Filesystem: {
       accessControl: true,
     },

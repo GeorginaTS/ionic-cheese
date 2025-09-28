@@ -1,0 +1,334 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/community"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ cheese?.name || 'Cheese Details' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{ cheese?.name || 'Cheese Details' }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Loading State -->
+  @if (loading) {
+  <div class="loading-container">
+    <ion-spinner></ion-spinner>
+    <p class="status-text">Loading cheese details...</p>
+  </div>
+  }
+
+  <!-- Error State -->
+  @if (error) {
+  <div class="empty-container">
+    <ion-icon name="warning-outline" size="large" color="warning"></ion-icon>
+    <p class="status-text">{{ error }}</p>
+    <ion-button fill="outline" (click)="loadCheese()">Try Again</ion-button>
+  </div>
+  }
+
+  <!-- Cheese Details -->
+  @if (cheese && !loading) {
+  <div class="cheese-detail-container">
+    <!-- Cheese Header -->
+    <ion-card class="cheese-detail-card">
+      <div class="cheese-image-container">
+        <app-cheese-detail-images
+          [cheeseId]="cheese._id"
+        ></app-cheese-detail-images>
+      </div>
+      <ion-card-content>
+        <h1 class="cheese-title-primary">{{ cheese.name }}</h1>
+        <div class="cheese-info-container">
+          <app-user-displayname [userId]="cheese.userId"></app-user-displayname>
+          <div class="cheese-info-row">
+            <ion-icon name="calendar-outline" color="tertiary"></ion-icon>
+            <span>{{ formatDate(cheese.date) }}</span>
+          </div>
+          <div class="cheese-info-row">
+            <span>{{ cheese.milkType | titlecase }} Milk</span>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Description -->
+    @if (cheese.description) {
+    <ion-card class="cheese-detail-card">
+      <ion-card-header>
+        <ion-card-title class="cheese-title-secondary"
+          >Description</ion-card-title
+        >
+      </ion-card-header>
+      <ion-card-content>
+        <p class="cheese-description">{{ cheese.description }}</p>
+      </ion-card-content>
+    </ion-card>
+    }
+
+    <!-- Basic Info -->
+    <ion-card class="cheese-detail-card">
+      <ion-card-header>
+        <ion-card-title class="cheese-title-secondary"
+          >Basic Information</ion-card-title
+        >
+      </ion-card-header>
+      <ion-card-content>
+        <div class="cheese-details-list">
+          <div class="cheese-detail-item">
+            <span class="label">Milk Origin:</span>
+            <span class="value">{{ cheese.milkOrigin }}</span>
+          </div>
+          <div class="cheese-detail-item">
+            <span class="label">Milk Quantity:</span>
+            <span class="value">{{ cheese.milkQuantity }}L</span>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Making Process -->
+    @if (cheese.making) {
+    <ion-card class="cheese-detail-card">
+      <ion-card-header>
+        <ion-card-title class="cheese-title-secondary"
+          >Making Process</ion-card-title
+        >
+      </ion-card-header>
+      <ion-card-content>
+        <div class="cheese-details-list">
+          @if (cheese.making.milkTemperature) {
+          <div class="cheese-detail-item">
+            <span class="label">Milk Temperature:</span>
+            <span class="value">{{ cheese.making.milkTemperature }}</span>
+          </div>
+          } @if (cheese.making.starterCultures) {
+          <div class="cheese-detail-item">
+            <span class="label">Starter Cultures:</span>
+            <span class="value">{{ cheese.making.starterCultures }}</span>
+          </div>
+          } @if (cheese.making.coagulant) {
+          <div class="cheese-detail-item">
+            <span class="label">Coagulant:</span>
+            <span class="value">{{ cheese.making.coagulant }}</span>
+          </div>
+          } @if (cheese.making.coagulationTime) {
+          <div class="cheese-detail-item">
+            <span class="label">Coagulation Time:</span>
+            <span class="value">{{ cheese.making.coagulationTime }}</span>
+          </div>
+          } @if (cheese.making.milkPH) {
+          <div class="cheese-detail-item">
+            <span class="label">Milk pH:</span>
+            <span class="value">{{ cheese.making.milkPH }}</span>
+          </div>
+          } @if (cheese.making.curdCutting) {
+          <div class="cheese-detail-item">
+            <span class="label">Curd Cutting:</span>
+            <span class="value">{{ cheese.making.curdCutting }}</span>
+          </div>
+          } @if (cheese.making.molding) {
+          <div class="cheese-detail-item">
+            <span class="label">Molding:</span>
+            <span class="value">{{ cheese.making.molding }}</span>
+          </div>
+          } @if (cheese.making.appliedPressure) {
+          <div class="cheese-detail-item">
+            <span class="label">Applied Pressure:</span>
+            <span class="value">{{ cheese.making.appliedPressure }}</span>
+          </div>
+          } @if (cheese.making.salting) {
+          <div class="cheese-detail-item">
+            <span class="label">Salting:</span>
+            <span class="value">{{ cheese.making.salting }}</span>
+          </div>
+          }
+        </div>
+      </ion-card-content>
+    </ion-card>
+    }
+
+    <!-- Ripening Process -->
+    @if (cheese.ripening) {
+    <ion-card class="cheese-detail-card">
+      <ion-card-header>
+        <ion-card-title class="cheese-title-secondary"
+          >Ripening Process</ion-card-title
+        >
+      </ion-card-header>
+      <ion-card-content>
+        <div class="cheese-details-list">
+          @if (cheese.ripening.ripeningStartDate) {
+          <div class="cheese-detail-item">
+            <span class="label">Start Date:</span>
+            <span class="value"
+              >{{ formatDate(cheese.ripening.ripeningStartDate) }}</span
+            >
+          </div>
+          } @if (cheese.ripening.estimatedDuration) {
+          <div class="cheese-detail-item">
+            <span class="label">Estimated Duration:</span>
+            <span class="value">{{ cheese.ripening.estimatedDuration }}</span>
+          </div>
+          } @if (cheese.ripening.temperature) {
+          <div class="cheese-detail-item">
+            <span class="label">Temperature:</span>
+            <span class="value">{{ cheese.ripening.temperature }}</span>
+          </div>
+          } @if (cheese.ripening.humidity) {
+          <div class="cheese-detail-item">
+            <span class="label">Humidity:</span>
+            <span class="value">{{ cheese.ripening.humidity }}</span>
+          </div>
+          } @if (cheese.ripening.turningFlips) {
+          <div class="cheese-detail-item">
+            <span class="label">Turning Flips:</span>
+            <span class="value">{{ cheese.ripening.turningFlips }}</span>
+          </div>
+          } @if (cheese.ripening.washing) {
+          <div class="cheese-detail-item">
+            <span class="label">Washing:</span>
+            <span class="value">{{ cheese.ripening.washing }}</span>
+          </div>
+          } @if (cheese.ripening.brushing) {
+          <div class="cheese-detail-item">
+            <span class="label">Brushing:</span>
+            <span class="value">{{ cheese.ripening.brushing }}</span>
+          </div>
+          }
+        </div>
+      </ion-card-content>
+    </ion-card>
+    }
+
+    <!-- Taste Profile -->
+    @if (cheese.taste) {
+    <ion-card class="cheese-detail-card">
+      <ion-card-header>
+        <ion-card-title class="cheese-title-secondary"
+          >Taste Profile</ion-card-title
+        >
+      </ion-card-header>
+      <ion-card-content>
+        <div class="taste-profile-container">
+          @if (cheese.taste.visual) {
+          <div class="taste-profile-section">
+            <h4 class="taste-section-title">Visual</h4>
+            @if (cheese.taste.visual.rate) {
+            <div class="taste-rating">
+              <span class="rating-label">Rating:</span>
+              <span class="rating-value"
+                >{{ cheese.taste.visual.rate }}/5 ⭐</span
+              >
+            </div>
+            } @if (cheese.taste.visual.text) {
+            <p class="taste-text">{{ cheese.taste.visual.text }}</p>
+            }
+          </div>
+          } @if (cheese.taste.flavor) {
+          <div class="taste-profile-section">
+            <h4 class="taste-section-title">Flavor</h4>
+            @if (cheese.taste.flavor.rate) {
+            <div class="taste-rating">
+              <span class="rating-label">Rating:</span>
+              <span class="rating-value"
+                >{{ cheese.taste.flavor.rate }}/5 ⭐</span
+              >
+            </div>
+            } @if (cheese.taste.flavor.text) {
+            <p class="taste-text">{{ cheese.taste.flavor.text }}</p>
+            }
+          </div>
+          } @if (cheese.taste.aroma) {
+          <div class="taste-profile-section">
+            <h4 class="taste-section-title">Aroma</h4>
+            @if (cheese.taste.aroma.rate) {
+            <div class="taste-rating">
+              <span class="rating-label">Rating:</span>
+              <span class="rating-value"
+                >{{ cheese.taste.aroma.rate }}/5 ⭐</span
+              >
+            </div>
+            } @if (cheese.taste.aroma.text) {
+            <p class="taste-text">{{ cheese.taste.aroma.text }}</p>
+            }
+          </div>
+          } @if (cheese.taste.texture) {
+          <div class="taste-profile-section">
+            <h4 class="taste-section-title">Texture</h4>
+            @if (cheese.taste.texture.rate) {
+            <div class="taste-rating">
+              <span class="rating-label">Rating:</span>
+              <span class="rating-value"
+                >{{ cheese.taste.texture.rate }}/5 ⭐</span
+              >
+            </div>
+            } @if (cheese.taste.texture.text) {
+            <p class="taste-text">{{ cheese.taste.texture.text }}</p>
+            }
+          </div>
+          } @if (cheese.taste.taste) {
+          <div class="taste-profile-section">
+            <h4 class="taste-section-title">Overall Taste</h4>
+            @if (cheese.taste.taste.rate) {
+            <div class="taste-rating">
+              <span class="rating-label">Rating:</span>
+              <span class="rating-value"
+                >{{ cheese.taste.taste.rate }}/5 ⭐</span
+              >
+            </div>
+            } @if (cheese.taste.taste.text) {
+            <p class="taste-text">{{ cheese.taste.taste.text }}</p>
+            }
+          </div>
+          }
+        </div>
+      </ion-card-content>
+    </ion-card>
+    }
+
+    <!-- Notes -->
+    @if (cheese.notes && cheese.notes.length > 0) {
+    <ion-card class="cheese-detail-card">
+      <ion-card-header>
+        <ion-card-title class="cheese-title-secondary">Notes</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        @for (note of cheese.notes; track note.date) {
+        <div class="cheese-detail-item">
+          <div class="cheese-info-container">
+            <div class="cheese-info-row">
+              <span
+                style="
+                  background-color: var(--ion-color-tertiary);
+                  color: white;
+                  font-size: var(--font-size-xs);
+                  padding: var(--spacing-xs) var(--spacing-sm);
+                  border-radius: var(--border-radius-sm);
+                "
+                >{{ note.about }}</span
+              >
+              <span class="cheese-info-row">{{ formatDate(note.date) }}</span>
+            </div>
+            <p class="cheese-description">{{ note.notes }}</p>
+          </div>
+        </div>
+        }
+      </ion-card-content>
+    </ion-card>
+    }
+
+    <!-- Actions -->
+    <div class="actions-row">
+      <ion-button expand="block" fill="outline" (click)="shareCheese()">
+        <ion-icon name="share-outline" slot="start"></ion-icon>
+        Share Cheese
+      </ion-button>
+    </div>
+  </div>
+  }
+</ion-content>

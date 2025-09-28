@@ -1,24 +1,18 @@
 ion-label {
-    font-weight: bold;
-    font-size: 1rem;
-    margin-right: 1rem;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-right: 1rem;
 }
 
-.delete-btn {
-  --background: white; 
-  --color: var(--ion-color-danger); 
-  transition: background-color 0.3s ease, color 0.3s ease;
-  width:33%;
-  border: 2px solid var(--ion-color-danger);
-  border-radius: 24px;
-  /* Hover per a desktop */
-  &:hover {
-    --background: var(--ion-color-danger);
-    --color: white;
-  }
-  /* Active per a tàctils i click */
-  &:active {
-    --background: var(--ion-color-danger);
-    --color: white;
+.delete-button {
+  width: 90vw;
+  --border-radius: 0.75rem;
+  --padding-start: 1rem;
+  --padding-end: 1rem;
+  margin-top: 1rem;
+  font-weight: 600;
+
+  ion-icon {
+    margin-right: 0.5rem;
   }
 }

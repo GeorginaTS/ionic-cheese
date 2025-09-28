@@ -6,53 +6,153 @@
 <ion-content [fullscreen]="true" class="ion-padding">
   <!-- Loading Spinner -->
   @if (isLoading) {
-  <div class="ion-text-center ion-margin-top">
-    <ion-spinner name="bubbles"></ion-spinner>
-    <p>Loading profile...</p>
-  </div>
+  <ion-spinner>Loading cheeses</ion-spinner>
+  <ion-note> API is hosted on Render’s free tier.</ion-note><br /><ion-note
+    >That means the first visit after some idle time can take a bit longer to
+    load. </ion-note
+  ><br /><ion-note> Thanks for your patience!</ion-note>
   }
 
-  <!-- User Profile Card -->
+  <!-- Profile Header -->
   @if (!isLoading) {
-  <ion-card>
-    <div class="profile-header">
-      <ion-avatar class="profile-avatar">
-        <img
-          [src]="currentUser?.photoURL || '../assets/icon/cheese.png'"
-          [alt]="currentUser?.displayName || 'User'"
-        />
-      </ion-avatar>
-      <h2 class="user-name">{{currentUser?.displayName || 'User'}}</h2>
-      <p>{{currentUser?.uid || ''}}</p>
-      <p class="user-email">{{ currentUser?.email || '' }}</p>
-      <p class="user-birthdate">{{ currentUser?.birthDate || '' }}</p>
-      <p class="user-location">
-        {{ currentUser?.city || '' }}, {{ currentUser?.province || '' }},
-        {{ currentUser?.country || '' }}
-      </p>
-    </div>
-  </ion-card>
-  }
-
-  <!-- Actions -->
-  <div class="menu-profile">
-    <ion-button expand="block">
-      <ion-icon slot="start" name="person-outline"></ion-icon>
+  <div class="flex flex-col items-center text-center p-4">
+    <ion-avatar class="profile-avatar-large">
+      <img
+        [src]="currentUser?.photoURL || '../assets/icon/cheese.png'"
+        [alt]="currentUser?.displayName || 'User'"
+      />
+    </ion-avatar>
+    <h1 class="text-2xl md:text-3xl font-bold text-primary my-2">
+      {{currentUser?.displayName || 'User'}}
+    </h1>
+    <p class="text-base text-gray-500 m-0">{{ currentUser?.email || '' }}</p>
+    <ion-button fill="outline" (click)="openEditProfileModal()">
+      <ion-icon name="key-outline" slot="start"></ion-icon>
       Edit Profile
     </ion-button>
-    <ion-button expand="block">
-      <ion-icon slot="start" name="people-outline"></ion-icon>
-      Followers / Following
-    </ion-button>
-    <ion-button expand="block" routerLink="/my-cheeses">
-      <ion-icon slot="start" name="restaurant-outline"></ion-icon>
-      My Cheeses
-    </ion-button>
-    <ion-button color="danger" (click)="logout()" expand="block">
+  </div>
+
+  <!-- Stats Section -->
+  <div class="flex gap-2 justify-around items-center">
+    <div
+      class="stat-item flex flex-col items-center text-center bg-stone-200 p-3 rounded-xl shadow-md"
+      (click)="goToMyCheeses()"
+    >
+      <ion-icon
+        name="restaurant-outline"
+        color="primary"
+        class="text-3xl mb-2"
+      ></ion-icon>
+      <div class="flex flex-col items-center">
+        <span class="text-xl font-bold text-primary"
+          >{{ userCheesesCount }}</span
+        >
+        <span class="text-sm text-gray-500 uppercase tracking-wide"
+          >Cheeses</span
+        >
+      </div>
+    </div>
+    <div
+      class="stat-item flex flex-col items-center text-center bg-stone-200 p-3 rounded-xl shadow-md"
+    >
+      <ion-icon
+        name="people-outline"
+        color="primary"
+        class="text-3xl mb-2"
+      ></ion-icon>
+      <div class="flex flex-col items-center">
+        <span class="text-xl font-bold text-primary">48</span>
+        <span class="text-sm text-gray-500 uppercase tracking-wide"
+          >Followers</span
+        >
+      </div>
+    </div>
+    <div
+      class="stat-item flex flex-col items-center text-center bg-stone-200 p-3 rounded-xl shadow-md"
+    >
+      <ion-icon
+        name="add-circle-outline"
+        color="primary"
+        class="text-3xl mb-2"
+      ></ion-icon>
+      <div class="flex flex-col items-center">
+        <span class="text-xl font-bold text-primary">32</span>
+        <span class="text-sm text-gray-500 uppercase tracking-wide"
+          >Following</span
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- Personal Info Section -->
+  <ion-card class="mb-8 rounded-xl shadow-lg overflow-hidden">
+    <ion-card-header>
+      <ion-card-title>Personal Information</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-4 p-3 bg-gray-100 rounded-lg">
+          <ion-icon
+            name="calendar-outline"
+            class="text-2xl text-primary flex-shrink-0"
+          ></ion-icon>
+          <div class="flex flex-col flex-1">
+            <span class="text-xs text-gray-500 uppercase tracking-wide mb-1"
+              >Birth Date</span
+            >
+            <span class="text-base text-gray-800 font-medium">
+              {{ currentUser?.birthDate ? (currentUser.birthDate | date : 'MMM yyyy') : 'Not set' }}</span
+            >
+          </div>
+        </div>
+        <div class="flex items-center gap-4 p-3 bg-gray-100 rounded-lg">
+          <ion-icon
+            name="location-outline"
+            class="text-2xl text-primary flex-shrink-0"
+          ></ion-icon>
+          <div class="flex flex-col flex-1">
+            <span class="text-xs text-gray-500 uppercase tracking-wide mb-1"
+              >Location</span
+            >
+            <span class="text-base text-gray-800 font-medium">
+              {{ currentUser?.city || '' }} {{ currentUser?.province ? ', ' +
+              currentUser?.province : '' }} {{ currentUser?.country ? ', ' +
+              currentUser?.country : '' }}
+            </span>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 p-3 bg-gray-100 rounded-lg">
+          <ion-icon
+            name="key-outline"
+            class="text-2xl text-primary flex-shrink-0"
+          ></ion-icon>
+          <div class="flex flex-col flex-1">
+            <span class="text-xs text-gray-500 uppercase tracking-wide mb-1"
+              >User ID</span
+            >
+            <span class="text-base text-gray-800 font-medium"
+              >{{ currentUser?.uid?.substring(0, 20) + '...' || '' }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Actions Section -->
+  <div class="flex flex-col gap-3">
+    <ion-button
+      color="danger"
+      fill="solid"
+      (click)="logout()"
+      expand="block"
+      class="logout-button"
+    >
       <ion-icon slot="start" name="log-out-outline"></ion-icon>
       Logout
     </ion-button>
   </div>
+  }
 </ion-content>
 
 <app-menu></app-menu>

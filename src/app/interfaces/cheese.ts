@@ -9,6 +9,7 @@ export interface Cheese {
   milkType: string;
   milkOrigin: string;
   milkQuantity: number; // in liters
+  imageUrl?: string; // Firebase Storage image URL
   notes?: CheeseNotes[];
   making?: CheeseMaking;
   ripening?: CheeseRipening;

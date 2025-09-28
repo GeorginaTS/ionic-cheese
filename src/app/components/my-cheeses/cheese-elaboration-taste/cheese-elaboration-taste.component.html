@@ -1,5 +1,4 @@
-<form [formGroup]="tasteForm" (ngSubmit)="saveTaste()">
-  <ion-grid>
+<form [formGroup]="tasteForm" (ngSubmit)="saveTaste()" class="flex flex-wrap">
     @for (aspect of tasteAspects; track aspect.key) {
     <ion-card>
       <ion-card-header>
@@ -41,7 +40,7 @@
                 aspect.label.toLowerCase() +
                 ' characteristics...'
               "
-              [rows]="3"
+              [rows]="2"
               [autoGrow]="true"
               [clearOnEdit]="false"
               class="notes-textarea"
@@ -51,7 +50,6 @@
       </ion-card-content>
     </ion-card>
     }
-  </ion-grid>
 
   <!-- Save Button -->
   <div class="p-4">

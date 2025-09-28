@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, inject } from '@angular/core';
 import {
   IonContent,
   IonSegment,
@@ -29,8 +29,10 @@ import { FocusManagerService } from 'src/app/services/focus-manager.service';
 })
 export class HomePage {
   selectedTab: 'login' | 'register' = 'login';
-  constructor(private elementRef: ElementRef,
-  private focusManager: FocusManagerService) {}
+  private elementRef = inject(ElementRef);
+  private focusManager = inject(FocusManagerService);
+  constructor() {
+  }
   ionViewWillLeave() {
     this.focusManager.clearFocus(this.elementRef);
   }

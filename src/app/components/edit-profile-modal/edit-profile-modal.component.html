@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit Profile</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()" fill="clear">
+        <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+    <!-- Display Name -->
+    <ion-item>
+      <ion-label position="stacked">Display Name *</ion-label>
+      <ion-input
+        formControlName="displayName"
+        placeholder="Enter your display name"
+        [class.invalid]="displayName?.invalid && displayName?.touched"
+      >
+      </ion-input>
+    </ion-item>
+    @if (displayName?.invalid && displayName?.touched) {
+    <div class="error-message">
+      @if (displayName?.errors?.['required']) { Display name is required } @if
+      (displayName?.errors?.['minlength']) { Display name must be at least 2
+      characters }
+    </div>
+    }
+
+    <!-- Email -->
+    <ion-item>
+      <ion-label position="stacked">Email *</ion-label>
+      <ion-input
+        formControlName="email"
+        type="email"
+        placeholder="Enter your email"
+        [class.invalid]="email?.invalid && email?.touched"
+      >
+      </ion-input>
+    </ion-item>
+    @if (email?.invalid && email?.touched) {
+    <div class="error-message">
+      @if (email?.errors?.['required']) { Email is required } @if
+      (email?.errors?.['email']) { Please enter a valid email address }
+    </div>
+    }
+
+    <!-- Birth Date -->
+    <ion-item>
+      <ion-label position="stacked">Birth Date</ion-label>
+      <ion-datetime
+        formControlName="birthDate"
+        presentation="date"
+        placeholder="Select your birth date"
+      >
+      </ion-datetime>
+    </ion-item>
+
+    <!-- Location -->
+    <ion-item>
+      <ion-label position="stacked">City</ion-label>
+      <ion-input formControlName="city" placeholder="Enter your city">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Province/State</ion-label>
+      <ion-input
+        formControlName="province"
+        placeholder="Enter your province/state"
+      >
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Country</ion-label>
+      <ion-input formControlName="country" placeholder="Enter your country">
+      </ion-input>
+    </ion-item>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <ion-button
+        type="submit"
+        fill="solid"
+        expand="block"
+        [disabled]="profileForm.invalid || isLoading"
+      >
+        @if (isLoading) {
+        <ion-spinner name="bubbles" slot="start"></ion-spinner>
+        Saving... } @else {
+        <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+        Save Changes }
+      </ion-button>
+      <ion-button
+        type="button"
+        fill="outline"
+        expand="block"
+        (click)="dismiss()"
+      >
+        Cancel
+      </ion-button>
+    </div>
+  </form>
+
+  <!-- Toast Message -->
+  <ion-toast
+    [isOpen]="showToast"
+    [message]="toastMessage"
+    [color]="toastColor"
+    duration="3000"
+    (didDismiss)="showToast = false"
+  >
+  </ion-toast>
+</ion-content>
