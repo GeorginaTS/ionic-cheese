@@ -1,4 +1,12 @@
-# 🧀 Cheesely - A## ✨ Key Features
+# 🧀 Caseus - Artisan Cheese Community
+
+A comprehensive hybrid application built with **Ionic 8** and **Angular 20** for artisan cheese enthusiasts. Caseus enables users to document their cheese-making journey, explore global cheese varieties, and connect with a vibrant community of cheese makers and enthusiasts.
+
+## 🚀 Live Demo
+
+**🌐 Web App**: [https://cheese-29925.web.app/](https://cheese-29925.web.app/)
+
+## ✨ Key Features
 
 ### 🏠 Personal Cheese Management
 
@@ -22,15 +30,9 @@
 - **🔑 Firebase Auth**: Google OAuth and Email/Password authentication
 - **👤 User Management**: Profile editing with real-time sync
 - **🛡️ Security Rules**: Firestore security with user-based access control
-- **📱 Cross-Platform**: Seamless experience across web, iOS, and Android Cheese Community
+- **📱 Cross-Platform**: Seamless experience across web, iOS, and Android
 
-A comprehensive hybrid application built with **Ionic 8** and **Angular 20** for artisan cheese enthusiasts. Cheesely enables users to document their cheese-making journey, explore global cheese varieties, and connect with a vibrant community of cheese makers and enthusiasts.
-
-## 🚀 Live Demo
-
-**🌐 Web App**: [https://cheese-29925.web.app/](https://cheese-29925.web.app/)
-
-## ✨ Features
+## 🛠️ Technology Stack
 
 ### Core Features
 - 📱 **Hybrid App**: Works on web, iOS and Android
@@ -65,7 +67,7 @@ A comprehensive hybrid application built with **Ionic 8** and **Angular 20** for
 
 ### Backend & Services
 
-- **Database**: Firebase Firestore (NoSQL)
+- **Database**: Firebase Firestore (NoSQL) and MongoDB
 - **Authentication**: Firebase Auth
 - **Storage**: Firebase Storage + CDN
 - **Hosting**: Firebase Hosting
@@ -383,4 +385,4 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 
 ---
 
-> 🧀 **Made with ♥️love for the artisan cheese community** 
+> **Made with ♥️ for the artisan cheese community** 

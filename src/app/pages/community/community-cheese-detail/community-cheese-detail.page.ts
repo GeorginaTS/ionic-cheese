@@ -30,7 +30,8 @@ import { Cheese } from '../../../interfaces/cheese';
 import { CheeseService } from '../../../services/cheese.service';
 import { CheeseDetailImagesComponent } from 'src/app/components/my-cheeses/cheese-detail-images/cheese-detail-images.component';
 import { Share } from '@capacitor/share';
-import { UserDisplaynameComponent } from "src/app/components/user-displayname/user-displayname.component";
+import { UserDisplaynameComponent } from 'src/app/components/user-displayname/user-displayname.component';
+import { MenuComponent } from 'src/app/components/menu/menu.component';
 
 @Component({
   selector: 'app-community-cheese-detail',
@@ -44,7 +45,6 @@ import { UserDisplaynameComponent } from "src/app/components/user-displayname/us
     IonHeader,
     IonTitle,
     IonToolbar,
-    IonButtons,
     IonBackButton,
     IonButton,
     IonIcon,
@@ -54,8 +54,9 @@ import { UserDisplaynameComponent } from "src/app/components/user-displayname/us
     IonCardContent,
     IonSpinner,
     CheeseDetailImagesComponent,
-    UserDisplaynameComponent
-],
+    UserDisplaynameComponent,
+    MenuComponent,
+  ],
 })
 export class CommunityCheeseDetailPage implements OnInit {
   private route = inject(ActivatedRoute);
@@ -140,7 +141,7 @@ export class CommunityCheeseDetailPage implements OnInit {
 
     try {
       await Share.share({
-        title: `${this.cheese.name} - Cheesely`,
+        title: `${this.cheese.name} - Caseus`,
         text: `Check out this amazing ${this.cheese.milkType} cheese made by a fellow cheese maker! Made from ${this.cheese.milkQuantity}L of ${this.cheese.milkOrigin} ${this.cheese.milkType} milk.`,
         url: window.location.href,
         dialogTitle: 'Share this amazing cheese!',

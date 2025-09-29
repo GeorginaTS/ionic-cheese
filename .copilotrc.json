@@ -16,15 +16,9 @@
     ]
   },
   "context": {
-    "project": "Cheesely",
+    "project": "Caseus",
     "description": "Community and cheese management app built with Angular + Ionic + Tailwind. Includes favorites, kanban boards, geolocation, and Firebase integration.",
-    "entities": [
-      "Cheese",
-      "User",
-      "Board",
-      "Favorites",
-      "CommunityPost"
-    ],
+    "entities": ["Cheese", "User", "Board", "Favorites", "CommunityPost"],
     "db": "MongoDB with Mongoose (backend) and Firebase for authentication and real-time data"
   },
   "conventions": {

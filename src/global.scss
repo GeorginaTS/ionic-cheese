@@ -103,6 +103,7 @@ ion-toolbar {
 }
 ion-content {
   --background: var(--bg-color);
+  padding: 0px !important;
 }
 ion-item {
   --background: transparent !important;
@@ -181,6 +182,7 @@ ion-card {
   background-color: white;
   width: 100%;
   max-width: 100%;
+  margin:0;
 }
 
 /* Global Utility Classes */

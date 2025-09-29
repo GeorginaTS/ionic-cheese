@@ -43,7 +43,6 @@ import { FocusManagerService } from 'src/app/services/focus-manager.service';
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    IonGrid,
     ReactiveFormsModule,
     IonNote,
   ],

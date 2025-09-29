@@ -1,11 +1,12 @@
-# Copilot Instructions for Cheesely
+# Copilot Instructions for Caseus
 
-This repository is **Cheesely**, a community and cheese management app built with **Angular 20 + Ionic 8 + Tailwind + Capacitor + Firebase**.  
+This repository is **Caseus**, a community and cheese management app built with **Angular 20 + Ionic 8 + Tailwind + Capacitor + Firebase**.  
 Copilot should follow these rules and preferences when suggesting code:
 
 ---
 
 ## 🟢 General Guidelines
+
 - Always use **TypeScript**.
 - Follow **Angular standalone components** architecture (no NgModules).
 - Angular version: **20.x**
@@ -21,6 +22,7 @@ Copilot should follow these rules and preferences when suggesting code:
 ---
 
 ## 🎨 UI & Styling
+
 - Build UI with **Ionic components** (buttons, inputs, modals, etc.).
 - Apply **Tailwind utility classes** for styling.
 - Avoid inline styles and minimize custom SCSS.
@@ -31,6 +33,7 @@ Copilot should follow these rules and preferences when suggesting code:
 ---
 
 ## 🔒 Routing & Auth
+
 - Use **Angular Router with lazy loading** for feature pages.
 - Protect private routes with **AuthGuards**.
 - Redirect unauthenticated users to the login page.
@@ -39,6 +42,7 @@ Copilot should follow these rules and preferences when suggesting code:
 ---
 
 ## ☁️ Firebase & Backend
+
 - Use **AngularFire** for:
   - Authentication
   - Firestore
@@ -48,6 +52,7 @@ Copilot should follow these rules and preferences when suggesting code:
 ---
 
 ## 📱 Capacitor
+
 - Use **Capacitor plugins** for native features:
   - Camera
   - Geolocation
@@ -57,6 +62,7 @@ Copilot should follow these rules and preferences when suggesting code:
 ---
 
 ## 🧪 Testing
+
 - Use **Jasmine + Karma** for Angular tests.
 - Write unit tests for:
   - Components
@@ -67,10 +73,10 @@ Copilot should follow these rules and preferences when suggesting code:
 ---
 
 ## 📂 Naming Conventions
+
 - **Components**: `PascalCase` (e.g., `CheeseCardComponent`)
 - **Services**: `PascalCaseService` (e.g., `AuthService`)
 - **Selectors**: `kebab-case` (e.g., `app-cheese-card`)
 - **Files**: `kebab-case` (e.g., `cheese-card.component.ts`)
 
 ---
-
