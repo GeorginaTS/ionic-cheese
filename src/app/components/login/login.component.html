@@ -1,36 +1,46 @@
 <div class="w-full max-w-md mx-auto">
   <form [formGroup]="authForm" class="w-full flex flex-col gap-2 p-4">
-  <!-- Email -->
-  <ion-item>
-    <ion-label>Email</ion-label>
-    <ion-input type="email" formControlName="email"></ion-input>
-  </ion-item>
-  @if(authForm.get('email')?.touched && authForm.get('email')?.invalid) {
+    <!-- Email -->
+    <ion-item>
+      <ion-label>Email</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    @if(authForm.get('email')?.touched && authForm.get('email')?.invalid) {
     <ion-note color="danger">
-      @if(authForm.get('email')?.hasError('required')) {<span>Email is required</span>}
-      @if(authForm.get('email')?.hasError('pattern')) {<span>Invalid email format</span>}
+      @if(authForm.get('email')?.hasError('required')) {<span
+        >Email is required</span
+      >} @if(authForm.get('email')?.hasError('pattern')) {<span
+        >Invalid email format</span
+      >}
     </ion-note>
-  }
+    }
 
-  <!-- Password -->
-  <ion-item>
-    <ion-label>Password</ion-label>
-    <ion-input type="password" formControlName="password"></ion-input>
-  </ion-item>
-  @if(authForm.get('password')?.touched && authForm.get('password')?.invalid) {
+    <!-- Password -->
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    @if(authForm.get('password')?.touched && authForm.get('password')?.invalid)
+    {
     <ion-note color="danger">
-      @if(authForm.get('password')?.hasError('required')) {<span>Password is required</span>}
-      @if(authForm.get('password')?.hasError('minlength')) {<span>Password must be at least 6 characters</span>}
+      @if(authForm.get('password')?.hasError('required')) {<span
+        >Password is required</span
+      >} @if(authForm.get('password')?.hasError('minlength')) {<span
+        >Password must be at least 6 characters</span
+      >}
     </ion-note>
-  }
+    }
 
-  <ion-button expand="block" (click)="login()" [disabled]="authForm.invalid">
-    Login
-  </ion-button>
-  <ion-note>Test user email: <b>test@cheesely.org</b> and password: <b>123456</b></ion-note>
-</form>
-<hr>
-    <!-- Google -->
+    <ion-button expand="block" (click)="login()" [disabled]="authForm.invalid">
+      Login
+    </ion-button>
+    <ion-note
+      >Test user email: <b>test&#64;caseus.org</b> and password:
+      <b>123456</b></ion-note
+    >
+  </form>
+  <hr />
+  <!-- Google -->
   <ion-button expand="block" (click)="loginWithGoogle()">
     <ion-icon name="logo-google" slot="start"></ion-icon>
     Continue with Google

@@ -141,7 +141,7 @@ export class CommunityCheeseDetailPage implements OnInit {
 
     try {
       await Share.share({
-        title: `${this.cheese.name} - Cheesely`,
+        title: `${this.cheese.name} - Caseus`,
         text: `Check out this amazing ${this.cheese.milkType} cheese made by a fellow cheese maker! Made from ${this.cheese.milkQuantity}L of ${this.cheese.milkOrigin} ${this.cheese.milkType} milk.`,
         url: window.location.href,
         dialogTitle: 'Share this amazing cheese!',

@@ -26,8 +26,8 @@ import { UserDisplaynameComponent } from '../../user-displayname/user-displaynam
     IonCardTitle,
     IonButton,
     IonIcon,
-    UserDisplaynameComponent
-],
+    UserDisplaynameComponent,
+  ],
 })
 export class CommunityCheeseCardComponent implements OnInit {
   @Input() cheese!: Cheese;
@@ -75,7 +75,7 @@ export class CommunityCheeseCardComponent implements OnInit {
 
     try {
       await Share.share({
-        title: `${name} - Cheesely`,
+        title: `${name} - Caseus`,
         text: `${description} Made from ${this.cheese.milkQuantity}L of ${this.cheese.milkOrigin} ${this.cheese.milkType} milk.`,
         url: `${window.location.origin}/community/cheese/${this.cheese._id}`,
         dialogTitle: 'Share this amazing cheese!',
