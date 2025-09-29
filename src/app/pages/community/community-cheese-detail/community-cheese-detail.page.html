@@ -1,9 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/community"></ion-back-button>
-    </ion-buttons>
-    <ion-title>{{ cheese?.name || 'Cheese Details' }}</ion-title>
+    <ion-back-button
+      defaultHref="/my-cheeses"
+      slot="start"
+      text=""
+    ></ion-back-button>
+    <ion-title>Community cheese: {{cheese?.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -332,3 +334,5 @@
   </div>
   }
 </ion-content>
+
+<app-menu></app-menu>

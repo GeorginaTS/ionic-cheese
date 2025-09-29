@@ -1,4 +1,4 @@
-# 🧀 Cheesely - A## ✨ Key Features
+# 🧀 Cheesely ✨ Key Features
 
 ### 🏠 Personal Cheese Management
 
@@ -383,4 +383,4 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 
 ---
 
-> 🧀 **Made with ♥️love for the artisan cheese community** 
+> **Made with ♥️ for the artisan cheese community** 
