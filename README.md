@@ -1,10 +1,34 @@
-# 🧀 Ionic Cheese App
+# 🧀 Cheesely - A## ✨ Key Features
 
-A hybrid application built with Ionic/Angular to manage, share and explore information about artisan cheeses. The app allows users to document their own cheeses, explore world cheeses and connect with the cheese-making community.
+### 🏠 Personal Cheese Management
 
-## 🚀 Demo
+- **📊 Elaboration Tracking**: Complete cheese-making process documentation
+- **🧪 Making Process**: Temperature, cultures, coagulation, and pressing details  
+- **🧀 Ripening Management**: Temperature, humidity, turning, and washing schedules
+- **👅 Taste Profiles**: Visual, aroma, texture, and flavor rating system
+- **📸 Photo Documentation**: Multi-image capture with Capacitor Camera
+- **📝 Notes System**: Time-stamped observations and process notes
 
-**Live Deployment:** [https://cheese-29925.web.app/](https://cheese-29925.web.app/)
+### 🌍 Community & Discovery
+
+- **👥 Community Feed**: Browse public cheeses from global cheese makers
+- **❤️ Social Interactions**: Like and share functionality with native integration
+- **👤 User Profiles**: Comprehensive user information and cheese portfolios
+- **🗺️ World Cheese Map**: Interactive Leaflet map with global cheese varieties
+- **🔍 Discovery**: Search and filter cheeses by type, origin, and characteristics
+
+### 🔐 Authentication & Security
+
+- **🔑 Firebase Auth**: Google OAuth and Email/Password authentication
+- **👤 User Management**: Profile editing with real-time sync
+- **🛡️ Security Rules**: Firestore security with user-based access control
+- **📱 Cross-Platform**: Seamless experience across web, iOS, and Android Cheese Community
+
+A comprehensive hybrid application built with **Ionic 8** and **Angular 20** for artisan cheese enthusiasts. Cheesely enables users to document their cheese-making journey, explore global cheese varieties, and connect with a vibrant community of cheese makers and enthusiasts.
+
+## 🚀 Live Demo
+
+**🌐 Web App**: [https://cheese-29925.web.app/](https://cheese-29925.web.app/)
 
 ## ✨ Features
 
@@ -29,92 +53,151 @@ A hybrid application built with Ionic/Angular to manage, share and explore infor
 - 📱 **Native Features**: Camera, sharing, and filesystem access via Capacitor
 - 🎯 **Optimized Performance**: Minimal SCSS with utility-first CSS approach
 
-## 🛠️ Tech Stack
+## 🛠️ Technology Stack
 
-- **Frontend**: Ionic 8 + Angular 20 (Standalone Components)
-- **Backend**: Firebase (Auth, Firestore, Storage)
-- **Styling**: Tailwind CSS + Global SCSS Classes
-- **Build**: Vite
-- **Deployment**: Firebase Hosting
-- **Maps**: Leaflet with custom markers
-- **Native Features**: Capacitor (Camera, Share, Filesystem)
-- **State Management**: RxJS Observables
-- **Authentication**: Firebase Auth (Google + Email/Password)
+### Frontend
 
-## 📁 Project Structure
+- **Framework**: Ionic 8 + Angular 20
+- **Architecture**: Standalone Components (No NgModules)
+- **Syntax**: Modern `@if`/`@for` control flow
+- **Styling**: Tailwind CSS + Global SCSS utility classes
+- **State**: RxJS Observables + Signals
+
+### Backend & Services
+
+- **Database**: Firebase Firestore (NoSQL)
+- **Authentication**: Firebase Auth
+- **Storage**: Firebase Storage + CDN
+- **Hosting**: Firebase Hosting
+- **Build**: Vite + Angular CLI
+
+### Mobile & Native
+
+- **Platform**: Capacitor 6
+- **Camera**: `@capacitor/camera`
+- **Sharing**: `@capacitor/share`
+- **Storage**: `@capacitor/filesystem`
+- **Network**: Connection status monitoring
+
+## 📁 Project Architecture
 
 ```text
-src/
-├── app/
-│   ├── components/          # Reusable components
-│   │   ├── community/       # Community-specific components
-│   │   │   └── community-cheese-card/
-│   │   ├── user-profile-card/     # User profile components
-│   │   ├── user-displayname/      # Compact user display
-│   │   ├── cheese-card/
-│   │   ├── cheese-detail/
-│   │   ├── cheese-photo-capture/
-│   │   └── my-cheeses/      # Personal cheese management
-│   ├── pages/              # Main pages
-│   │   ├── home/
-│   │   ├── my-cheeses/
-│   │   ├── community/       # Community features
-│   │   │   └── community-cheese-detail/
-│   │   ├── world-cheeses/
-│   │   └── profile/
-│   ├── services/           # Angular services
-│   │   ├── cheese.service.ts
-│   │   ├── user.service.ts  # Firebase user management
-│   │   └── world-cheeses.service.ts
-│   └── interfaces/         # TypeScript types
-│       ├── cheese.ts
-│       ├── user.ts
-│       └── world-cheese.ts
-├── assets/                 # Images and resources
-├── environments/           # Environment configuration
-└── global.scss            # Global styles and utility classes
+ionic-cheese/
+├── 📁 src/
+│   ├── 📁 app/
+│   │   ├── 📄 app.component.ts          # Root component
+│   │   ├── 📄 app.routes.ts             # Application routing
+│   │   │
+│   │   ├── 📁 components/               # Reusable UI components
+│   │   │   ├── 📁 community/
+│   │   │   │   ├── 📁 community-cheese-card/     # Community cheese cards
+│   │   │   │   ├── 📁 discover-tab/              # Discovery interface
+│   │   │   │   └── 📁 meetings-tab/              # Community meetings
+│   │   │   │
+│   │   │   ├── 📁 my-cheeses/           # Personal cheese management
+│   │   │   │   ├── 📁 cheese-card/               # Personal cheese cards
+│   │   │   │   ├── 📁 cheese-detail/             # Detailed cheese view
+│   │   │   │   ├── 📁 cheese-detail-images/      # Image gallery
+│   │   │   │   ├── 📁 cheese-elaboration/        # Elaboration wizard
+│   │   │   │   ├── 📁 cheese-elaboration-making/ # Making process
+│   │   │   │   ├── 📁 cheese-elaboration-ripening/ # Ripening process
+│   │   │   │   ├── 📁 cheese-elaboration-taste/  # Taste evaluation
+│   │   │   │   ├── 📁 cheese-photo-capture/      # Camera integration
+│   │   │   │   ├── 📁 ico-cheese-status/         # Status icons
+│   │   │   │   └── 📁 ico-milk-type/             # Milk type icons
+│   │   │   │
+│   │   │   ├── 📁 user-profile-card/    # User profile display
+│   │   │   ├── 📁 user-displayname/     # Compact user info
+│   │   │   ├── 📁 login/                # Authentication forms
+│   │   │   ├── 📁 register/             # User registration
+│   │   │   ├── 📁 menu/                 # Navigation menu
+│   │   │   ├── 📁 add-note-modal/       # Note creation modal
+│   │   │   ├── 📁 edit-profile-modal/   # Profile editing
+│   │   │   ├── 📁 connection-status/    # Network status
+│   │   │   └── 📁 world-cheeses-map/    # Interactive map
+│   │   │
+│   │   ├── 📁 pages/                    # Main application pages
+│   │   │   ├── 📁 home/                 # Dashboard/Home page
+│   │   │   ├── 📁 my-cheeses/           # Personal cheese collection
+│   │   │   ├── 📁 community/            # Community features
+│   │   │   │   └── 📁 community-cheese-detail/ # Public cheese details
+│   │   │   ├── 📁 world-cheeses/        # Global cheese database
+│   │   │   └── 📁 profile/              # User profile management
+│   │   │
+│   │   ├── 📁 services/                 # Business logic & API
+│   │   │   ├── 📄 auth.service.ts       # Authentication logic
+│   │   │   ├── 📄 cheese.service.ts     # Cheese CRUD operations
+│   │   │   ├── 📄 user.service.ts       # User management
+│   │   │   ├── 📄 world-cheeses.service.ts # Global cheese data
+│   │   │   ├── 📄 firebase-storage.service.ts # File uploads
+│   │   │   ├── 📄 firestore.service.ts  # Database operations
+│   │   │   ├── 📄 network.service.ts    # Connection monitoring
+│   │   │   ├── 📄 push.service.ts       # Push notifications
+│   │   │   └── 📄 focus-manager.service.ts # UI focus management
+│   │   │
+│   │   ├── 📁 interfaces/               # TypeScript type definitions
+│   │   │   ├── 📄 cheese.ts             # Cheese data models
+│   │   │   ├── 📄 user.ts               # User data models
+│   │   │   └── 📄 world-cheese.ts       # Global cheese types
+│   │   │
+│   │   └── 📁 guards/                   # Route protection
+│   │
+│   ├── 📁 assets/                       # Static resources
+│   │   ├── 📁 icon/                     # App icons
+│   │   └── 📁 img/                      # Images and graphics
+│   │
+│   ├── 📁 environments/                 # Environment configuration
+│   │   ├── 📄 environment.ts            # Development config
+│   │   └── 📄 environment.prod.ts       # Production config
+│   │
+│   ├── 📁 theme/                        # Ionic theming
+│   │   └── 📄 variables.scss            # CSS variables
+│   │
+│   ├── 📄 global.scss                   # Global styles & utility classes
+│   ├── 📄 tailwind.css                  # Tailwind CSS imports
+│   └── 📄 main.ts                       # Application bootstrap
+│
+├── 📄 capacitor.config.ts               # Capacitor configuration
+├── 📄 ionic.config.json                 # Ionic CLI configuration
+├── 📄 tailwind.config.js                # Tailwind CSS configuration
+├── 📄 angular.json                      # Angular CLI configuration
+├── 📄 package.json                      # Dependencies & scripts
+└── 📄 firebase.json                     # Firebase deployment config
 ```
 
-## 🏛️ Architecture & Design Patterns
+## �️ Architecture Highlights
 
-### Component Architecture
-- **Standalone Components**: Modern Angular 20 architecture without NgModules
-- **Control Flow Syntax**: Uses `@if`, `@for` instead of `*ngIf`, `*ngFor`
-- **Reactive Programming**: RxJS Observables for data management
-- **Firebase Integration**: Direct Firestore integration with converters
+### Modern Angular Patterns
 
-### Styling Strategy
-- **Global Classes**: Centralized utility classes in `global.scss`
-- **Tailwind Integration**: Utility-first CSS with custom Ionic component styles
-- **CSS Variables**: Consistent theming with CSS custom properties
-- **Responsive Design**: Mobile-first approach with flexible layouts
+- **Standalone Components**: No NgModules, direct imports
+- **Control Flow**: `@if`, `@for`, `@switch` syntax
+- **Dependency Injection**: `inject()` function pattern
+- **Reactive Forms**: Type-safe form management
+- **Signals**: Modern reactivity (where applicable)
 
 ### Firebase Integration
-- **Authentication**: Google OAuth & Email/Password authentication
-- **Firestore**: Real-time document-based database with security rules
-- **Storage**: Image upload and management with CDN delivery
-- **Security**: Row-level security with user-based access control
 
-### Key Components
+- **Authentication**: Multi-provider auth with security rules
+- **Firestore**: Document-based database with real-time sync
+- **Storage**: CDN-optimized image delivery
+- **Security**: Row-level security and data validation
 
-#### Community Features
-- `CommunityCheeseCardComponent`: Optimized card display with social actions
-- `UserProfileCardComponent`: Complete user information display
-- `UserDisplaynameComponent`: Lightweight user identification
-- `CommunityCheeseDetailPage`: Full cheese information with Firebase images
+### Styling Strategy
 
-#### Services
-- `UserService`: Firebase-based user data management
-- `CheeseService`: Complete cheese CRUD operations with image handling
-- `WorldCheesesService`: Geographic cheese data management
+- **Global Utilities**: Centralized CSS classes in `global.scss`
+- **Tailwind Integration**: Utility-first CSS with Ionic compatibility
+- **CSS Variables**: Consistent theming across components
+- **Component Isolation**: Scoped styles where needed
 
-## 🚀 Development
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js 18+
-- Ionic CLI (`npm install -g @ionic/cli`)
-- Angular CLI (`npm install -g @angular/cli`)
+```bash
+# Required versions
+Node.js >= 20.19.0
+npm >= 9.0.0
+```
 
 ### Installation
 
@@ -126,47 +209,78 @@ cd ionic-cheese
 # Install dependencies
 npm install
 
-# Configure Firebase (create your own project)
-# Update src/environments/environment.ts with your configuration
+# Install Ionic CLI globally (if not installed)
+npm install -g @ionic/cli
 ```
 
-### Local Development
+### Firebase Setup
+
+1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
+2. Enable Authentication, Firestore, and Storage
+3. Copy your config to `src/environments/environment.ts`:
+
+```typescript
+export const environment = {
+  production: false,
+  firebase: {
+    apiKey: "your-api-key",
+    authDomain: "your-project.firebaseapp.com",
+    projectId: "your-project-id",
+    storageBucket: "your-project.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "your-app-id"
+  }
+};
+```
+
+### Development Server
 
 ```bash
-# Serve the app in development mode
+# Start development server
+npm start
+# or
 ionic serve
 
-# Build for production
+# The app will open at http://localhost:8100
+```
+
+### Building for Production
+
+```bash
+# Build the app
 npm run build
 
 # Deploy to Firebase
 firebase deploy
 ```
 
-### For Mobile Devices
+## 📱 Mobile Development
+
+### iOS Development
 
 ```bash
-# Add platforms
+# Add iOS platform
 ionic capacitor add ios
+
+# Build and sync
+ionic capacitor build ios
+
+# Open in Xcode
+ionic capacitor open ios
+```
+
+### Android Development
+
+```bash
+# Add Android platform
 ionic capacitor add android
 
 # Build and sync
-ionic capacitor build
-ionic capacitor sync
+ionic capacitor build android
 
-# Open in native IDEs
-ionic capacitor open ios
+# Open in Android Studio
 ionic capacitor open android
 ```
-
-## 🔧 Configuration
-
-### Firebase
-
-1. Create a project at [Firebase Console](https://console.firebase.google.com/)
-2. Enable Authentication, Firestore and Storage
-3. Update `src/environments/environment.ts` with your configuration
-4. Configure security rules for Firestore and Storage
 
 ### Environment Variables
 
@@ -185,58 +299,88 @@ export const environment = {
 };
 ```
 
-## 📝 Available Scripts
+## 🧪 Testing
 
 ```bash
-npm start          # Start development server
-npm run build      # Build for production
-npm test           # Run tests
-npm run lint       # Check code with ESLint
-npm run e2e        # End-to-end tests
+# Run unit tests
+npm test
+
+# Run tests with coverage
+ng test --code-coverage
+
+# Run linting
+ng lint
 ```
+
+## 📊 Performance Features
+
+### Optimization Strategies
+
+- **Lazy Loading**: Route-based code splitting
+- **OnPush Strategy**: Optimized change detection
+- **Global CSS**: Reduced bundle size with utility classes
+- **Image Optimization**: WebP support with Firebase Storage
+- **Service Workers**: Offline functionality
+
+### Bundle Analysis
+
+```bash
+# Analyze bundle size
+ng build --stats-json
+npx webpack-bundle-analyzer dist/stats.json
+```
+
+## 🔧 Configuration
+
+### Environment Variables
+
+- `environment.ts` - Development configuration
+- `environment.prod.ts` - Production configuration
+- Firebase configuration
+- API endpoints and keys
+
+### Capacitor Configuration
+
+- Platform-specific settings in `capacitor.config.ts`
+- Plugin configurations
+- Native permissions and capabilities
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please:
+We welcome contributions! Please follow these steps:
 
-1. Fork the project
-2. Create a feature branch (`git checkout -b feature/new-feature`)
-3. Commit your changes (`git commit -m 'Add new feature'`)
-4. Push to the branch (`git push origin feature/new-feature`)
-5. Open a Pull Request
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Follow** the coding standards (Angular Style Guide)
+4. **Write** tests for new functionality
+5. **Commit** with conventional commits (`feat:`, `fix:`, `docs:`)
+6. **Push** to your branch (`git push origin feature/amazing-feature`)
+7. **Open** a Pull Request
 
-## 🆕 Recent Updates
+### Development Guidelines
 
-### v2.0.0 - Community Features Release
-
-#### New Features
-- **Community Feed**: Browse public cheeses from other users
-- **Social Interactions**: Like and share functionality with native integration
-- **User Profiles**: Complete user management with Firebase integration
-- **Enhanced Details**: Rich cheese detail pages with Firebase Storage images
-- **Google Authentication**: Seamless login with Google accounts
-
-#### Technical Improvements
-- **Angular 20 Migration**: Modern standalone components architecture
-- **Global CSS System**: Centralized styling with reusable utility classes
-- **Firebase Optimization**: Direct Firestore integration with improved performance
-- **Capacitor Integration**: Native sharing and camera functionality
-- **Code Optimization**: Reduced bundle size with utility-first CSS approach
-
-#### UI/UX Enhancements
-- **Modern Control Flow**: Updated to `@if`/`@for` syntax
-- **Responsive Design**: Improved mobile experience
-- **Performance**: Optimized component rendering and data loading
-- **Accessibility**: Enhanced component accessibility features
+- Use Angular standalone components
+- Follow the `@if`/`@for` control flow syntax
+- Write comprehensive unit tests
+- Use TypeScript strict mode
+- Follow the established folder structure
 
 ## 📄 License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for more details.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ## 👨‍💻 Author
 
 **Georgina TS** - [GitHub](https://github.com/GeorginaTS)
 
+## 🙏 Acknowledgments
+
+- **Ionic Team** - Amazing hybrid framework
+- **Angular Team** - Powerful web framework  
+- **Firebase** - Excellent backend-as-a-service
+- **Tailwind CSS** - Utility-first styling
+- **Leaflet** - Interactive mapping solution
+
 ---
 
-> Developed with ❤️ for the cheese-making community
+> 🧀 **Made with ♥️love for the artisan cheese community** 
