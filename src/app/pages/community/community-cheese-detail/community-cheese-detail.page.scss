@@ -1,2 +1,52 @@
-// Minimal custom styles - using Tailwind CSS and global classes primarily
-// Only component-specific styles that can't be achieved with Tailwind
+// Component-specific styles - using global.scss classes when possible
+
+// Taste Profile Styles (específiques d'aquest component)
+.taste-profile-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.taste-profile-section {
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--ion-color-light);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.taste-section-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--ion-color-tertiary);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.taste-rating {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.taste-text {
+  color: var(--ion-color-dark);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.rating-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--ion-color-medium);
+}
+
+// Note Badge Style (específic per les notes)
+.note-badge {
+  background-color: var(--ion-color-tertiary);
+  color: white;
+  font-size: var(--font-size-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+}

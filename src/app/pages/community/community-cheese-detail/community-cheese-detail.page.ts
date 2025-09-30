@@ -2,12 +2,14 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { BehaviorSubject } from 'rxjs';
 import {
   IonContent,
   IonHeader,
   IonTitle,
   IonToolbar,
-  IonButtons,
   IonBackButton,
   IonButton,
   IonIcon,
@@ -26,10 +28,13 @@ import {
   warningOutline,
   star,
   starOutline,
+  heart,
+  heartOutline,
 } from 'ionicons/icons';
 
 import { Cheese } from '../../../interfaces/cheese';
 import { CheeseService } from '../../../services/cheese.service';
+import { AuthService } from '../../../services/auth.service';
 import { CheeseDetailImagesComponent } from 'src/app/components/my-cheeses/cheese-detail-images/cheese-detail-images.component';
 import { Share } from '@capacitor/share';
 import { UserDisplaynameComponent } from 'src/app/components/user-displayname/user-displayname.component';
@@ -48,7 +53,7 @@ import { SeoService } from 'src/app/services/seo.service';
     IonHeader,
     IonTitle,
     IonToolbar,
-    IonButtons,
+
     IonBackButton,
     IonButton,
     IonIcon,
@@ -66,12 +71,19 @@ export class CommunityCheeseDetailPage implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private cheeseService = inject(CheeseService);
+  private authService = inject(AuthService);
   private toastController = inject(ToastController);
   private seoService = inject(SeoService);
+  private destroyRef = inject(DestroyRef);
+
+  // Reactive cheese data
+  private cheeseSubject = new BehaviorSubject<Cheese | null>(null);
+  cheese$ = this.cheeseSubject.asObservable();
 
   cheese: Cheese | null = null;
   loading = true;
   error = '';
+  currentUser: any = null;
 
   constructor() {
     addIcons({
@@ -81,10 +93,15 @@ export class CommunityCheeseDetailPage implements OnInit {
       warningOutline,
       star,
       starOutline,
+      heart,
+      heartOutline,
     });
   }
 
   ngOnInit() {
+    // Get current user
+    this.currentUser = this.authService.currentUser;
+
     this.route.params.subscribe((params) => {
       const cheeseId = params['id'];
       if (cheeseId) {
@@ -115,6 +132,7 @@ export class CommunityCheeseDetailPage implements OnInit {
           this.error = 'Cheese not found or not public';
         } else {
           this.cheese = cheese;
+          this.cheeseSubject.next(cheese); // Actualitzar BehaviorSubject
           // Actualitzar SEO amb les dades del formatge
           this.updateSEO(cheese);
         }
@@ -194,6 +212,62 @@ export class CommunityCheeseDetailPage implements OnInit {
     const filledStars = Math.floor(rating || 0);
     const emptyStars = 5 - filledStars;
     return Array(emptyStars).fill(0);
+  }
+
+  onToggleLike(): void {
+    console.log('🧀 onToggleLike called', {
+      currentUser: this.currentUser,
+      cheese: this.cheese,
+    });
+
+    if (!this.currentUser) {
+      console.warn('User must be logged in to like cheese');
+      return;
+    }
+
+    const currentCheese = this.cheese;
+    if (!currentCheese) {
+      console.warn('No cheese available to like');
+      return;
+    }
+
+    const userId = this.currentUser.uid;
+    const isLiked = currentCheese.likedBy?.includes(userId) ?? false;
+
+    // Optimistic update - actualització immediata de la UI
+    const updatedLikedBy = isLiked
+      ? (currentCheese.likedBy || []).filter((id) => id !== userId)
+      : [...(currentCheese.likedBy || []), userId];
+
+    const optimisticCheese: Cheese = {
+      ...currentCheese,
+      likedBy: updatedLikedBy,
+    };
+
+    // Actualitzar estat local immediatament
+    this.cheese = optimisticCheese;
+    this.cheeseSubject.next(optimisticCheese);
+
+    // Cridar API amb RxJS Observable
+    this.cheeseService
+      .toggleLike(currentCheese._id!)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (response: any) => {
+          console.log('Like toggled successfully:', response);
+          // Si el servidor retorna el formatge actualitzat, utilitzar-lo
+          if (response?.cheese) {
+            this.cheese = response.cheese;
+            this.cheeseSubject.next(response.cheese);
+          }
+        },
+        error: (error) => {
+          console.error('Error toggling like:', error);
+          // Revertir update optimista en cas d'error
+          this.cheese = currentCheese;
+          this.cheeseSubject.next(currentCheese);
+        },
+      });
   }
 
   /**

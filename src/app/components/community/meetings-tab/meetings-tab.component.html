@@ -1,4 +1,17 @@
-<div class="container">
+<!-- Suggest Meeting Button -->
+<div class="w-full flex justify-center">
+  <ion-button
+    (click)="openCreateMeetingModal()"
+    color="primary"
+    expand="block"
+    class="suggest-meeting-button"
+  >
+    <ion-icon name="add-outline" slot="start"></ion-icon>
+    Suggest Meeting
+  </ion-button>
+</div>
+
+<div class="flex flex-wrap gap-2 justify-center p-4">
   <ion-card>
     <ion-card-header>
       <ion-card-title color="tertiary">Spring Cheese Tasting</ion-card-title>

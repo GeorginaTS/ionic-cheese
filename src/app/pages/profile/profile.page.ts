@@ -2,7 +2,23 @@ import { Component, ElementRef, inject, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonCard, IonAvatar, IonText, IonSpinner, IonCardHeader, IonCardTitle, IonCardContent, ModalController, IonNote } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonButton,
+  IonIcon,
+  IonCard,
+  IonAvatar,
+  IonText,
+  IonSpinner,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  ModalController,
+  IonNote,
+} from '@ionic/angular/standalone';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { EditProfileModalComponent } from 'src/app/components/edit-profile-modal/edit-profile-modal.component';
 import { AuthService } from 'src/app/services/auth.service';
@@ -17,6 +33,7 @@ import {
   restaurantOutline,
   addCircleOutline,
   keyOutline,
+  heartOutline,
 } from 'ionicons/icons';
 import { User } from '@angular/fire/auth';
 import { AppUser } from 'src/app/interfaces/user';
@@ -44,8 +61,8 @@ import { FocusManagerService } from 'src/app/services/focus-manager.service';
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    IonNote
-],
+    IonNote,
+  ],
 })
 export class ProfilePage implements OnInit {
   user: User | null = null;
@@ -62,6 +79,7 @@ export class ProfilePage implements OnInit {
     photoURL: '',
   };
   userCheesesCount = 0;
+  userLikedCheesesCount = 0;
   isLoading = true;
   private authService = inject(AuthService);
   private cheeseService = inject(CheeseService);
@@ -81,6 +99,7 @@ export class ProfilePage implements OnInit {
       restaurantOutline,
       addCircleOutline,
       keyOutline,
+      heartOutline,
     });
   }
 
@@ -127,6 +146,8 @@ export class ProfilePage implements OnInit {
 
       // Carregar el nombre de formatges de l'usuari
       this.loadUserCheesesCount();
+      // Carregar el nombre de formatges amb like de l'usuari
+      this.loadUserLikedCheesesCount();
       console.log('Profile loading completed successfully');
     } catch (error) {
       console.error('Error loading profile:', error);
@@ -181,6 +202,36 @@ export class ProfilePage implements OnInit {
     }
   }
 
+  loadUserLikedCheesesCount() {
+    if (this.currentUser?.uid) {
+      console.log(
+        'Loading user liked cheeses count for UID:',
+        this.currentUser.uid
+      );
+      this.cheeseService.getAllPublicCheeses().subscribe({
+        next: (response) => {
+          // Filtrar els formatges que contenen el currentUser.uid a likedBy
+          const likedCheeses = response.cheeses.filter(
+            (cheese) =>
+              cheese.likedBy && cheese.likedBy.includes(this.currentUser.uid)
+          );
+          this.userLikedCheesesCount = likedCheeses.length;
+          console.log(
+            'User liked cheeses count loaded:',
+            this.userLikedCheesesCount
+          );
+        },
+        error: (error) => {
+          console.error('Error loading user liked cheeses count:', error);
+          this.userLikedCheesesCount = 0;
+        },
+      });
+    } else {
+      console.log('No user UID available for liked cheeses count');
+      this.userLikedCheesesCount = 0;
+    }
+  }
+
   async openEditProfileModal() {
     const modal = await this.modalCtrl.create({
       component: EditProfileModalComponent,
@@ -201,5 +252,9 @@ export class ProfilePage implements OnInit {
 
   goToMyCheeses() {
     this.router.navigate(['/my-cheeses']);
+  }
+
+  goToLovedCheeses() {
+    this.router.navigate(['/loved-cheeses']);
   }
 }

@@ -32,6 +32,14 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'loved-cheeses',
+    loadComponent: () =>
+      import('./pages/loved-cheeses/loved-cheeses.page').then(
+        (m) => m.LovedCheesesPage
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'my-cheeses',
     loadComponent: () =>
       import('./pages/my-cheeses/my-cheeses.page').then((m) => m.MyCheesesPage),

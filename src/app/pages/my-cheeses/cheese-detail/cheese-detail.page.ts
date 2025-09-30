@@ -16,6 +16,7 @@ import {
   IonBackButton,
   IonModal,
   IonNote,
+  ToastController,
 } from '@ionic/angular/standalone';
 import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -27,7 +28,6 @@ import { addIcons } from 'ionicons';
 import {
   arrowBackCircleOutline,
   caretDownCircle,
-  caretDownCircleOutline,
   cameraOutline,
   createOutline,
   shareOutline,
@@ -41,7 +41,6 @@ import { CheeseElaborationComponent } from 'src/app/components/my-cheeses/cheese
 import { FocusManagerService } from 'src/app/services/focus-manager.service';
 import { Share } from '@capacitor/share';
 import { Dialog } from '@capacitor/dialog';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cheese-detail-page',
@@ -80,7 +79,7 @@ export class CheeseDetailPage implements OnInit {
   private route = inject(ActivatedRoute);
   private cheeseService = inject(CheeseService);
   private router = inject(Router);
-
+  private toastController = inject(ToastController);
   private focusManager = inject(FocusManagerService);
   private elementRef = inject(ElementRef);
   routeSub!: Subscription;
@@ -163,12 +162,41 @@ export class CheeseDetailPage implements OnInit {
     this.focusManager.clearFocus(this.elementRef);
   }
 
-  async shareCheese(cheese: any) {
-    await Share.share({
-      title: cheese.name,
-      text: `Check out this artisanal cheese: ${cheese.name} 🧀`,
-      url: `${environment.apiUrl}/cheese/` + cheese.id,
-      dialogTitle: 'Share this cheese',
-    });
+  async shareCheese() {
+    if (!this.cheese) return;
+
+    try {
+      await Share.share({
+        title: `${this.cheese.name} - Caseus`,
+        text: `Check out this amazing ${this.cheese.milkType} cheese made by a fellow cheese maker! Made from ${this.cheese.milkQuantity}L of ${this.cheese.milkOrigin} ${this.cheese.milkType} milk.`,
+        url: window.location.href,
+        dialogTitle: 'Share this amazing cheese!',
+      });
+    } catch (error) {
+      console.error('Error sharing cheese:', error);
+      // Fallback to copying to clipboard
+      this.copyToClipboard();
+    }
+  }
+  private async copyToClipboard() {
+    try {
+      const url = window.location.href;
+      await navigator.clipboard.writeText(url);
+
+      const toast = await this.toastController.create({
+        message: 'Link copied to clipboard',
+        duration: 2000,
+        color: 'success',
+      });
+      await toast.present();
+    } catch (error) {
+      console.error('Error copying to clipboard:', error);
+      const toast = await this.toastController.create({
+        message: 'Failed to copy link',
+        duration: 2000,
+        color: 'danger',
+      });
+      await toast.present();
+    }
   }
 }
