@@ -17,6 +17,7 @@ import {
   restaurantOutline,
   addCircleOutline,
   keyOutline,
+  heartOutline,
 } from 'ionicons/icons';
 import { User } from '@angular/fire/auth';
 import { AppUser } from 'src/app/interfaces/user';
@@ -81,6 +82,7 @@ export class ProfilePage implements OnInit {
       restaurantOutline,
       addCircleOutline,
       keyOutline,
+      heartOutline
     });
   }
 
