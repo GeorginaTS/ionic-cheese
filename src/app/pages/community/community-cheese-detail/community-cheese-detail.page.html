@@ -6,6 +6,11 @@
       text=""
     ></ion-back-button>
     <ion-title>Community cheeses</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="shareCheese()" fill="clear">
+        <ion-icon name="share-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -223,9 +228,15 @@
             @if (cheese.taste.visual.rate) {
             <div class="taste-rating">
               <span class="rating-label">Rating:</span>
-              <span class="rating-value"
-                >{{ cheese.taste.visual.rate }}/5 ⭐</span
-              >
+              <div class="rating-value">
+                @for (star of getStarArray(cheese.taste.visual.rate); track
+                $index) {
+                <ion-icon name="star" class="star-filled"></ion-icon>
+                } @for (star of getEmptyStarArray(cheese.taste.visual.rate);
+                track $index) {
+                <ion-icon name="star-outline" class="star-empty"></ion-icon>
+                }
+              </div>
             </div>
             } @if (cheese.taste.visual.text) {
             <p class="taste-text">{{ cheese.taste.visual.text }}</p>
@@ -237,9 +248,15 @@
             @if (cheese.taste.flavor.rate) {
             <div class="taste-rating">
               <span class="rating-label">Rating:</span>
-              <span class="rating-value"
-                >{{ cheese.taste.flavor.rate }}/5 ⭐</span
-              >
+              <div class="rating-value">
+                @for (star of getStarArray(cheese.taste.flavor.rate); track
+                $index) {
+                <ion-icon name="star" class="star-filled"></ion-icon>
+                } @for (star of getEmptyStarArray(cheese.taste.flavor.rate);
+                track $index) {
+                <ion-icon name="star-outline" class="star-empty"></ion-icon>
+                }
+              </div>
             </div>
             } @if (cheese.taste.flavor.text) {
             <p class="taste-text">{{ cheese.taste.flavor.text }}</p>
@@ -251,9 +268,15 @@
             @if (cheese.taste.aroma.rate) {
             <div class="taste-rating">
               <span class="rating-label">Rating:</span>
-              <span class="rating-value"
-                >{{ cheese.taste.aroma.rate }}/5 ⭐</span
-              >
+              <div class="rating-value">
+                @for (star of getStarArray(cheese.taste.aroma.rate); track
+                $index) {
+                <ion-icon name="star" class="star-filled"></ion-icon>
+                } @for (star of getEmptyStarArray(cheese.taste.aroma.rate);
+                track $index) {
+                <ion-icon name="star-outline" class="star-empty"></ion-icon>
+                }
+              </div>
             </div>
             } @if (cheese.taste.aroma.text) {
             <p class="taste-text">{{ cheese.taste.aroma.text }}</p>
@@ -265,9 +288,15 @@
             @if (cheese.taste.texture.rate) {
             <div class="taste-rating">
               <span class="rating-label">Rating:</span>
-              <span class="rating-value"
-                >{{ cheese.taste.texture.rate }}/5 ⭐</span
-              >
+              <div class="rating-value">
+                @for (star of getStarArray(cheese.taste.texture.rate); track
+                $index) {
+                <ion-icon name="star" class="star-filled"></ion-icon>
+                } @for (star of getEmptyStarArray(cheese.taste.texture.rate);
+                track $index) {
+                <ion-icon name="star-outline" class="star-empty"></ion-icon>
+                }
+              </div>
             </div>
             } @if (cheese.taste.texture.text) {
             <p class="taste-text">{{ cheese.taste.texture.text }}</p>
@@ -279,9 +308,15 @@
             @if (cheese.taste.taste.rate) {
             <div class="taste-rating">
               <span class="rating-label">Rating:</span>
-              <span class="rating-value"
-                >{{ cheese.taste.taste.rate }}/5 ⭐</span
-              >
+              <div class="rating-value">
+                @for (star of getStarArray(cheese.taste.taste.rate); track
+                $index) {
+                <ion-icon name="star" class="star-filled"></ion-icon>
+                } @for (star of getEmptyStarArray(cheese.taste.taste.rate);
+                track $index) {
+                <ion-icon name="star-outline" class="star-empty"></ion-icon>
+                }
+              </div>
             </div>
             } @if (cheese.taste.taste.text) {
             <p class="taste-text">{{ cheese.taste.taste.text }}</p>

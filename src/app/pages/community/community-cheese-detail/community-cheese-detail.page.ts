@@ -24,6 +24,8 @@ import {
   personOutline,
   calendarOutline,
   warningOutline,
+  star,
+  starOutline,
 } from 'ionicons/icons';
 
 import { Cheese } from '../../../interfaces/cheese';
@@ -32,6 +34,7 @@ import { CheeseDetailImagesComponent } from 'src/app/components/my-cheeses/chees
 import { Share } from '@capacitor/share';
 import { UserDisplaynameComponent } from 'src/app/components/user-displayname/user-displayname.component';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
   selector: 'app-community-cheese-detail',
@@ -45,6 +48,7 @@ import { MenuComponent } from 'src/app/components/menu/menu.component';
     IonHeader,
     IonTitle,
     IonToolbar,
+    IonButtons,
     IonBackButton,
     IonButton,
     IonIcon,
@@ -63,6 +67,7 @@ export class CommunityCheeseDetailPage implements OnInit {
   private router = inject(Router);
   private cheeseService = inject(CheeseService);
   private toastController = inject(ToastController);
+  private seoService = inject(SeoService);
 
   cheese: Cheese | null = null;
   loading = true;
@@ -74,6 +79,8 @@ export class CommunityCheeseDetailPage implements OnInit {
       personOutline,
       calendarOutline,
       warningOutline,
+      star,
+      starOutline,
     });
   }
 
@@ -108,6 +115,8 @@ export class CommunityCheeseDetailPage implements OnInit {
           this.error = 'Cheese not found or not public';
         } else {
           this.cheese = cheese;
+          // Actualitzar SEO amb les dades del formatge
+          this.updateSEO(cheese);
         }
         this.loading = false;
       },
@@ -173,5 +182,52 @@ export class CommunityCheeseDetailPage implements OnInit {
       });
       await toast.present();
     }
+  }
+
+  // Helper methods for star rating display
+  getStarArray(rating?: number): number[] {
+    const filledStars = Math.floor(rating || 0);
+    return Array(filledStars).fill(0);
+  }
+
+  getEmptyStarArray(rating?: number): number[] {
+    const filledStars = Math.floor(rating || 0);
+    const emptyStars = 5 - filledStars;
+    return Array(emptyStars).fill(0);
+  }
+
+  /**
+   * Actualitza les meta tags SEO amb les dades del formatge
+   */
+  private updateSEO(cheese: Cheese): void {
+    // Actualitzar meta tags bàsiques
+    this.seoService.updateCheeseMeta({
+      _id: cheese._id,
+      name: cheese.name,
+      description: cheese.description || `Artisan Cheese ${cheese.name}`,
+      milkType: cheese.milkType,
+      milkOrigin: cheese.milkOrigin,
+      imageUrl: cheese.imageUrl,
+      userId: cheese.userId,
+      createdAt:
+        typeof cheese.date === 'string'
+          ? cheese.date
+          : cheese.date.toISOString(),
+    });
+
+    // Afegir structured data per rich snippets
+    this.seoService.addCheeseStructuredData({
+      _id: cheese._id,
+      name: cheese.name,
+      description: cheese.description || `Artisan Cheese ${cheese.name}`,
+      imageUrl: cheese.imageUrl,
+      milkType: cheese.milkType,
+      createdAt:
+        typeof cheese.date === 'string'
+          ? cheese.date
+          : cheese.date.toISOString(),
+    });
+
+    console.log('🔍 SEO updated for cheese:', cheese.name);
   }
 }

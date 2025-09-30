@@ -1,4 +1,4 @@
-import { FieldValue } from "@angular/fire/firestore";
+import { FieldValue } from '@angular/fire/firestore';
 
 export interface AppUser {
   uid: string;
@@ -11,4 +11,6 @@ export interface AppUser {
   city?: string;
   createdAt?: Date | FieldValue;
   updatedAt?: Date | FieldValue;
+  pushToken?: string;
+  pushTokenUpdatedAt?: Date | FieldValue;
 }

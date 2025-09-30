@@ -32,6 +32,15 @@ A comprehensive hybrid application built with **Ionic 8** and **Angular 20** for
 - **🛡️ Security Rules**: Firestore security with user-based access control
 - **📱 Cross-Platform**: Seamless experience across web, iOS, and Android
 
+### 🔍 SEO & Performance
+
+- **🏷️ Dynamic Meta Tags**: Automatic title, description, and keywords for each cheese
+- **📊 Open Graph Support**: Rich social media sharing with previews
+- **🐦 Twitter Cards**: Optimized Twitter sharing experience
+- **🎯 Structured Data**: JSON-LD schema markup for Google rich snippets
+- **🔗 Canonical URLs**: Proper URL canonicalization to avoid duplicate content
+- **📱 Push Notifications**: Firebase Cloud Messaging with token management
+
 ## 🛠️ Technology Stack
 
 ### Core Features
@@ -51,9 +60,11 @@ A comprehensive hybrid application built with **Ionic 8** and **Angular 20** for
 ### Technical Features
 - 🎨 **Modern UI**: Global CSS classes system with Tailwind CSS integration
 - 🏗️ **Standalone Components**: Angular 20 standalone architecture with modern @if/@for syntax
-- 🔥 **Firebase Integration**: Complete Firebase ecosystem (Auth, Firestore, Storage)
+- 🔥 **Firebase Integration**: Complete Firebase ecosystem (Auth, Firestore, Storage, Cloud Messaging)
 - 📱 **Native Features**: Camera, sharing, and filesystem access via Capacitor
 - 🎯 **Optimized Performance**: Minimal SCSS with utility-first CSS approach
+- 🔍 **SEO Optimized**: Dynamic meta tags, Open Graph, Twitter Cards, and structured data
+- 📲 **Push Notifications**: Firebase Cloud Messaging with comprehensive error handling
 
 ## 🛠️ Technology Stack
 
@@ -135,6 +146,7 @@ ionic-cheese/
 │   │   │   ├── 📄 firestore.service.ts  # Database operations
 │   │   │   ├── 📄 network.service.ts    # Connection monitoring
 │   │   │   ├── 📄 push.service.ts       # Push notifications
+│   │   │   ├── 📄 seo.service.ts        # SEO meta tags & structured data
 │   │   │   └── 📄 focus-manager.service.ts # UI focus management
 │   │   │
 │   │   ├── 📁 interfaces/               # TypeScript type definitions
@@ -191,7 +203,69 @@ ionic-cheese/
 - **CSS Variables**: Consistent theming across components
 - **Component Isolation**: Scoped styles where needed
 
-## 🚀 Getting Started
+## � SEO Implementation
+
+### Features
+
+- **🎯 Dynamic Meta Tags**: Automatic title, description, and keywords generation
+- **📊 Open Graph**: Rich social media previews for Facebook, LinkedIn, etc.
+- **🐦 Twitter Cards**: Optimized Twitter sharing with image previews
+- **📱 JSON-LD Structured Data**: Schema.org markup for Google rich snippets
+- **🔗 Canonical URLs**: Proper URL canonicalization
+- **🔄 Real-time Updates**: SEO data updates automatically when content loads
+
+### SEO Service Usage
+
+```typescript
+// Inject the SEO service in your component
+private seoService = inject(SeoService);
+
+// Update meta tags for cheese details
+this.seoService.updateCheeseMeta({
+  _id: cheese._id,
+  name: cheese.name,
+  description: cheese.description,
+  milkType: cheese.milkType,
+  milkOrigin: cheese.milkOrigin,
+  imageUrl: cheese.imageUrl,
+  userId: cheese.userId,
+  createdAt: cheese.createdAt
+});
+
+// Add structured data for rich snippets
+this.seoService.addCheeseStructuredData(cheese);
+
+// Update community page meta tags
+this.seoService.updateCommunityMeta();
+
+// Reset to default meta tags
+this.seoService.resetToDefault();
+```
+
+### Structured Data Output
+
+The SEO service generates JSON-LD structured data like:
+
+```json
+{
+  "@context": "https://schema.org/",
+  "@type": "Food",
+  "name": "Manchego Artesà",
+  "description": "Formatge de llet d'ovella amb 6 mesos de maduració",
+  "image": "https://firebasestorage.googleapis.com/...",
+  "category": "Cheese",
+  "ingredient": [{
+    "@type": "Ingredient",
+    "name": "Llet d'ovella"
+  }],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Caseus"
+  }
+}
+```
+
+## �🚀 Getting Started
 
 ### Prerequisites
 
@@ -368,4 +442,4 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 
 ---
 
-> **Made with ♥️ for the artisan cheese community** 
+> **Made with ♥️ for the artisan cheese community**
