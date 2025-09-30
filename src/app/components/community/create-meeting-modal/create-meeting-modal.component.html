@@ -1,0 +1,177 @@
+<ion-header>
+    <div class="flex items-center justify-between px-4 py-2 border-b">
+    <ion-title>Create New Meeting</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()" fill="clear">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons></div>
+</ion-header>
+
+<ion-content class="modal-content">
+  <form [formGroup]="meetingForm" (ngSubmit)="onSubmit()" class="meeting-form">
+    <ion-card>
+      <ion-card-content>
+        <!-- Title Field -->
+        <ion-item>
+          <ion-label position="stacked">
+            <ion-icon name="document-text-outline"></ion-icon>
+            Event Title *
+          </ion-label>
+          <ion-input
+            formControlName="title"
+            placeholder="e.g., Spring Cheese Tasting"
+            [class.ion-invalid]="
+              meetingForm.get('title')?.invalid &&
+              meetingForm.get('title')?.touched
+            "
+          ></ion-input>
+        </ion-item>
+        @if (getErrorMessage('title')) {
+        <div class="error-message">{{ getErrorMessage("title") }}</div>
+        }
+
+        <!-- Description Field -->
+        <ion-item>
+          <ion-label position="stacked">
+            <ion-icon name="document-text-outline"></ion-icon>
+            Description *
+          </ion-label>
+          <ion-textarea
+            formControlName="description"
+            placeholder="Describe your event in detail..."
+            rows="3"
+            [class.ion-invalid]="
+              meetingForm.get('description')?.invalid &&
+              meetingForm.get('description')?.touched
+            "
+          ></ion-textarea>
+        </ion-item>
+        @if (getErrorMessage('description')) {
+        <div class="error-message">{{ getErrorMessage("description") }}</div>
+        }
+
+        <!-- Date Field -->
+        <ion-item>
+          <ion-label position="stacked">
+            <ion-icon name="calendar-outline"></ion-icon>
+            Date *
+          </ion-label>
+          <ion-datetime
+            formControlName="date"
+            presentation="date"
+            [class.ion-invalid]="
+              meetingForm.get('date')?.invalid &&
+              meetingForm.get('date')?.touched
+            "
+          ></ion-datetime>
+        </ion-item>
+        @if (getErrorMessage('date')) {
+        <div class="error-message">{{ getErrorMessage("date") }}</div>
+        }
+
+        <!-- Time Field -->
+        <ion-item>
+          <ion-label position="stacked">
+            <ion-icon name="time-outline"></ion-icon>
+            Time *
+          </ion-label>
+          <ion-datetime
+            formControlName="time"
+            presentation="time"
+            [class.ion-invalid]="
+              meetingForm.get('time')?.invalid &&
+              meetingForm.get('time')?.touched
+            "
+          ></ion-datetime>
+        </ion-item>
+        @if (getErrorMessage('time')) {
+        <div class="error-message">{{ getErrorMessage("time") }}</div>
+        }
+
+        <!-- Location Field -->
+        <ion-item>
+          <ion-label position="stacked">
+            <ion-icon name="location-outline"></ion-icon>
+            Location *
+          </ion-label>
+          <ion-input
+            formControlName="location"
+            placeholder="e.g., Cheese Corner, Barcelona"
+            [class.ion-invalid]="
+              meetingForm.get('location')?.invalid &&
+              meetingForm.get('location')?.touched
+            "
+          ></ion-input>
+        </ion-item>
+        @if (getErrorMessage('location')) {
+        <div class="error-message">{{ getErrorMessage("location") }}</div>
+        }
+
+        <!-- Event Type Field -->
+        <ion-item>
+          <ion-label position="stacked">
+            <ion-icon name="people-outline"></ion-icon>
+            Event Type *
+          </ion-label>
+          <ion-select formControlName="type" placeholder="Select event type">
+            <ion-select-option value="tasting"
+              >Cheese Tasting</ion-select-option
+            >
+            <ion-select-option value="workshop">Workshop</ion-select-option>
+            <ion-select-option value="visit">Farm Visit</ion-select-option>
+            <ion-select-option value="pairing">Wine Pairing</ion-select-option>
+            <ion-select-option value="meetup">Social Meetup</ion-select-option>
+            <ion-select-option value="competition"
+              >Competition</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <!-- Max Participants Field -->
+        <ion-item>
+          <ion-label position="stacked">
+            <ion-icon name="people-outline"></ion-icon>
+            Max Participants *
+          </ion-label>
+          <ion-input
+            formControlName="maxParticipants"
+            type="number"
+            min="2"
+            max="50"
+            placeholder="10"
+            [class.ion-invalid]="
+              meetingForm.get('maxParticipants')?.invalid &&
+              meetingForm.get('maxParticipants')?.touched
+            "
+          ></ion-input>
+        </ion-item>
+        @if (getErrorMessage('maxParticipants')) {
+        <div class="error-message">
+          {{ getErrorMessage("maxParticipants") }}
+        </div>
+        }
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Action Buttons -->
+    <div class="form-actions">
+      <ion-button
+        expand="block"
+        type="submit"
+        [disabled]="meetingForm.invalid"
+        class="create-button"
+      >
+        Create Event
+      </ion-button>
+      <ion-button
+        expand="block"
+        fill="outline"
+        (click)="closeModal()"
+        class="cancel-button"
+      >
+        Cancel
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

@@ -67,8 +67,9 @@ export class LovedCheesesPage implements OnInit {
     this.cheeseService.getAllPublicCheeses().subscribe({
       next: (response) => {
         // Filtrar els formatges que l'usuari actual ha posat like
-        this.lovedCheeses = response.cheeses.filter(cheese => 
-          cheese.likedBy && cheese.likedBy.includes(this.currentUser.uid)
+        this.lovedCheeses = response.cheeses.filter(
+          (cheese) =>
+            cheese.likedBy && cheese.likedBy.includes(this.currentUser.uid)
         );
         this.loading = false;
         console.log('Loved cheeses loaded:', this.lovedCheeses.length);
@@ -83,7 +84,9 @@ export class LovedCheesesPage implements OnInit {
 
   onCheeseUpdated(updatedCheese: Cheese) {
     // Actualitzar el formatge a la llista quan es modifica (per exemple, quan es treu el like)
-    const index = this.lovedCheeses.findIndex(cheese => cheese._id === updatedCheese._id);
+    const index = this.lovedCheeses.findIndex(
+      (cheese) => cheese._id === updatedCheese._id
+    );
     if (index !== -1) {
       // Si l'usuari ha tret el like, eliminar el formatge de la llista
       if (!updatedCheese.likedBy?.includes(this.currentUser.uid)) {

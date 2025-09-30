@@ -8,40 +8,40 @@
 <ion-content [fullscreen]="true" class="page-container">
   <div class="content-area">
     @if (loading) {
-      <div class="loading-container">
-        <ion-spinner name="dots" class="custom-spinner"></ion-spinner>
-        <p class="text-secondary">Loading your loved cheeses...</p>
-      </div>
+    <div class="loading-container">
+      <ion-spinner name="dots" class="custom-spinner"></ion-spinner>
+      <p class="text-secondary">Loading your loved cheeses...</p>
+    </div>
     } @else if (error) {
-      <ion-card class="error-card">
-        <ion-card-content>
-          <p class="error-text">{{ error }}</p>
-        </ion-card-content>
-      </ion-card>
-    } @else {
-      @if (lovedCheeses.length > 0) {
-        <div class="grid-container">
-          @for (cheese of lovedCheeses; track cheese._id) {
-            <app-community-cheese-card
-              [cheese]="cheese"
-              (cheeseUpdated)="onCheeseUpdated($event)">
-            </app-community-cheese-card>
-          }
-        </div>
-      } @else {
-        <ion-card class="empty-state-card">
-          <ion-card-content>
-            <div class="empty-state">
-              <ion-icon name="heart-outline" class="empty-icon"></ion-icon>
-              <h2>No Loved Cheeses Yet</h2>
-              <p class="text-secondary">
-                Explore the community and start loving some cheeses to see them here!
-              </p>
-            </div>
-          </ion-card-content>
-        </ion-card>
+    <ion-card class="error-card">
+      <ion-card-content>
+        <p class="error-text">{{ error }}</p>
+      </ion-card-content>
+    </ion-card>
+    } @else { @if (lovedCheeses.length > 0) {
+    <div class="grid-container">
+      @for (cheese of lovedCheeses; track cheese._id) {
+      <app-community-cheese-card
+        [cheese]="cheese"
+        (cheeseUpdated)="onCheeseUpdated($event)"
+      >
+      </app-community-cheese-card>
       }
-    }
+    </div>
+    } @else {
+    <ion-card class="empty-state-card">
+      <ion-card-content>
+        <div class="empty-state">
+          <ion-icon name="heart-outline" class="empty-icon"></ion-icon>
+          <h2>No Loved Cheeses Yet</h2>
+          <p class="text-secondary">
+            Explore the community and start loving some cheeses to see them
+            here!
+          </p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+    } }
   </div>
 </ion-content>
 <app-menu></app-menu>

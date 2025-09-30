@@ -34,7 +34,9 @@ export const routes: Routes = [
   {
     path: 'loved-cheeses',
     loadComponent: () =>
-      import('./pages/loved-cheeses/loved-cheeses.page').then((m) => m.LovedCheesesPage),
+      import('./pages/loved-cheeses/loved-cheeses.page').then(
+        (m) => m.LovedCheesesPage
+      ),
     canActivate: [AuthGuard],
   },
   {
