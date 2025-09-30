@@ -1,70 +1,90 @@
 <ion-card class="cheese-detail-card">
-  <div class="flex gap-4 items-start p-2">
+  @if (cheese$ | async; as cheeseData) {
+  <div class="flex gap-4 items-start p-2" (click)="onCheeseCardClick()">
     <!-- Columna Izquierda: Información -->
     <div class="cheese-info-container flex-1">
       <!-- Línea 1: Título del formatge -->
       <ion-card-title
         class="cheese-title-primary cursor-pointer m-0 leading-tight"
-        (click)="onCheeseCardClick()"
-        >{{ cheese.name }}</ion-card-title
+        >{{ cheeseData.name }}</ion-card-title
       >
 
       <!-- Línea 2: Usuario y fecha -->
       <div class="cheese-info-row">
-        <app-user-displayname [userId]="cheese.userId"></app-user-displayname>
+        <app-user-displayname
+          [userId]="cheeseData.userId"
+        ></app-user-displayname>
         <span class="text-gray-500">•</span>
-        <span class="text-gray-500">{{ cheese.date | date : "MMM yyyy" }}</span>
+        <span class="text-gray-500">{{
+          cheeseData.date | date : "MMM yyyy"
+        }}</span>
       </div>
 
       <!-- Línea 3: Información de la leche -->
       <div class="text-sm text-gray-500 leading-relaxed">
-        Made from {{ cheese.milkQuantity }}L of {{ cheese.milkOrigin }}
-        {{ cheese.milkType }} milk
+        Made from {{ cheeseData.milkQuantity }}L of {{ cheeseData.milkOrigin }}
+        {{ cheeseData.milkType }} milk
       </div>
     </div>
 
     <!-- Columna Derecha: Foto -->
     <div class="w-20 h-20 flex-shrink-0">
+      @if (imageUrl && imageUrl !== '') {
       <img
         [src]="imageUrl"
-        [alt]="cheese.name"
+        [alt]="cheeseData.name"
         (error)="onImageError($event)"
-        class="w-full h-full object-cover rounded-lg"
+        class="w-full h-full object-cover rounded-lg cursor-pointer"
+        (click)="onCheeseCardClick()"
       />
+      } @else {
+      <img
+        src="/assets/img/my-cheese-default.jpg"
+        [alt]="cheeseData.name"
+        class="w-full h-full object-cover rounded-lg cursor-pointer"
+        (click)="onCheeseCardClick()"
+      />
+      }
     </div>
   </div>
 
   <!-- Actions -->
-  <div class="post-actions-container w-full">
-    <div class="flex gap-2 items-center">
+  <div class="w-full flex gap-24 items-center justify-center bg-amber-50">
+    <div class="w-fit flex gap-1 items-center ">
       <ion-button
         fill="clear"
         size="small"
         (click)="onToggleLike()"
         class="post-action-button"
+        [disabled]="!currentUser"
       >
         <ion-icon
           [name]="
-            cheese.likedBy?.includes(currentUser?.uid ?? '') === true
+            cheeseData.likedBy?.includes(currentUser?.uid ?? '') === true
               ? 'heart'
               : 'heart-outline'
           "
           color="danger"
-          class="cursor-pointer ml-2"
+          class="post-action-button"
         ></ion-icon>
       </ion-button>
-      <span class="text-sm text-gray-600">{{ cheese.likedBy?.length || 0 }}</span>
+      <span class="text-sm text-gray-600">{{
+        cheeseData.likedBy?.length || 0
+      }}</span>
     </div>
+    <div>
     <ion-button
       fill="clear"
       size="small"
       (click)="
-        onShareCheese($event, cheese.name, 'Check out this amazing cheese!')
+        onShareCheese($event, cheeseData.name, 'Check out this amazing cheese!')
       "
       class="post-action-button"
     >
       <ion-icon name="share-outline"></ion-icon>
       Share
     </ion-button>
+    </div>
   </div>
+  }
 </ion-card>

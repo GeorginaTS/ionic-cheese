@@ -33,7 +33,7 @@
   </div>
 
   <!-- Stats Section -->
-  <div class="flex gap-2 justify-around items-center">
+  <div class="flex gap-2 justify-around items-center mb-4">
     <div
       class="stat-item flex flex-col items-center text-center bg-stone-200 p-3 rounded-xl shadow-md"
       (click)="goToMyCheeses()"
@@ -52,9 +52,10 @@
         >
       </div>
     </div>
-  
+
     <div
       class="stat-item flex flex-col items-center text-center bg-stone-200 p-3 rounded-xl shadow-md"
+      (click)="goToLovedCheeses()"
     >
       <ion-icon
         name="heart-outline"
@@ -62,7 +63,9 @@
         class="text-3xl mb-2"
       ></ion-icon>
       <div class="flex flex-col items-center">
-        <span class="text-xl font-bold text-primary">32</span>
+        <span class="text-xl font-bold text-primary"
+          >{{ userLikedCheesesCount }}</span
+        >
         <span class="text-sm text-gray-500 uppercase tracking-wide"
           >Loved Cheeses</span
         >
@@ -87,7 +90,8 @@
               >Birth Date</span
             >
             <span class="text-base text-gray-800 font-medium">
-              {{ currentUser?.birthDate ? (currentUser.birthDate | date : 'MMM yyyy') : 'Not set' }}</span
+              {{ currentUser?.birthDate ? (currentUser.birthDate | date : 'MMM
+              yyyy') : 'Not set' }}</span
             >
           </div>
         </div>

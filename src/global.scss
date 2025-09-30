@@ -266,7 +266,14 @@ ion-card {
 /* Botons globals per actions de posts (like, share, etc.) */
 .post-action-button {
   --background: transparent;
+  --background-activated: transparent;
+  --background-focused: transparent;
+  --background-hover: white;
   --color: var(--ion-color-medium);
+  --color-activated: var(--ion-color-primary);
+  --color-focused: var(--ion-color-primary);
+  --color-hover: var(--ion-color-primary);
+  --ripple-color: var(--ion-color-primary);
   --padding-start: var(--spacing-sm);
   --padding-end: var(--spacing-sm);
   margin: 0;
@@ -288,12 +295,23 @@ ion-card {
     transform: translateY(-1px);
   }
 
-  &.liked {
-    --color: var(--ion-color-danger);
+  &:active,
+  &:focus {
+    --background: transparent !important;
+    transform: translateY(-1px);
+  }
 
-    ion-icon {
-      color: var(--ion-color-danger);
-    }
+  &.active {
+    --color: var(--ion-color-primary);
+    --background: transparent !important;
+    transform: translateY(-1px);
+  }
+
+  // Assegurar que després del clic torni a l'estat normal
+  &:not(:hover):not(:active):not(:focus):not(.active) {
+    --background: transparent;
+    --color: var(--ion-color-medium);
+    transform: translateY(0);
   }
 }
 
@@ -312,6 +330,7 @@ ion-card {
 
 .cheese-detail-card {
   margin-bottom: var(--spacing-md);
+  max-width: 420px;
 }
 
 .cheese-image-container {

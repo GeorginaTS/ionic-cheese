@@ -1,0 +1,55 @@
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+  
+  p {
+    margin-top: 1rem;
+  }
+}
+
+.error-card {
+  margin: 1rem;
+  
+  .error-text {
+    color: var(--ion-color-danger);
+    text-align: center;
+  }
+}
+
+.grid-container {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.empty-state-card {
+  margin: 2rem 1rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem 1rem;
+  
+  .empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+    color: var(--ion-color-medium);
+  }
+  
+  h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--ion-color-medium);
+  }
+  
+  p {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}

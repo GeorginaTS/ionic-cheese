@@ -46,15 +46,36 @@
       <ion-card-content>
         <h1 class="cheese-title-primary">{{ cheese.name }}</h1>
 
-          <div class="cheese-info-container">
-            <app-user-displayname
-              [userId]="cheese.userId"
-            ></app-user-displayname>
-            <div class="cheese-info-row">
-              <ion-icon name="calendar-outline" color="tertiary"></ion-icon>
-              <span>{{ formatDate(cheese.date) }}</span>
+        <div class="cheese-info-container">
+          <app-user-displayname [userId]="cheese.userId"></app-user-displayname>
+          <div class="cheese-info-row">
+            <ion-icon name="calendar-outline" color="tertiary"></ion-icon>
+            <span>{{ formatDate(cheese.date) }}</span>
+          </div>
+          <!-- Like Button -->
+          <div class="flex items-center gap-2 w-full justify-center">
+            <div class="w-fit flex items-center"><ion-button
+              fill="clear"
+              size="small"
+              (click)="onToggleLike()"
+              [disabled]="!currentUser"
+              class="post-action-button"
+            >
+              <ion-icon
+                [name]="
+                  cheese.likedBy?.includes(currentUser?.uid ?? '') === true
+                    ? 'heart'
+                    : 'heart-outline'
+                "
+                color="danger"
+              ></ion-icon>
+            </ion-button>
+            <span class="text-sm text-gray-600"
+              >{{ cheese.likedBy?.length || 0 }}</span
+            >
             </div>
           </div>
+        </div>
       </ion-card-content>
     </ion-card>
 
@@ -226,7 +247,6 @@
             <h4 class="taste-section-title">Visual</h4>
             @if (cheese.taste.visual.rate) {
             <div class="taste-rating">
-              <span class="rating-label">Rating:</span>
               <div class="rating-value">
                 @for (star of getStarArray(cheese.taste.visual.rate); track
                 $index) {
@@ -246,7 +266,6 @@
             <h4 class="taste-section-title">Flavor</h4>
             @if (cheese.taste.flavor.rate) {
             <div class="taste-rating">
-              <span class="rating-label">Rating:</span>
               <div class="rating-value">
                 @for (star of getStarArray(cheese.taste.flavor.rate); track
                 $index) {
@@ -266,7 +285,6 @@
             <h4 class="taste-section-title">Aroma</h4>
             @if (cheese.taste.aroma.rate) {
             <div class="taste-rating">
-              <span class="rating-label">Rating:</span>
               <div class="rating-value">
                 @for (star of getStarArray(cheese.taste.aroma.rate); track
                 $index) {
@@ -286,7 +304,6 @@
             <h4 class="taste-section-title">Texture</h4>
             @if (cheese.taste.texture.rate) {
             <div class="taste-rating">
-              <span class="rating-label">Rating:</span>
               <div class="rating-value">
                 @for (star of getStarArray(cheese.taste.texture.rate); track
                 $index) {
@@ -338,17 +355,8 @@
         <div class="cheese-detail-item">
           <div class="cheese-info-container">
             <div class="cheese-info-row">
-              <span
-                style="
-                  background-color: var(--ion-color-tertiary);
-                  color: white;
-                  font-size: var(--font-size-xs);
-                  padding: var(--spacing-xs) var(--spacing-sm);
-                  border-radius: var(--border-radius-sm);
-                "
-                >{{ note.about }}</span
-              >
-              <span class="cheese-info-row">{{ formatDate(note.date) }}</span>
+              <span class="note-badge">{{ note.about }}</span>
+              <span>{{ formatDate(note.date) }}</span>
             </div>
             <p class="cheese-description">{{ note.notes }}</p>
           </div>
@@ -357,12 +365,17 @@
       </ion-card-content>
     </ion-card>
     }
-<div class="text-2xl">Liked by {{cheese.likedBy}}</div>
     <!-- Actions -->
-    <div class="actions-row">
-      <ion-button expand="block" fill="outline" (click)="shareCheese()">
-        <ion-icon name="share-outline" slot="start"></ion-icon>
-        Share Cheese
+    <div class="post-actions-container">
+      <!-- Share Button -->
+      <ion-button
+        fill="clear"
+        size="small"
+        (click)="shareCheese()"
+        class="post-action-button"
+      >
+        <ion-icon name="share-outline"></ion-icon>
+        Share
       </ion-button>
     </div>
   </div>
