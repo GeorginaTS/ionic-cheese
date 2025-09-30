@@ -1,0 +1,95 @@
+// Utilitzem classes globals i Tailwind, estils mínims personalitzats // Estils mínims per a missatges - usem classes globals i Tailwind
+.message-item {
+  &.own-message {
+    background: rgb(254 243 199); // bg-amber-100
+
+    .username {
+      color: rgb(146 64 14); // text-amber-800
+      font-weight: 600;
+    }
+  }
+
+  .delete-message-btn {
+    --padding-start: 6px;
+    --padding-end: 6px;
+    min-height: 28px;
+    min-width: 28px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+
+    ion-icon {
+      font-size: 16px;
+    }
+  }
+
+  &:hover .delete-message-btn {
+    opacity: 1;
+  }
+}
+
+// Estils per input de missatges - usem Tailwind i CSS variables d'Ionic
+.message-input {
+  ion-input {
+    --padding-start: 1rem;
+    --padding-end: 1rem;
+    --padding-top: 0.75rem;
+    --padding-bottom: 0.75rem;
+    --border-radius: 20px;
+    font-size: 14px;
+  }
+}
+
+.send-button {
+  --border-radius: 50%;
+  width: 44px;
+  height: 44px;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+// Estat buit - ús mínim d'estils personalitzats
+.no-room-selected ion-icon {
+  font-size: 4rem;
+  color: var(--ion-color-light);
+}
+
+// Responsive - estils mínims (la resta via Tailwind classes)
+@media (max-width: 768px) {
+  .send-button {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+// Dark mode i animacions
+@media (prefers-color-scheme: dark) {
+  .room-card.selected-room {
+    background: var(--ion-color-primary-shade);
+  }
+
+  .own-message {
+    background: rgb(120 53 15) !important; // bg-amber-800 for dark mode
+
+    .username {
+      color: rgb(254 243 199) !important; // text-amber-100 for dark mode
+    }
+  }
+}
+
+// Animació simple per als missatges
+.message-item {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -13,6 +13,9 @@
     <ion-segment-button value="meetings">
       <ion-label>Meetings</ion-label>
     </ion-segment-button>
+    <ion-segment-button value="chat">
+      <ion-label>Chat</ion-label>
+    </ion-segment-button>
   </ion-segment>
 
   <!-- Discover Section -->
@@ -23,6 +26,10 @@
   <!-- Meetings Section -->
   @if (selectedSegment === 'meetings') {
   <app-meetings-tab></app-meetings-tab>
+  }
+  <!-- Chat Section -->
+  @if (selectedSegment === 'chat') {
+  <app-chat-tab></app-chat-tab>
   }
 </ion-content>
 

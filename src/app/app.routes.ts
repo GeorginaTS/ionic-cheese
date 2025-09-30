@@ -16,6 +16,7 @@ export const routes: Routes = [
     path: 'community',
     loadComponent: () =>
       import('./pages/community/community.page').then((m) => m.CommunityPage),
+    canActivate: [AuthGuard],
   },
   {
     path: 'community/cheese/:id',
@@ -57,6 +58,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/world-cheeses/world-cheeses.page').then(
         (m) => m.WorldCheesesPage
+      ),
+  },
+  {
+    path: 'firebase-test',
+    loadComponent: () =>
+      import('./pages/firebase-test/firebase-test.page').then(
+        (m) => m.FirebaseTestPage
       ),
   },
   {
