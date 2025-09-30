@@ -147,4 +147,20 @@ export class CheeseService {
     const number = parseInt(numberPart);
     return isNaN(number) ? 0 : number;
   }
+
+ toggleLike(cheeseId: string): Observable<any> {
+  console.log('Toggling like for cheese:', cheeseId);
+  return this.authService.getIdToken$().pipe(
+    switchMap((token) => {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      return this.http.put<any>(
+        `${this.apiUrl}/public/like/${cheeseId}`,
+        {},  // ✅ Body buit (segon paràmetre)
+        { headers }  // ✅ Headers com a tercer paràmetre
+      );
+    })
+  );
+}
 }

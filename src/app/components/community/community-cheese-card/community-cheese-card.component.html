@@ -1,67 +1,60 @@
-<ion-card
-  class="cheese-detail-card"
-  style="padding: var(--spacing-md); cursor: pointer"
-  (click)="onCheeseCardClick()"
->
-  <div style="display: flex; gap: var(--spacing-md); align-items: flex-start">
+<ion-card class="cheese-detail-card">
+  <div class="flex gap-4 items-start p-2">
     <!-- Columna Izquierda: Información -->
-    <div class="cheese-info-container" style="flex: 1">
+    <div class="cheese-info-container flex-1">
       <!-- Línea 1: Título del formatge -->
       <ion-card-title
-        class="cheese-title-primary"
-        style="margin: 0; line-height: 1.2"
+        class="cheese-title-primary cursor-pointer m-0 leading-tight"
+        (click)="onCheeseCardClick()"
         >{{ cheese.name }}</ion-card-title
       >
 
       <!-- Línea 2: Usuario y fecha -->
       <div class="cheese-info-row">
         <app-user-displayname [userId]="cheese.userId"></app-user-displayname>
-        <span style="color: var(--ion-color-medium)">•</span>
-        <span style="color: var(--ion-color-medium)">{{
-          cheese.date | date : "MMM yyyy"
-        }}</span>
+        <span class="text-gray-500">•</span>
+        <span class="text-gray-500">{{ cheese.date | date : "MMM yyyy" }}</span>
       </div>
 
       <!-- Línea 3: Información de la leche -->
-      <div
-        style="
-          font-size: var(--font-size-sm);
-          color: var(--ion-color-medium);
-          line-height: 1.4;
-        "
-      >
+      <div class="text-sm text-gray-500 leading-relaxed">
         Made from {{ cheese.milkQuantity }}L of {{ cheese.milkOrigin }}
         {{ cheese.milkType }} milk
       </div>
     </div>
 
     <!-- Columna Derecha: Foto -->
-    <div style="width: 5rem; height: 5rem; flex-shrink: 0">
+    <div class="w-20 h-20 flex-shrink-0">
       <img
         [src]="imageUrl"
         [alt]="cheese.name"
         (error)="onImageError($event)"
-        style="
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          border-radius: var(--border-radius-md);
-        "
+        class="w-full h-full object-cover rounded-lg"
       />
     </div>
   </div>
 
   <!-- Actions -->
-  <div class="post-actions-container">
-    <ion-button
-      fill="clear"
-      size="small"
-      (click)="onLikeCheese($event, cheese._id)"
-      class="post-action-button"
-    >
-      <ion-icon name="heart-outline"></ion-icon>
-      Like
-    </ion-button>
+  <div class="post-actions-container w-full">
+    <div class="flex gap-2 items-center">
+      <ion-button
+        fill="clear"
+        size="small"
+        (click)="onToggleLike()"
+        class="post-action-button"
+      >
+        <ion-icon
+          [name]="
+            cheese.likedBy?.includes(currentUser?.uid ?? '') === true
+              ? 'heart'
+              : 'heart-outline'
+          "
+          color="danger"
+          class="cursor-pointer ml-2"
+        ></ion-icon>
+      </ion-button>
+      <span class="text-sm text-gray-600">{{ cheese.likedBy?.length || 0 }}</span>
+    </div>
     <ion-button
       fill="clear"
       size="small"

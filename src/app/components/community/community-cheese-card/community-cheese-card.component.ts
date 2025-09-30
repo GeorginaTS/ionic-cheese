@@ -8,12 +8,13 @@ import {
   IonIcon,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { heartOutline, shareOutline } from 'ionicons/icons';
+import { heart, heartOutline, shareOutline } from 'ionicons/icons';
 import { Cheese } from '../../../interfaces/cheese';
 import { CheeseService } from '../../../services/cheese.service';
 import { Share } from '@capacitor/share';
 import { UserProfileCardComponent } from '../../user-profile-card/user-profile-card.component';
 import { UserDisplaynameComponent } from '../../user-displayname/user-displayname.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-community-cheese-card',
@@ -34,13 +35,15 @@ export class CommunityCheeseCardComponent implements OnInit {
 
   private router = inject(Router);
   private cheeseService = inject(CheeseService);
+  private authService = inject(AuthService);
 
+  currentUser = this.authService.currentUser;
   imageUrl: string = 'assets/img/my-cheese-default.jpg';
 
   constructor() {
     addIcons({
       heartOutline,
-      shareOutline,
+      shareOutline, heart
     });
   }
 
@@ -90,9 +93,20 @@ export class CommunityCheeseCardComponent implements OnInit {
     target.src = 'assets/img/my-cheese-default.jpg';
   }
 
-  onLikeCheese(event: Event, cheeseId: string) {
-    event.stopPropagation(); // Prevent card click event
-    // TODO: Implement like functionality
-    console.log('Like cheese:', cheeseId);
+  onToggleLike() {
+    const currentUser = this.authService.currentUser;
+    if (!currentUser) {
+      console.error('User not authenticated');
+      this.router.navigate(['/login']);
+      return;
+    }
+    this.cheeseService.toggleLike(this.cheese._id).subscribe({
+      next: (response) => {
+        console.log('Like toggled successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error toggling like:', error);
+      },
+    });
   }
 }

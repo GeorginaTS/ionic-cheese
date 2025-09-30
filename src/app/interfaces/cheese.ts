@@ -14,6 +14,8 @@ export interface Cheese {
   making?: CheeseMaking;
   ripening?: CheeseRipening;
   taste?: CheeseTaste;
+  likedBy?: string[]; // Array of user IDs who liked the cheese
+  likesCount?: number; // Total number of likes
 }
 export interface CheeseMaking {
   milkTemperature?: string;
