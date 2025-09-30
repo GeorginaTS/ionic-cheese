@@ -46,7 +46,6 @@
       <ion-card-content>
         <h1 class="cheese-title-primary">{{ cheese.name }}</h1>
 
-        <div class="flex justify-between items-center">
           <div class="cheese-info-container">
             <app-user-displayname
               [userId]="cheese.userId"
@@ -56,11 +55,6 @@
               <span>{{ formatDate(cheese.date) }}</span>
             </div>
           </div>
-          <ion-button (click)="shareCheese()">
-            <ion-icon name="share-outline"></ion-icon>
-            Share
-          </ion-button>
-        </div>
       </ion-card-content>
     </ion-card>
 
