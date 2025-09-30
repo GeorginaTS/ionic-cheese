@@ -6,6 +6,32 @@ A comprehensive hybrid application built with **Ionic 8** and **Angular 20** for
 
 **🌐 Web App**: [https://cheese-29925.web.app/](https://cheese-29925.web.app/)
 
+## 🧭 Overview
+
+### Frontend
+
+- **Framework**: Ionic 8 + Angular 20
+- **Architecture**: Standalone Components (No NgModules)
+- **Syntax**: Modern `@if`/`@for` control flow
+- **Styling**: Tailwind CSS + Global SCSS utility classes
+- **State**: RxJS Observables + Signals
+
+### Backend & Services
+
+- **Authentication**: Firebase Auth (Google OAuth + Email/Password)
+- **Database**: MongoDB + Firebase Firestore
+- **API**: Express.js REST API
+- **Storage**: Firebase Storage for images
+- **Push**: Firebase Cloud Messaging
+
+### Mobile & Desktop
+
+- **Capacitor**: Native mobile app capabilities
+- **Platforms**: Web, iOS, Android
+- **PWA**: Progressive Web App features
+
+**🌐 Web App**: [https://cheese-29925.web.app/](https://cheese-29925.web.app/)
+
 ## ✨ Key Features
 
 ### 🏠 Personal Cheese Management
@@ -21,7 +47,10 @@ A comprehensive hybrid application built with **Ionic 8** and **Angular 20** for
 
 - **👥 Community Feed**: Browse public cheeses from global cheese makers
 - **❤️ Social Interactions**: Like and share functionality with native integration
-- **👤 User Profiles**: Comprehensive user information and cheese portfolios
+- **� Loved Cheeses**: Dedicated page to view all user's liked cheeses
+- **📅 Meeting Management**: Create and suggest community meetings and events
+- **🎪 Event Creation**: Modal-based event creation with form validation
+- **�👤 User Profiles**: Comprehensive user information and cheese portfolios with dynamic statistics
 - **🗺️ World Cheese Map**: Interactive Leaflet map with global cheese varieties
 - **🔍 Discovery**: Search and filter cheeses by type, origin, and characteristics
 - **💬 Real-time Chat**: General community chat with message management and deletion
@@ -43,9 +72,10 @@ A comprehensive hybrid application built with **Ionic 8** and **Angular 20** for
 - **🔗 Canonical URLs**: Proper URL canonicalization to avoid duplicate content
 - **📱 Push Notifications**: Firebase Cloud Messaging with token management
 
-## 🛠️ Technology Stack
+## 📱 Application Features
 
 ### Core Features
+
 - 📱 **Hybrid App**: Works on web, iOS and Android
 - 🔐 **Authentication**: Google Auth & Email/Password with Firebase Auth
 - 📸 **Photo Capture**: Document your cheeses with images using Capacitor Camera
@@ -53,10 +83,16 @@ A comprehensive hybrid application built with **Ionic 8** and **Angular 20** for
 - 📊 **Personal Management**: Complete cheese elaboration tracking and maturation
 
 ### Community Features (NEW! 🆕)
+
 - 👥 **Community Feed**: Browse and discover cheeses shared by other users
 - 🧀 **Cheese Details**: Comprehensive cheese information pages with Firebase Storage images
 - 👤 **User Profiles**: Display user information with profile cards and displayname components
-- 💬 **Social Interactions**: Like and share cheeses using native Capacitor Share
+- � **Loved Cheeses Page**: Dedicated page showing all cheeses the user has liked
+- 📊 **Dynamic Statistics**: Real-time counting of user's cheeses and liked cheeses in profile
+- 📅 **Meeting System**: Complete meeting/event management system with creation modal
+- 🎪 **Event Creation**: Interactive modal with form validation for suggesting new meetings
+- 📱 **Responsive Design**: Breakpoint-based modals with drag-to-resize functionality
+- �💬 **Social Interactions**: Like and share cheeses using native Capacitor Share
 - 🔄 **Real-time Updates**: Live data synchronization with Firestore
 - 💬 **Real-time Chat**: General community chat with Firebase Realtime Database
 - 🗑️ **Message Management**: Users can delete their own messages with hover UI
@@ -64,6 +100,7 @@ A comprehensive hybrid application built with **Ionic 8** and **Angular 20** for
 - 🎨 **Customized UI**: Amber-themed message styling for personal messages
 
 ### Technical Features
+
 - 🎨 **Modern UI**: Global CSS classes system with Tailwind CSS integration
 - 🏗️ **Standalone Components**: Angular 20 standalone architecture with modern @if/@for syntax
 - 🔥 **Firebase Integration**: Complete Firebase ecosystem (Auth, Firestore, Storage, Cloud Messaging)
@@ -72,9 +109,25 @@ A comprehensive hybrid application built with **Ionic 8** and **Angular 20** for
 - 🔍 **SEO Optimized**: Dynamic meta tags, Open Graph, Twitter Cards, and structured data
 - 📲 **Push Notifications**: Firebase Cloud Messaging with comprehensive error handling
 
+## 📸 Screenshots
+
+<!-- markdownlint-disable MD033 -->
+
+|                                                                                        Home & Authentication                                                                                        |                                                                                        My Cheeses Collection                                                                                        |                                                                                        Cheese Detail & Elaboration                                                                                        |                                                                                        Community Feed                                                                                        |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <a href="src/assets/img/screenshots/screenshot1.png" target="_blank" rel="noopener noreferrer"><img alt="Home & Authentication" src="src/assets/img/screenshots/screenshot1.png" width="220" /></a> | <a href="src/assets/img/screenshots/screenshot2.png" target="_blank" rel="noopener noreferrer"><img alt="My Cheeses Collection" src="src/assets/img/screenshots/screenshot2.png" width="220" /></a> | <a href="src/assets/img/screenshots/screenshot3.png" target="_blank" rel="noopener noreferrer"><img alt="Cheese Detail & Elaboration" src="src/assets/img/screenshots/screenshot3.png" width="220" /></a> | <a href="src/assets/img/screenshots/screenshot4.png" target="_blank" rel="noopener noreferrer"><img alt="Community Feed" src="src/assets/img/screenshots/screenshot4.png" width="220" /></a> |
+
+|                                                                                        Community Discover                                                                                        |                                                                                        Meetings & Events                                                                                        |                                                                                        Community Chat                                                                                        |                                                                                        User Profile                                                                                        |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <a href="src/assets/img/screenshots/screenshot5.png" target="_blank" rel="noopener noreferrer"><img alt="Community Discover" src="src/assets/img/screenshots/screenshot5.png" width="220" /></a> | <a href="src/assets/img/screenshots/screenshot6.png" target="_blank" rel="noopener noreferrer"><img alt="Meetings & Events" src="src/assets/img/screenshots/screenshot6.png" width="220" /></a> | <a href="src/assets/img/screenshots/screenshot7.png" target="_blank" rel="noopener noreferrer"><img alt="Community Chat" src="src/assets/img/screenshots/screenshot7.png" width="220" /></a> | <a href="src/assets/img/screenshots/screenshot8.png" target="_blank" rel="noopener noreferrer"><img alt="User Profile" src="src/assets/img/screenshots/screenshot8.png" width="220" /></a> |
+
+<!-- markdownlint-enable MD033 -->
+
+*Screenshots showcasing the main features: authentication, personal cheese management, community interactions, real-time chat, meeting system, user profiles, and loved cheeses collection.*
+
 ## 🛠️ Technology Stack
 
-### Frontend
+### Frontend (Stack)
 
 - **Framework**: Ionic 8 + Angular 20
 - **Architecture**: Standalone Components (No NgModules)
@@ -82,7 +135,7 @@ A comprehensive hybrid application built with **Ionic 8** and **Angular 20** for
 - **Styling**: Tailwind CSS + Global SCSS utility classes
 - **State**: RxJS Observables + Signals
 
-### Backend & Services
+### Backend & Services (Stack)
 
 - **Database**: Firebase Firestore (NoSQL) and MongoDB via ExpressJS APi Rest
 - **Real-time**: Firebase Realtime Database for chat messaging
@@ -113,7 +166,8 @@ ionic-cheese/
 │   │   │   │   ├── 📁 community-cheese-card/     # Community cheese cards
 │   │   │   │   ├── 📁 discover-tab/              # Discovery interface
 │   │   │   │   ├── 📁 chat-tab/                  # Real-time community chat
-│   │   │   │   └── 📁 meetings-tab/              # Community meetings
+│   │   │   │   ├── 📁 meetings-tab/              # Community meetings
+│   │   │   │   └── 📁 create-meeting-modal/      # Meeting creation modal
 │   │   │   │
 │   │   │   ├── 📁 my-cheeses/           # Personal cheese management
 │   │   │   │   ├── 📁 cheese-card/               # Personal cheese cards
@@ -142,6 +196,7 @@ ionic-cheese/
 │   │   │   ├── 📁 my-cheeses/           # Personal cheese collection
 │   │   │   ├── 📁 community/            # Community features
 │   │   │   │   └── 📁 community-cheese-detail/ # Public cheese details
+│   │   │   ├── 📁 loved-cheeses/        # User's liked cheeses collection
 │   │   │   ├── 📁 world-cheeses/        # Global cheese database
 │   │   │   └── 📁 profile/              # User profile management
 │   │   │
