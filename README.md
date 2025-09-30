@@ -24,6 +24,8 @@ A comprehensive hybrid application built with **Ionic 8** and **Angular 20** for
 - **👤 User Profiles**: Comprehensive user information and cheese portfolios
 - **🗺️ World Cheese Map**: Interactive Leaflet map with global cheese varieties
 - **🔍 Discovery**: Search and filter cheeses by type, origin, and characteristics
+- **💬 Real-time Chat**: General community chat with message management and deletion
+- **👥 User Presence**: See active community members in real-time
 
 ### 🔐 Authentication & Security
 
@@ -52,10 +54,14 @@ A comprehensive hybrid application built with **Ionic 8** and **Angular 20** for
 
 ### Community Features (NEW! 🆕)
 - 👥 **Community Feed**: Browse and discover cheeses shared by other users
-- � **Cheese Details**: Comprehensive cheese information pages with Firebase Storage images
+- 🧀 **Cheese Details**: Comprehensive cheese information pages with Firebase Storage images
 - 👤 **User Profiles**: Display user information with profile cards and displayname components
 - 💬 **Social Interactions**: Like and share cheeses using native Capacitor Share
 - 🔄 **Real-time Updates**: Live data synchronization with Firestore
+- 💬 **Real-time Chat**: General community chat with Firebase Realtime Database
+- 🗑️ **Message Management**: Users can delete their own messages with hover UI
+- 👥 **User Presence**: Real-time user status and activity tracking
+- 🎨 **Customized UI**: Amber-themed message styling for personal messages
 
 ### Technical Features
 - 🎨 **Modern UI**: Global CSS classes system with Tailwind CSS integration
@@ -79,7 +85,8 @@ A comprehensive hybrid application built with **Ionic 8** and **Angular 20** for
 ### Backend & Services
 
 - **Database**: Firebase Firestore (NoSQL) and MongoDB
-- **Authentication**: Firebase Auth
+- **Real-time**: Firebase Realtime Database for chat messaging
+- **Authentication**: Firebase Auth with multi-provider support
 - **Storage**: Firebase Storage + CDN
 - **Hosting**: Firebase Hosting
 - **Build**: Vite + Angular CLI
@@ -105,6 +112,7 @@ ionic-cheese/
 │   │   │   ├── 📁 community/
 │   │   │   │   ├── 📁 community-cheese-card/     # Community cheese cards
 │   │   │   │   ├── 📁 discover-tab/              # Discovery interface
+│   │   │   │   ├── 📁 chat-tab/                  # Real-time community chat
 │   │   │   │   └── 📁 meetings-tab/              # Community meetings
 │   │   │   │
 │   │   │   ├── 📁 my-cheeses/           # Personal cheese management
@@ -144,6 +152,7 @@ ionic-cheese/
 │   │   │   ├── 📄 world-cheeses.service.ts # Global cheese data
 │   │   │   ├── 📄 firebase-storage.service.ts # File uploads
 │   │   │   ├── 📄 firestore.service.ts  # Database operations
+│   │   │   ├── 📄 chat.service.ts       # Real-time chat & messaging
 │   │   │   ├── 📄 network.service.ts    # Connection monitoring
 │   │   │   ├── 📄 push.service.ts       # Push notifications
 │   │   │   ├── 📄 seo.service.ts        # SEO meta tags & structured data
@@ -152,7 +161,8 @@ ionic-cheese/
 │   │   ├── 📁 interfaces/               # TypeScript type definitions
 │   │   │   ├── 📄 cheese.ts             # Cheese data models
 │   │   │   ├── 📄 user.ts               # User data models
-│   │   │   └── 📄 world-cheese.ts       # Global cheese types
+│   │   │   ├── 📄 world-cheese.ts       # Global cheese types
+│   │   │   └── 📄 chat.ts               # Chat & messaging models
 │   │   │
 │   │   └── 📁 guards/                   # Route protection
 │   │
@@ -193,8 +203,57 @@ ionic-cheese/
 
 - **Authentication**: Multi-provider auth with security rules
 - **Firestore**: Document-based database with real-time sync
+- **Realtime Database**: Chat messaging with live updates
 - **Storage**: CDN-optimized image delivery
 - **Security**: Row-level security and data validation
+
+### Real-time Chat System 💬
+
+#### Chat Features
+
+- **🏠 General Chat Room**: Simplified single-room chat for community demo
+- **⚡ Real-time Messaging**: Instant message delivery with Firebase Realtime Database
+- **🗑️ Message Deletion**: Users can delete their own messages with hover-based UI
+- **🎨 Personalized UI**: Amber-themed styling for user's own messages
+- **👤 User Authentication**: Integrated with Firebase Auth for secure messaging
+- **📱 Responsive Design**: Mobile-optimized chat interface with Ionic components
+
+#### Technical Implementation
+
+```typescript
+// Chat Service Integration
+private chatService = inject(ChatService);
+private authService = inject(AuthService);
+
+// Send message
+async sendMessage() {
+  if (this.newMessage.trim()) {
+    await this.chatService.sendMessage({
+      message: this.newMessage.trim(),
+      roomId: 'general-chat',
+      userId: this.authService.currentUser.uid,
+      userName: this.authService.currentUser.displayName,
+      userAvatar: this.authService.currentUser.photoURL,
+      timestamp: Date.now()
+    });
+    this.newMessage = '';
+  }
+}
+
+// Delete own message
+async deleteMessage(message: ChatMessage) {
+  if (this.isOwnMessage(message) && message.id) {
+    await this.chatService.deleteMessage(message.id, message.roomId);
+  }
+}
+```
+
+#### Chat Interfaces
+
+- **ChatMessage**: Message data structure with user info and timestamps
+- **ChatRoom**: Room configuration and metadata
+- **UserPresence**: Real-time user activity tracking
+- **MessageStatus**: Delivery and read status management
 
 ### Styling Strategy
 
