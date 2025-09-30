@@ -9,7 +9,7 @@
 </div>
 } @else {
 <div class="container">
-  <p class="status-text">Here are some cheeses shared by the community:</p>
+  <p class="subtitle">Here are some cheeses shared by the community:</p>
 
   @for (cheese of visibleCheeses; track cheese._id) {
   <app-community-cheese-card [cheese]="cheese"> </app-community-cheese-card>

@@ -182,7 +182,7 @@ ion-card {
   background-color: white;
   width: 100%;
   max-width: 100%;
-  margin:0;
+  margin: 0;
 }
 
 /* Global Utility Classes */
@@ -379,5 +379,22 @@ ion-card {
 
   .value {
     color: var(--ion-color-dark);
+  }
+}
+
+// Star Rating Styles
+.rating-value {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+
+  .star-filled {
+    color: var(--ion-color-warning);
+    font-size: 1.2rem;
+  }
+
+  .star-empty {
+    color: var(--ion-color-light);
+    font-size: 1.2rem;
   }
 }

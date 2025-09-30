@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Firebase Test</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="page-container">
+    <h1>Firebase Connection Test</h1>
+
+    <ion-item>
+      <ion-label>
+        <h2>Connection Status</h2>
+        <p [style.color]="isConnected ? 'green' : 'red'">
+          {{ isConnected ? '✓ Connected' : '✗ Not Connected' }}
+        </p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h2>Test Result</h2>
+        <p style="white-space: pre-line; font-family: monospace">
+          {{ testResult }}
+        </p>
+      </ion-label>
+    </ion-item>
+
+    <ion-button expand="block" (click)="testWrite()" [disabled]="!isConnected">
+      Test Manual Write
+    </ion-button>
+
+    <ion-button expand="block" (click)="testFirebaseConnection()">
+      Retry Connection Test
+    </ion-button>
+  </div>
+</ion-content>

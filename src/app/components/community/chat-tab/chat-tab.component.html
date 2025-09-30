@@ -1,0 +1,129 @@
+<div class="chat-container page-container">
+  <!-- Loading indicator -->
+  @if (isLoading) {
+  <div class="text-center py-4">
+    <ion-spinner></ion-spinner>
+    <p class="text-secondary mt-2">Loading chat...</p>
+  </div>
+  }
+
+  <!-- General Chat Header -->
+  <section class="mb-4">
+    <ion-text>
+      <h2 class="text-primary font-semibold mb-2 flex items-center">
+        <ion-icon name="chatbubble-outline" class="mr-2"></ion-icon>
+        General Chat
+      </h2>
+    </ion-text>
+  </section>
+
+  <!-- Chat Messages Section -->
+  @if (!isLoading) {
+  <section>
+    <ion-card
+      class="card-container min-h-[500px] max-h-[600px] overflow-hidden flex flex-col"
+    >
+      <ion-card-content class="flex-1 overflow-y-auto max-h-[450px] p-0">
+        @if (isLoading) {
+        <div class="text-center py-12">
+          <ion-spinner name="crescent" class="text-primary"></ion-spinner>
+          <ion-text class="block mt-2 text-secondary"
+            >Loading messages...</ion-text
+          >
+        </div>
+        } @else {
+        <ion-list class="p-0">
+          @for (message of messages; track message.id) {
+          <ion-item
+            class="message-item border-b border-gray-100 p-4"
+            [class.own-message]="isOwnMessage(message)"
+          >
+            <ion-avatar slot="start" class="w-10 h-10 mr-4">
+              @if (message.userAvatar) {
+              <img [src]="message.userAvatar" [alt]="message.userName" />
+              } @else {
+              <ion-icon
+                name="person-outline"
+                class="text-2xl text-gray-500"
+              ></ion-icon>
+              }
+            </ion-avatar>
+
+            <ion-label>
+              <div class="flex items-center justify-between mb-1">
+                <div class="flex items-center">
+                  <ion-text class="username font-medium text-primary">
+                    {{ message.userName }}
+                  </ion-text>
+                  <ion-text
+                    class="text-xs text-gray-500 ml-2 flex items-center"
+                  >
+                    <ion-icon name="time-outline" class="mr-1"></ion-icon>
+                    {{ formatTime(message.timestamp) }}
+                  </ion-text>
+                </div>
+
+                <!-- Delete button for own messages -->
+                @if (isOwnMessage(message)) {
+                <ion-button
+                  fill="clear"
+                  size="small"
+                  color="danger"
+                  class="delete-message-btn"
+                  (click)="deleteMessage(message)"
+                >
+                  <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                </ion-button>
+                }
+              </div>
+              <div class="text-gray-800 leading-relaxed break-words">
+                {{ message.message }}
+              </div>
+            </ion-label>
+          </ion-item>
+          }
+        </ion-list>
+        }
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Message Input -->
+    <div class="mt-4">
+      <ion-card class="card-container">
+        <ion-card-content class="p-4">
+          <div class="flex items-end gap-3">
+            <ion-input
+              [(ngModel)]="newMessage"
+              placeholder="Type your message..."
+              class="message-input flex-1"
+              fill="outline"
+              rows="1"
+              auto-grow="true"
+              maxlength="500"
+              (keydown)="onEnter($event)"
+            >
+            </ion-input>
+
+            <ion-button
+              (click)="sendMessage()"
+              [disabled]="!newMessage.trim()"
+              class="send-button button-primary"
+              fill="solid"
+              color="primary"
+            >
+              <ion-icon name="send-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+          </div>
+
+          <div class="mt-2 text-center">
+            <ion-text class="text-xs text-secondary">
+              Press Enter to send • Shift+Enter for new line • Max 500
+              characters
+            </ion-text>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </section>
+  }
+</div>

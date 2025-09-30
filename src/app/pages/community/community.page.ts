@@ -14,6 +14,7 @@ import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { FocusManagerService } from 'src/app/services/focus-manager.service';
 import { DiscoverTabComponent } from '../../components/community/discover-tab/discover-tab.component';
 import { MeetingsTabComponent } from '../../components/community/meetings-tab/meetings-tab.component';
+import { ChatTabComponent } from '../../components/community/chat-tab/chat-tab.component';
 
 @Component({
   selector: 'app-community',
@@ -33,6 +34,7 @@ import { MeetingsTabComponent } from '../../components/community/meetings-tab/me
     MenuComponent,
     DiscoverTabComponent,
     MeetingsTabComponent,
+    ChatTabComponent,
   ],
 })
 export class CommunityPage implements OnInit {
