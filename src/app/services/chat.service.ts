@@ -226,8 +226,8 @@ export class ChatService {
             messages.push(message);
           });
         }
-        // Ordena per timestamp (Firebase pot no mantenir l'ordre)
-        messages.sort((a, b) => a.timestamp - b.timestamp);
+        // Ordena per timestamp descendentment (més nous primer)
+        messages.sort((a, b) => b.timestamp - a.timestamp);
         this.messagesSubject.next(messages);
       });
     });
@@ -437,7 +437,7 @@ export class ChatService {
               messages.push(message);
             });
           }
-          messages.sort((a, b) => a.timestamp - b.timestamp);
+          messages.sort((a, b) => b.timestamp - a.timestamp);
           observer.next(messages);
         });
       });

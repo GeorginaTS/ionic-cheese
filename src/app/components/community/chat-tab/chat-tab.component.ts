@@ -10,8 +10,6 @@ import { FormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   IonContent,
-  IonCard,
-  IonCardContent,
   IonItem,
   IonAvatar,
   IonLabel,
@@ -32,7 +30,6 @@ import {
 } from 'ionicons/icons';
 import { ChatService } from '../../../services/chat.service';
 import { AuthService } from '../../../services/auth.service';
-import { AppUser } from '../../../interfaces/user';
 import {
   ChatRoom,
   ChatMessage,
@@ -48,8 +45,6 @@ import {
   imports: [
     CommonModule,
     FormsModule,
-    IonCard,
-    IonCardContent,
     IonItem,
     IonAvatar,
     IonLabel,

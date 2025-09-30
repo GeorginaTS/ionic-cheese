@@ -7,7 +7,6 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
-  IonButtons,
   IonBackButton,
   IonButton,
   IonIcon,
@@ -48,7 +47,7 @@ import { SeoService } from 'src/app/services/seo.service';
     IonHeader,
     IonTitle,
     IonToolbar,
-    IonButtons,
+
     IonBackButton,
     IonButton,
     IonIcon,

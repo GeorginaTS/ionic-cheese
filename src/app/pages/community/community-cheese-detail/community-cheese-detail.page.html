@@ -1,16 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-back-button
-      defaultHref="/my-cheeses"
+      defaultHref="/community"
       slot="start"
       text=""
     ></ion-back-button>
     <ion-title>Community cheeses</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="shareCheese()" fill="clear">
-        <ion-icon name="share-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -50,15 +45,21 @@
       </div>
       <ion-card-content>
         <h1 class="cheese-title-primary">{{ cheese.name }}</h1>
-        <div class="cheese-info-container">
-          <app-user-displayname [userId]="cheese.userId"></app-user-displayname>
-          <div class="cheese-info-row">
-            <ion-icon name="calendar-outline" color="tertiary"></ion-icon>
-            <span>{{ formatDate(cheese.date) }}</span>
+
+        <div class="flex justify-between items-center">
+          <div class="cheese-info-container">
+            <app-user-displayname
+              [userId]="cheese.userId"
+            ></app-user-displayname>
+            <div class="cheese-info-row">
+              <ion-icon name="calendar-outline" color="tertiary"></ion-icon>
+              <span>{{ formatDate(cheese.date) }}</span>
+            </div>
           </div>
-          <div class="cheese-info-row">
-            <span>{{ cheese.milkType | titlecase }} Milk</span>
-          </div>
+          <ion-button (click)="shareCheese()">
+            <ion-icon name="share-outline"></ion-icon>
+            Share
+          </ion-button>
         </div>
       </ion-card-content>
     </ion-card>
@@ -86,6 +87,10 @@
       </ion-card-header>
       <ion-card-content>
         <div class="cheese-details-list">
+          <div class="cheese-detail-item">
+            <span class="label">Milk Type:</span>
+            <span class="value">{{ cheese.milkType | titlecase }}</span>
+          </div>
           <div class="cheese-detail-item">
             <span class="label">Milk Origin:</span>
             <span class="value">{{ cheese.milkOrigin }}</span>

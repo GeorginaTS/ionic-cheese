@@ -84,7 +84,7 @@ A comprehensive hybrid application built with **Ionic 8** and **Angular 20** for
 
 ### Backend & Services
 
-- **Database**: Firebase Firestore (NoSQL) and MongoDB
+- **Database**: Firebase Firestore (NoSQL) and MongoDB via ExpressJS APi Rest
 - **Real-time**: Firebase Realtime Database for chat messaging
 - **Authentication**: Firebase Auth with multi-provider support
 - **Storage**: Firebase Storage + CDN
@@ -439,14 +439,6 @@ ng lint
 - **Global CSS**: Reduced bundle size with utility classes
 - **Image Optimization**: WebP support with Firebase Storage
 - **Service Workers**: Offline functionality
-
-### Bundle Analysis
-
-```bash
-# Analyze bundle size
-ng build --stats-json
-npx webpack-bundle-analyzer dist/stats.json
-```
 
 ## 🔧 Configuration
 
