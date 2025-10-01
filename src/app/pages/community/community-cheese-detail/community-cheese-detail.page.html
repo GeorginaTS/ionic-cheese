@@ -52,30 +52,49 @@
             <ion-icon name="calendar-outline" color="tertiary"></ion-icon>
             <span>{{ formatDate(cheese.date) }}</span>
           </div>
-          <!-- Like Button -->
+          <hr class="bg-amber-100 text-amber-100" />
+            <!-- Actions -->
           <div class="flex items-center gap-2 w-full justify-center">
-            <div class="w-fit flex items-center"><ion-button
-              fill="clear"
-              size="small"
-              (click)="onToggleLike()"
-              [disabled]="!currentUser"
-              class="post-action-button"
-            >
-              <ion-icon
-                [name]="
+
+              <!-- Like Button -->
+              <div class="w-fit flex items-center">
+                <ion-button
+                  fill="clear"
+                  size="small"
+                  (click)="onToggleLike()"
+                  [disabled]="!currentUser"
+                  class="post-action-button"
+                >
+                  <ion-icon
+                    [name]="
                   cheese.likedBy?.includes(currentUser?.uid ?? '') === true
                     ? 'heart'
                     : 'heart-outline'
                 "
-                color="danger"
-              ></ion-icon>
-            </ion-button>
-            <span class="text-sm text-gray-600"
-              >{{ cheese.likedBy?.length || 0 }}</span
-            >
+                    color="danger"
+                  ></ion-icon>
+                </ion-button>
+                <span class="text-sm text-gray-600"
+                  >{{ cheese.likedBy?.length || 0 }}</span
+                >
+              </div>
+              <!-- Share Button -->
+              <ion-button
+                fill="clear"
+                size="small"
+                (click)="shareCheese()"
+                class="post-action-button"
+              >
+                <ion-icon name="share-outline"></ion-icon>
+                Share
+              </ion-button>
+              <!-- Download PDF Button -->
+              <ion-button class="post-action-button" size="small" fill="clear" (click)="downloadPDF(cheese)">
+                <ion-icon slot="start" name="download"></ion-icon>
+                Download PDF
+              </ion-button>
             </div>
           </div>
-        </div>
       </ion-card-content>
     </ion-card>
 
@@ -88,7 +107,7 @@
         >
       </ion-card-header>
       <ion-card-content>
-        <p class="cheese-description">{{ cheese.description }}</p>
+        <p class="cheese-detail-item">{{ cheese.description }}</p>
       </ion-card-content>
     </ion-card>
     }
@@ -365,19 +384,6 @@
       </ion-card-content>
     </ion-card>
     }
-    <!-- Actions -->
-    <div class="post-actions-container">
-      <!-- Share Button -->
-      <ion-button
-        fill="clear"
-        size="small"
-        (click)="shareCheese()"
-        class="post-action-button"
-      >
-        <ion-icon name="share-outline"></ion-icon>
-        Share
-      </ion-button>
-    </div>
   </div>
   }
 </ion-content>

@@ -325,12 +325,15 @@ ion-card {
 
 /* Classes globals per substituir Tailwind en components Ionic */
 .cheese-detail-container {
+  width: 100%;
+  max-width: 420px;
   padding: var(--spacing-md);
 }
 
 .cheese-detail-card {
   margin-bottom: var(--spacing-md);
-  max-width: 420px;
+  width: 100%;
+ 
 }
 
 .cheese-image-container {

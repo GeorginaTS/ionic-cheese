@@ -30,6 +30,7 @@ import {
   starOutline,
   heart,
   heartOutline,
+  download,
 } from 'ionicons/icons';
 
 import { Cheese } from '../../../interfaces/cheese';
@@ -40,6 +41,7 @@ import { Share } from '@capacitor/share';
 import { UserDisplaynameComponent } from 'src/app/components/user-displayname/user-displayname.component';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { SeoService } from 'src/app/services/seo.service';
+import { PdfService } from 'src/app/services/pdf.service';
 
 @Component({
   selector: 'app-community-cheese-detail',
@@ -75,6 +77,7 @@ export class CommunityCheeseDetailPage implements OnInit {
   private toastController = inject(ToastController);
   private seoService = inject(SeoService);
   private destroyRef = inject(DestroyRef);
+  private pdfService = inject(PdfService);
 
   // Reactive cheese data
   private cheeseSubject = new BehaviorSubject<Cheese | null>(null);
@@ -95,6 +98,7 @@ export class CommunityCheeseDetailPage implements OnInit {
       starOutline,
       heart,
       heartOutline,
+      download,
     });
   }
 
@@ -281,7 +285,6 @@ export class CommunityCheeseDetailPage implements OnInit {
       description: cheese.description || `Artisan Cheese ${cheese.name}`,
       milkType: cheese.milkType,
       milkOrigin: cheese.milkOrigin,
-      imageUrl: cheese.imageUrl,
       userId: cheese.userId,
       createdAt:
         typeof cheese.date === 'string'
@@ -294,7 +297,6 @@ export class CommunityCheeseDetailPage implements OnInit {
       _id: cheese._id,
       name: cheese.name,
       description: cheese.description || `Artisan Cheese ${cheese.name}`,
-      imageUrl: cheese.imageUrl,
       milkType: cheese.milkType,
       createdAt:
         typeof cheese.date === 'string'
@@ -303,5 +305,33 @@ export class CommunityCheeseDetailPage implements OnInit {
     });
 
     console.log('🔍 SEO updated for cheese:', cheese.name);
+  }
+
+  downloadPDF(cheese: Cheese): void {
+    if (!cheese) {
+      return;
+    }
+    this.pdfService
+      .exportCheese$(cheese)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: async () => {
+          const toast = await this.toastController.create({
+            message: 'PDF exported successfully',
+            duration: 1800,
+            color: 'success',
+          });
+          await toast.present();
+        },
+        error: async (err) => {
+          console.error('PDF export error', err);
+          const toast = await this.toastController.create({
+            message: 'Failed to export PDF',
+            duration: 2000,
+            color: 'danger',
+          });
+          await toast.present();
+        },
+      });
   }
 }
