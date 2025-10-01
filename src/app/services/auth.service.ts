@@ -35,7 +35,7 @@ export class AuthService {
   async register(newUser: Partial<AppUser> & { password: string }) {
     try {
       const { email, password, displayName, ...extraData } = newUser;
-      console.log('Registering user:', newUser);
+      // console.log('Registering user:', newUser);
       if (!email || !password) throw new Error('Email i contrasenya requerits');
 
       const userCredential = await createUserWithEmailAndPassword(
@@ -55,7 +55,7 @@ export class AuthService {
         createdAt: serverTimestamp(),
       };
 
-      console.log('AppUser object:', appUser);
+      //console.log('AppUser object:', appUser);
 
       // Use firestore service to save user data
       await this.firestoreService.setDocument('users', user.uid, appUser);
@@ -77,7 +77,7 @@ export class AuthService {
         email,
         password
       );
-      console.log('Login successful, user:', userCredential.user);
+      //console.log('Login successful, user:', userCredential.user);
       this.router.navigate(['/my-cheeses']);
       return userCredential;
     } catch (error: any) {
@@ -182,7 +182,7 @@ export class AuthService {
           ...userData,
         } as AppUser;
 
-        console.log('User profile loaded successfully:', appUser);
+        //console.log('User profile loaded successfully:', appUser);
         return appUser;
       } catch (error) {
         console.error('Error loading Firestore user data:', error);
@@ -196,7 +196,7 @@ export class AuthService {
             photoURL: firebaseUser.photoURL || null,
           } as AppUser;
 
-          console.log('Returning basic user profile:', basicUser);
+          //console.log('Returning basic user profile:', basicUser);
           return basicUser;
         } else {
           console.log('No user data available');

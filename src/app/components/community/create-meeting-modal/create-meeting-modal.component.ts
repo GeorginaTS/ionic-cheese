@@ -9,7 +9,6 @@ import {
 } from '@angular/forms';
 import {
   IonHeader,
-  IonToolbar,
   IonTitle,
   IonContent,
   IonButton,
@@ -46,7 +45,6 @@ import {
     FormsModule,
     ReactiveFormsModule,
     IonHeader,
-    IonToolbar,
     IonTitle,
     IonContent,
     IonButton,
