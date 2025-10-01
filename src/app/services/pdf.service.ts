@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
-import { defer, Observable } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { defer, Observable, firstValueFrom } from 'rxjs';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import type {
@@ -11,6 +12,7 @@ import type {
 import { Cheese } from '../interfaces/cheese';
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
+import { FirebaseStorageService } from './firebase-storage.service';
 
 // Configure pdfMake with fonts - use any cast to avoid immutability error
 const pdfMakeAny = pdfMake as any;
@@ -28,11 +30,21 @@ interface PdfInstance {
 
 @Injectable({ providedIn: 'root' })
 export class PdfService {
+  private http = inject(HttpClient);
+  private storage = inject(FirebaseStorageService);
+
   // Public API
   exportCheese$(cheese: Cheese): Observable<void> {
     return defer(async () => {
-      // Skip image fetching to avoid CORS errors
-      const docDefinition = this.buildCheeseDoc(cheese);
+      // Try to load images
+      const heroDataUrl = await this.resolveCheeseHeroImage(cheese);
+      const gallery = await this.resolveCheeseGallery(cheese, 3);
+
+      const docDefinition = this.buildCheeseDoc(
+        cheese,
+        heroDataUrl ?? undefined,
+        gallery
+      );
       const pdf = pdfMake.createPdf(docDefinition) as unknown as PdfInstance;
 
       if (!Capacitor.isNativePlatform()) {
@@ -54,10 +66,12 @@ export class PdfService {
     return defer(async () => {
       const sections: Content[] = [];
       for (const c of cheeses) {
-        sections.push(...this.buildCheeseSection(c), {
-          text: '',
-          pageBreak: 'after',
-        });
+        const hero = await this.resolveCheeseHeroImage(c);
+        const gallery = await this.resolveCheeseGallery(c, 3);
+        sections.push(
+          ...this.buildCheeseSection(c, hero ?? undefined, gallery),
+          { text: '', pageBreak: 'after' }
+        );
       }
       if (sections.length) sections.pop(); // remove last pageBreak
 
@@ -86,16 +100,24 @@ export class PdfService {
   }
 
   // Document builders
-  private buildCheeseDoc(cheese: Cheese): TDocumentDefinitions {
+  private buildCheeseDoc(
+    cheese: Cheese,
+    hero?: string,
+    gallery: string[] = []
+  ): TDocumentDefinitions {
     return {
       pageSize: 'A4' as PageSize,
       pageMargins: [40, 40, 40, 40],
       styles: this.styles,
-      content: this.buildCheeseSection(cheese),
+      content: this.buildCheeseSection(cheese, hero, gallery),
     };
   }
 
-  private buildCheeseSection(cheese: Cheese): Content[] {
+  private buildCheeseSection(
+    cheese: Cheese,
+    hero?: string,
+    gallery: string[] = []
+  ): Content[] {
     const header = {
       columns: [
         { text: cheese.name, style: 'title' },
@@ -108,13 +130,15 @@ export class PdfService {
       margin: [0, 0, 0, 12],
     };
 
-    // Skip hero image to avoid CORS issues
-    const heroBlock = {
-      text: cheese.imageUrl ? '📷 Image available online' : 'No image',
-      italics: true,
-      color: '#888',
-      margin: [0, 0, 0, 12],
-    };
+    // Try to include hero image if available
+    const heroBlock = hero
+      ? { image: hero, width: 420, margin: [0, 0, 0, 12] }
+      : {
+          text: cheese.imageUrl ? '📷 Image not available' : 'No image',
+          italics: true,
+          color: '#888',
+          margin: [0, 0, 0, 12],
+        };
 
     const basicInfo = {
       table: {
@@ -221,7 +245,18 @@ export class PdfService {
       ? { text: cheese.description, margin: [0, 0, 0, 10] }
       : undefined;
 
-    // Skip gallery to avoid CORS issues
+    // Gallery images if available
+    const galleryBlock = gallery.length
+      ? {
+          columns: gallery.map((g) => ({
+            image: g,
+            width: 160,
+            margin: [0, 4, 8, 0],
+          })),
+          columnGap: 8,
+          margin: [0, 6, 0, 0],
+        }
+      : undefined;
 
     return [
       header,
@@ -231,6 +266,7 @@ export class PdfService {
       ripeningTable,
       tasteBlock,
       description,
+      galleryBlock,
     ].filter(Boolean) as Content[];
   }
 
@@ -289,5 +325,73 @@ export class PdfService {
   private stars(rate?: number): string {
     const r = Math.max(0, Math.min(5, Math.floor(rate ?? 0)));
     return '★'.repeat(r) + '☆'.repeat(5 - r);
+  }
+
+  // ------- Image loading helpers -------
+  private async resolveCheeseHeroImage(cheese: Cheese): Promise<string | null> {
+    // Prefer provided imageUrl if available
+    if (cheese.imageUrl) {
+      try {
+        return await this.imageToDataUrl(cheese.imageUrl);
+      } catch (error) {
+        console.warn('Failed to load hero image from imageUrl:', error);
+      }
+    }
+
+    // Try conventional Storage path if id is known
+    if (cheese._id) {
+      try {
+        const url = await this.storage.getImageUrl(
+          `cheeses/${cheese._id}/${cheese._id}-1.jpeg`
+        );
+        return await this.imageToDataUrl(url);
+      } catch (error) {
+        console.warn('Failed to load hero image from storage:', error);
+      }
+    }
+    return null;
+  }
+
+  private async resolveCheeseGallery(
+    cheese: Cheese,
+    count = 3
+  ): Promise<string[]> {
+    const out: string[] = [];
+    if (cheese._id) {
+      for (let i = 2; i <= count + 1; i++) {
+        try {
+          const url = await this.storage.getImageUrl(
+            `cheeses/${cheese._id}/${cheese._id}-${i}.jpeg`
+          );
+          const dataUrl = await this.imageToDataUrl(url);
+          out.push(dataUrl);
+        } catch (error) {
+          console.warn(`Failed to load gallery image ${i}:`, error);
+        }
+      }
+    }
+    return out;
+  }
+
+  private async imageToDataUrl(url: string): Promise<string> {
+    try {
+      // Use HttpClient to fetch with proper headers
+      const blob = await firstValueFrom(
+        this.http.get(url, { responseType: 'blob' })
+      );
+      return await this.blobToDataUrl(blob);
+    } catch (error) {
+      console.error('Error converting image to data URL:', error);
+      throw error;
+    }
+  }
+
+  private async blobToDataUrl(blob: Blob): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error('FileReader error'));
+      reader.onload = () => resolve(reader.result as string);
+      reader.readAsDataURL(blob);
+    });
   }
 }
