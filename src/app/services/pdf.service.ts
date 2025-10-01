@@ -163,78 +163,89 @@ export class PdfService {
     };
 
     const making = cheese.making;
-    const makingTable = making
-      ? {
-          table: {
-            widths: ['auto', '*', 'auto', '*'],
-            body: [
-              [
-                { text: 'Milk Temp', bold: true },
-                making.milkTemperature ?? '-',
-                { text: 'Starter', bold: true },
-                making.starterCultures ?? '-',
+    const makingSection = making
+      ? [
+          { text: 'Making', style: 'sectionTitle', margin: [0, 6, 0, 6] },
+          {
+            table: {
+              widths: ['auto', '*', 'auto', '*'],
+              body: [
+                [
+                  { text: 'Milk Temp', bold: true },
+                  making.milkTemperature ?? '-',
+                  { text: 'Starter', bold: true },
+                  making.starterCultures ?? '-',
+                ],
+                [
+                  { text: 'Coagulant', bold: true },
+                  making.coagulant ?? '-',
+                  { text: 'Coag. Time', bold: true },
+                  making.coagulationTime ?? '-',
+                ],
+                [
+                  { text: 'Milk pH', bold: true },
+                  making.milkPH ?? '-',
+                  { text: 'Curd Cutting', bold: true },
+                  making.curdCutting ?? '-',
+                ],
+                [
+                  { text: 'Molding', bold: true },
+                  making.molding ?? '-',
+                  { text: 'Pressure', bold: true },
+                  making.appliedPressure ?? '-',
+                ],
+                [
+                  { text: 'Salting', bold: true },
+                  making.salting ?? '-',
+                  '',
+                  '',
+                ],
               ],
-              [
-                { text: 'Coagulant', bold: true },
-                making.coagulant ?? '-',
-                { text: 'Coag. Time', bold: true },
-                making.coagulationTime ?? '-',
-              ],
-              [
-                { text: 'Milk pH', bold: true },
-                making.milkPH ?? '-',
-                { text: 'Curd Cutting', bold: true },
-                making.curdCutting ?? '-',
-              ],
-              [
-                { text: 'Molding', bold: true },
-                making.molding ?? '-',
-                { text: 'Pressure', bold: true },
-                making.appliedPressure ?? '-',
-              ],
-              [{ text: 'Salting', bold: true }, making.salting ?? '-', '', ''],
-            ],
+            },
+            layout: 'lightHorizontalLines',
+            margin: [0, 0, 0, 10],
           },
-          layout: 'lightHorizontalLines',
-          margin: [0, 0, 0, 10],
-        }
+        ]
       : undefined;
 
     const ripening = cheese.ripening;
-    const ripeningTable = ripening
-      ? {
-          table: {
-            widths: ['auto', '*', 'auto', '*'],
-            body: [
-              [
-                { text: 'Start', bold: true },
-                this.formatDate(ripening.ripeningStartDate),
-                { text: 'Duration', bold: true },
-                ripening.estimatedDuration ?? '-',
+    const ripeningSection = ripening
+      ? [
+          { text: 'Ripening', style: 'sectionTitle', margin: [0, 6, 0, 6] },
+          {
+            table: {
+              widths: ['auto', '*', 'auto', '*'],
+              body: [
+                [
+                  { text: 'Start', bold: true },
+                  this.formatDate(ripening.ripeningStartDate),
+                  { text: 'Duration', bold: true },
+                  ripening.estimatedDuration ?? '-',
+                ],
+                [
+                  { text: 'Temp', bold: true },
+                  ripening.temperature ?? '-',
+                  { text: 'Humidity', bold: true },
+                  ripening.humidity ?? '-',
+                ],
+                [
+                  { text: 'Flips', bold: true },
+                  ripening.turningFlips ?? '-',
+                  { text: 'Washing', bold: true },
+                  ripening.washing ?? '-',
+                ],
+                [
+                  { text: 'Brushing', bold: true },
+                  ripening.brushing ?? '-',
+                  '',
+                  '',
+                ],
               ],
-              [
-                { text: 'Temp', bold: true },
-                ripening.temperature ?? '-',
-                { text: 'Humidity', bold: true },
-                ripening.humidity ?? '-',
-              ],
-              [
-                { text: 'Flips', bold: true },
-                ripening.turningFlips ?? '-',
-                { text: 'Washing', bold: true },
-                ripening.washing ?? '-',
-              ],
-              [
-                { text: 'Brushing', bold: true },
-                ripening.brushing ?? '-',
-                '',
-                '',
-              ],
-            ],
+            },
+            layout: 'lightHorizontalLines',
+            margin: [0, 0, 0, 10],
           },
-          layout: 'lightHorizontalLines',
-          margin: [0, 0, 0, 10],
-        }
+        ]
       : undefined;
 
     const tasteBlock = cheese.taste
@@ -262,8 +273,8 @@ export class PdfService {
       header,
       heroBlock,
       basicInfo,
-      makingTable,
-      ripeningTable,
+      ...(makingSection ?? []),
+      ...(ripeningSection ?? []),
       tasteBlock,
       description,
       galleryBlock,

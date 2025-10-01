@@ -10,7 +10,7 @@
 } @else {
 <div class="flex flex-col items-center p-4">
   <p class="subtitle">Here are some cheeses shared by the community:</p>
-<div class="flex flex-wrap justify-center">
+<div class="grid-container">
   @for (cheese of visibleCheeses; track cheese._id) {
   <app-community-cheese-card [cheese]="cheese"> </app-community-cheese-card>
   }</div>
