@@ -12,6 +12,7 @@ import { add, addCircleOutline } from 'ionicons/icons';
 import { RouterLink } from '@angular/router';
 import { FocusManagerService } from 'src/app/services/focus-manager.service';
 import { Push } from 'src/app/services/push.service';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-my-cheeses',
@@ -50,11 +51,12 @@ export class MyCheesesPage implements OnInit {
 
   constructor() {
     addIcons({ addCircleOutline, add });
+    if(Capacitor.isNativePlatform()) {
     this.pushService.registerNotifications().then(() => {
       this.pushService.addListeners();
     }).catch(err => {
       console.error('Error registering for push notifications', err);
-    });
+    });}
   }
   ngOnInit(): void {
     this.loadCheeses();

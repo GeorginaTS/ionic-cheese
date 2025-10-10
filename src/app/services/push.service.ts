@@ -106,11 +106,9 @@ export class Push {
       if (userData?.pushToken !== token) {
         console.log('🔄 Updating push token for user:', currentUser.uid);
         console.log('📱 New token:', token.substring(0, 20) + '...');
-
         await this.authService.updateUserProfile({
           pushToken: token,
         });
-
         console.log('✅ Push token updated successfully');
       } else {
         console.log('🔄 Push token unchanged, skipping update');
